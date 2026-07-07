@@ -1,8 +1,8 @@
 import { jsonResponse } from '../utils/response.js';
 
-const ADMIN_PASSWORD = 'bsdan'; // 建议从环境变量读取
+// 从环境变量读取密码，如果没有则使用默认值
+const ADMIN_PASSWORD = globalThis.ADMIN_PASSWORD || 'bsdan';
 
-// 会话管理
 async function getSession(token) {
   const session = await NAVIGATION_DATA.get(`session:${token}`);
   return session ? JSON.parse(session) : null;
@@ -19,7 +19,6 @@ export function generateToken() {
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
 }
 
-// 认证中间件
 export function withAuth(handler) {
   return async (request) => {
     const authHeader = request.headers.get('Authorization');
@@ -37,7 +36,6 @@ export function withAuth(handler) {
   };
 }
 
-// 登录处理
 export async function handleLogin(request) {
   try {
     const { password } = await request.json();
