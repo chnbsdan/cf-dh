@@ -9,4 +9,4 @@ ADMIN_PASSWORD = "admin123"
 
 [[kv_namespaces]]
 binding = "NAVIGATION_DATA"
-id = "0c169485521e40fab8289575a028026b"
+id = "7504aa161009406887e841e8f547eb04"
