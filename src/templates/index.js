@@ -1,3 +1,4 @@
+import { getNavigationData } from '../services/kv.js';  // ✅ 必须有这行
 import { getHead } from './head.js';
 import { getStyles } from './styles.js';
 import { getBody } from './body.js';
