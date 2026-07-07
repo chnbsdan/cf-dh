@@ -8,44 +8,170 @@ const playerWrap = document.getElementById('player-wrap');
 const aplayerContainer = document.getElementById('aplayer-container');
 const rightMenu = document.getElementById('right-menu');
 
+// 歌词窗口元素
+const lyricsWindow = document.getElementById('lyrics-window');
+const lyricsContent = document.getElementById('floating-lyrics');
+const currentLineEl = document.getElementById('currentLine');
+const nextLineEl = document.getElementById('nextLine');
+const colorPicker = document.getElementById('lyricsColorPicker');
+
 let aplayer = null;
 let lyricsInterval = null;
 let currentLyric = '';
-let lyricsVisible = true;
+let lyricsVisible = false;
+let isDragging = false;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
 
-const floatingLyrics = document.getElementById('floating-lyrics');
-const currentLineEl = floatingLyrics.querySelector('.current-line');
-const nextLineEl = floatingLyrics.querySelector('.next-line');
+// ============ 歌词窗口拖动功能 ============
+function initDrag() {
+  const content = document.getElementById('lyrics-content');
+  let startX, startY, origLeft, origTop;
+  
+  if (!content) return;
+  
+  content.addEventListener('mousedown', function(e) {
+    // 如果点击的是输入框或按钮，不触发拖动
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+    
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    origLeft = parseInt(lyricsWindow.style.left) || 100;
+    origTop = parseInt(lyricsWindow.style.top) || 100;
+    
+    lyricsWindow.style.cursor = 'grabbing';
+    content.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
 
-function showLyricsWithEffect(currentText, nextText) {
-  if (!lyricsVisible) return;
-  if (currentText === currentLyric) return;
-  
-  currentLyric = currentText;
-  currentLineEl.innerHTML = '';
-  
-  if (currentText && currentText.trim()) {
-    const typingSpan = document.createElement('span');
-    typingSpan.className = 'typing-text';
-    typingSpan.textContent = currentText;
+  document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
     
-    const fadeSpan = document.createElement('span');
-    fadeSpan.className = 'fade-in-text';
-    fadeSpan.textContent = currentText;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
     
-    if (currentText.length > 15) {
-      currentLineEl.appendChild(fadeSpan);
-    } else {
-      currentLineEl.appendChild(typingSpan);
+    let newLeft = origLeft + dx;
+    let newTop = origTop + dy;
+    
+    const maxLeft = window.innerWidth - lyricsWindow.offsetWidth - 20;
+    const maxTop = window.innerHeight - lyricsWindow.offsetHeight - 20;
+    newLeft = Math.max(20, Math.min(newLeft, maxLeft));
+    newTop = Math.max(20, Math.min(newTop, maxTop));
+    
+    lyricsWindow.style.left = newLeft + 'px';
+    lyricsWindow.style.top = newTop + 'px';
+  });
+
+  document.addEventListener('mouseup', function() {
+    if (isDragging) {
+      isDragging = false;
+      lyricsWindow.style.cursor = 'default';
+      if (content) content.style.cursor = 'grab';
     }
-    
-    nextLineEl.textContent = nextText || '';
-    floatingLyrics.classList.add('show');
-  } else {
-    floatingLyrics.classList.remove('show');
+  });
+}
+
+// ============ 颜色修改功能 ============
+function initColorPicker() {
+  colorPicker.addEventListener('input', function() {
+    const color = this.value;
+    // 修改当前歌词颜色
+    lyricsContent.style.color = color;
+    // 修改当前行颜色
+    currentLineEl.style.color = color;
+    // 修改下一行颜色
+    nextLineEl.style.color = color;
+    // 保存到本地
+    localStorage.setItem('lyricsColor', color);
+  });
+  
+  // 恢复保存的颜色
+  const savedColor = localStorage.getItem('lyricsColor');
+  if (savedColor) {
+    colorPicker.value = savedColor;
+    lyricsContent.style.color = savedColor;
+    currentLineEl.style.color = savedColor;
+    nextLineEl.style.color = savedColor;
   }
 }
 
+// ============ 歌词显示函数 ============
+function showLyrics(currentText, nextText) {
+  if (!lyricsVisible) return;
+  if (currentText === currentLyric && currentText) return;
+  
+  currentLyric = currentText;
+  
+  if (currentText && currentText.trim()) {
+    const color = localStorage.getItem('lyricsColor') || '#ff4500';
+    currentLineEl.style.color = color;
+    nextLineEl.style.color = color;
+    
+    // 打字机效果
+    currentLineEl.innerHTML = '';
+    const chars = currentText.split('');
+    let index = 0;
+    const typeInterval = setInterval(() => {
+      if (index < chars.length) {
+        currentLineEl.textContent += chars[index];
+        index++;
+        // 滚动到底部
+        const container = lyricsContent.parentElement;
+        if (container) container.scrollTop = container.scrollHeight;
+      } else {
+        clearInterval(typeInterval);
+      }
+    }, 30);
+    
+    nextLineEl.textContent = nextText || '';
+    lyricsWindow.style.display = 'block';
+    lyricsContent.style.display = 'block';
+  } else {
+    currentLineEl.textContent = '🎵 等待播放...';
+    nextLineEl.textContent = '';
+  }
+}
+
+// ============ 歌词窗口开关 ============
+function toggleLyricsVisibility() {
+  lyricsVisible = !lyricsVisible;
+  const btn = document.getElementById('lyricsToggleBtn');
+  
+  if (lyricsVisible) {
+    lyricsWindow.style.display = 'block';
+    lyricsContent.style.display = 'block';
+    btn.textContent = '隐藏';
+    if (aplayer && !aplayer.audio.paused) {
+      startLyricsUpdate();
+    }
+  } else {
+    lyricsWindow.style.display = 'none';
+    btn.textContent = '显示';
+    if (lyricsInterval) {
+      clearInterval(lyricsInterval);
+    }
+  }
+  
+  localStorage.setItem('lyricsVisible', lyricsVisible.toString());
+}
+
+function closeLyricsWindow() {
+  lyricsVisible = false;
+  lyricsWindow.style.display = 'none';
+  const btn = document.getElementById('lyricsToggleBtn');
+  if (btn) btn.textContent = '显示';
+  if (lyricsInterval) {
+    clearInterval(lyricsInterval);
+  }
+  localStorage.setItem('lyricsVisible', 'false');
+}
+
+// 暴露给全局
+window.toggleLyricsVisibility = toggleLyricsVisibility;
+window.closeLyricsWindow = closeLyricsWindow;
+
+// ============ 歌词更新 ============
 function startLyricsUpdate() {
   if (lyricsInterval) {
     clearInterval(lyricsInterval);
@@ -59,7 +185,7 @@ function updateLyricsFromDOM() {
     
     const lrcContainer = document.querySelector('.aplayer-lrc');
     if (!lrcContainer) {
-      floatingLyrics.classList.remove('show');
+      showLyrics('🎵 暂无歌词', '');
       return;
     }
     
@@ -77,18 +203,16 @@ function updateLyricsFromDOM() {
         }
       }
       
-      showLyricsWithEffect(currentText, nextText);
+      showLyrics(currentText, nextText);
     } else {
-      floatingLyrics.classList.remove('show');
-      currentLyric = '';
+      showLyrics('🎵 等待播放...', '');
     }
   } catch (error) {
     console.log('歌词更新错误:', error);
-    floatingLyrics.classList.remove('show');
-    currentLyric = '';
   }
 }
 
+// ============ 初始化播放器 ============
 function initMeting() {
   if (aplayer) return Promise.resolve(aplayer);
   return new Promise(async (resolve, reject) => {
@@ -159,16 +283,19 @@ function bindAPlayerEvents(ap) {
   ap.on('listswitch', updateCover);
   ap.on('play', () => {
     capsule.classList.add('playing');
-    startLyricsUpdate();
+    if (lyricsVisible) {
+      startLyricsUpdate();
+    }
   });
   ap.on('pause', () => {
     capsule.classList.remove('playing');
-    floatingLyrics.classList.remove('show');
-    currentLyric = '';
+    if (lyricsInterval) {
+      clearInterval(lyricsInterval);
+    }
+    showLyrics('⏸ 已暂停', '');
   });
   ap.on('ended', () => {
-    floatingLyrics.classList.remove('show');
-    currentLyric = '';
+    showLyrics('🎵 播放结束', '');
   });
 }
 
@@ -181,12 +308,14 @@ async function ensurePlayerAndRun(fn) {
   }
 }
 
+// ============ 胶囊点击 ============
 capsule.addEventListener('click', () => {
   capsule.style.display = 'none';
   playerWrap.classList.add('show');
   initMeting().catch(() => {});
 });
 
+// ============ 右键菜单 ============
 function showRightMenuAt(clientX, clientY) {
   rightMenu.style.display = 'block';
   rightMenu.classList.remove('show');
@@ -221,30 +350,7 @@ document.addEventListener('click', (e) => {
   if (!rightMenu.contains(e.target)) hideRightMenuImmediate();
 });
 
-document.addEventListener('touchstart', (e) => {
-  if (!rightMenu.contains(e.target)) hideRightMenuImmediate();
-});
-
-function toggleLyricsVisibility() {
-  lyricsVisible = !lyricsVisible;
-  
-  if (lyricsVisible) {
-    floatingLyrics.classList.add('show');
-    if (aplayer && !aplayer.audio.paused) {
-      startLyricsUpdate();
-    }
-  } else {
-    floatingLyrics.classList.remove('show');
-    currentLineEl.textContent = '';
-    nextLineEl.textContent = '';
-    currentLyric = '';
-  }
-  
-  const lyricsMenuItem = document.getElementById('menu-lyrics');
-  lyricsMenuItem.textContent = lyricsVisible ? '📜 隐藏歌词' : '📜 显示歌词';
-  localStorage.setItem('lyricsVisible', lyricsVisible.toString());
-}
-
+// ============ 菜单事件 ============
 document.getElementById('menu-play').addEventListener('click', () => { 
   ensurePlayerAndRun(ap => ap.toggle()); 
   hideRightMenuImmediate(); 
@@ -296,22 +402,29 @@ document.getElementById('menu-close').addEventListener('click', () => {
   hideRightMenuImmediate();
 });
 
-initMeting().then(() => {
-  console.log('APlayer初始化完成');
-}).catch(() => {
-  console.log('APlayer初始化失败');
-});
-
+// ============ 初始化 ============
 document.addEventListener('DOMContentLoaded', function() {
-  const savedLyricsVisible = localStorage.getItem('lyricsVisible');
-  if (savedLyricsVisible !== null) {
-    lyricsVisible = savedLyricsVisible === 'true';
+  // 初始化拖动
+  initDrag();
+  
+  // 初始化颜色选择器
+  initColorPicker();
+  
+  // 恢复歌词显示状态
+  const savedVisible = localStorage.getItem('lyricsVisible');
+  if (savedVisible === 'true') {
+    lyricsVisible = true;
+    lyricsWindow.style.display = 'block';
+    const btn = document.getElementById('lyricsToggleBtn');
+    if (btn) btn.textContent = '隐藏';
   }
-  const lyricsMenuItem = document.getElementById('menu-lyrics');
-  lyricsMenuItem.textContent = lyricsVisible ? '📜 隐藏歌词' : '📜 显示歌词';
-  if (!lyricsVisible) {
-    floatingLyrics.classList.remove('show');
-  }
+  
+  // 初始化播放器
+  initMeting().then(() => {
+    console.log('APlayer初始化完成');
+  }).catch(() => {
+    console.log('APlayer初始化失败');
+  });
 });
 </script>`;
 }
