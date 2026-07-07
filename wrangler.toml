@@ -1,12 +1,11 @@
-name = "cf-navigation"
+name = "cf-dh"
 type = "javascript"
-account_id = "your-account-id"
+account_id = "677f9e4ae3fa2bb512634405f86f124c"
 workers_dev = true
 
-[env.production]
-vars = { ADMIN_PASSWORD = "your-secure-password-here" }
+[vars]
+ADMIN_PASSWORD = "admin123"
 
 [[kv_namespaces]]
 binding = "NAVIGATION_DATA"
-id = "your-kv-namespace-id"
-preview_id = "your-kv-preview-id"
+id = "0c169485521e40fab8289575a028026b"
