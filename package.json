@@ -1,0 +1,14 @@
+{
+  "name": "cf-navigation",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers Navigation Site",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler publish",
+    "deploy:prod": "wrangler publish --env production"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
