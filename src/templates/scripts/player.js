@@ -328,9 +328,15 @@ function showRightMenuAt(clientX, clientY) {
 }
 
 // 使用捕获阶段确保能捕获所有元素上的右键事件
-document.addEventListener('contextmenu', (e) => {
+document.addEventListener('contextmenu', function(e) {
+  // 如果按住 Ctrl 键，显示浏览器默认菜单
   if (e.ctrlKey) return true;
+  
+  // 阻止默认菜单
   e.preventDefault();
+  e.stopPropagation();
+  
+  // 显示自定义菜单
   showRightMenuAt(e.clientX, e.clientY);
 }, true);
 
@@ -339,65 +345,65 @@ function hideRightMenuImmediate() {
   rightMenu.style.display = 'none';
 }
 
-document.addEventListener('click', (e) => {
-  if (!rightMenu.contains(e.target)) hideRightMenuImmediate();
+// 点击其他地方隐藏菜单
+document.addEventListener('click', function(e) {
+  if (rightMenu.style.display === 'block' && !rightMenu.contains(e.target)) {
+    hideRightMenuImmediate();
+  }
 });
 
-document.addEventListener('touchstart', (e) => {
-  if (!rightMenu.contains(e.target)) hideRightMenuImmediate();
-});
-
-document.addEventListener('keydown', (e) => {
+// ESC 键隐藏菜单
+document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') hideRightMenuImmediate();
 });
 
 // ============ 菜单事件 ============
-document.getElementById('menu-play').addEventListener('click', () => { 
-  ensurePlayerAndRun(ap => ap.toggle()); 
+document.getElementById('menu-play').addEventListener('click', function() { 
+  ensurePlayerAndRun(function(ap) { ap.toggle(); }); 
   hideRightMenuImmediate(); 
 });
 
-document.getElementById('menu-prev').addEventListener('click', () => { 
-  ensurePlayerAndRun(ap => ap.skipBack()); 
+document.getElementById('menu-prev').addEventListener('click', function() { 
+  ensurePlayerAndRun(function(ap) { ap.skipBack(); }); 
   hideRightMenuImmediate(); 
 });
 
-document.getElementById('menu-next').addEventListener('click', () => { 
-  ensurePlayerAndRun(ap => ap.skipForward()); 
+document.getElementById('menu-next').addEventListener('click', function() { 
+  ensurePlayerAndRun(function(ap) { ap.skipForward(); }); 
   hideRightMenuImmediate(); 
 });
 
-document.getElementById('menu-volup').addEventListener('click', () => { 
-  ensurePlayerAndRun(ap => ap.volume(Math.min((ap.audio.volume||0.8)+0.1,1), true)); 
+document.getElementById('menu-volup').addEventListener('click', function() { 
+  ensurePlayerAndRun(function(ap) { ap.volume(Math.min((ap.audio.volume||0.8)+0.1,1), true); }); 
   hideRightMenuImmediate(); 
 });
 
-document.getElementById('menu-voldown').addEventListener('click', () => { 
-  ensurePlayerAndRun(ap => ap.volume(Math.max((ap.audio.volume||0.2)-0.1,0), true)); 
+document.getElementById('menu-voldown').addEventListener('click', function() { 
+  ensurePlayerAndRun(function(ap) { ap.volume(Math.max((ap.audio.volume||0.2)-0.1,0), true); }); 
   hideRightMenuImmediate(); 
 });
 
-document.getElementById('menu-lyrics').addEventListener('click', () => { 
+document.getElementById('menu-lyrics').addEventListener('click', function() { 
   toggleLyricsVisibility(); 
   hideRightMenuImmediate(); 
 });
 
-document.getElementById('menu-support').addEventListener('click', () => { 
+document.getElementById('menu-support').addEventListener('click', function() { 
   window.open('https://1356666.xyz','_blank'); 
   hideRightMenuImmediate(); 
 });
 
-document.getElementById('menu-fullscreen').addEventListener('click', () => {
+document.getElementById('menu-fullscreen').addEventListener('click', function() {
   hideRightMenuImmediate();
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(() => {});
+    document.documentElement.requestFullscreen().catch(function() {});
   } else {
-    document.exitFullscreen().catch(() => {});
+    document.exitFullscreen().catch(function() {});
   }
 });
 
-document.getElementById('menu-close').addEventListener('click', () => {
-  ensurePlayerAndRun(ap => ap.pause());
+document.getElementById('menu-close').addEventListener('click', function() {
+  ensurePlayerAndRun(function(ap) { ap.pause(); });
   playerWrap.classList.remove('show');
   playerWrap.style.display = 'none';
   capsule.style.display = 'flex';
@@ -417,9 +423,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btn) btn.textContent = '隐藏';
   }
   
-  initMeting().then(() => {
+  initMeting().then(function() {
     console.log('APlayer初始化完成');
-  }).catch(() => {
+  }).catch(function() {
     console.log('APlayer初始化失败');
   });
 });
