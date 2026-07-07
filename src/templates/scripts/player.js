@@ -71,6 +71,53 @@ function initDrag() {
   });
 }
 
+// ============ 歌词窗口调整大小 ============
+function initResize() {
+  const resizeHandle = document.getElementById('resize-handle');
+  if (!resizeHandle) return;
+  
+  let isResizing = false;
+  let startX, startY, startWidth, startHeight;
+  
+  resizeHandle.addEventListener('mousedown', function(e) {
+    isResizing = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    startWidth = lyricsWindow.offsetWidth;
+    startHeight = lyricsWindow.offsetHeight;
+    lyricsWindow.style.cursor = 'nwse-resize';
+    e.preventDefault();
+    e.stopPropagation();
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!isResizing) return;
+    
+    let newWidth = startWidth + (e.clientX - startX);
+    let newHeight = startHeight + (e.clientY - startY);
+    
+    newWidth = Math.max(280, Math.min(600, newWidth));
+    newHeight = Math.max(120, Math.min(500, newHeight));
+    
+    lyricsWindow.style.width = newWidth + 'px';
+    lyricsWindow.style.height = newHeight + 'px';
+    
+    const content = document.getElementById('lyrics-content');
+    if (content) {
+      content.style.maxHeight = (newHeight - 70) + 'px';
+    }
+  });
+
+  document.addEventListener('mouseup', function() {
+    if (isResizing) {
+      isResizing = false;
+      lyricsWindow.style.cursor = 'default';
+      localStorage.setItem('lyricsWidth', lyricsWindow.offsetWidth);
+      localStorage.setItem('lyricsHeight', lyricsWindow.offsetHeight);
+    }
+  });
+}
+
 // ============ 颜色修改功能 ============
 function initColorPicker() {
   if (!colorPicker) return;
@@ -104,7 +151,6 @@ function showLyrics(currentText, nextText) {
     currentLineEl.style.color = color;
     nextLineEl.style.color = color;
     
-    // 打字机效果
     currentLineEl.innerHTML = '';
     const chars = currentText.split('');
     let index = 0;
@@ -417,6 +463,13 @@ document.getElementById('menu-close').addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', function() {
   initDrag();
   initColorPicker();
+  initResize();
+  
+  // 恢复尺寸
+  const savedWidth = localStorage.getItem('lyricsWidth');
+  const savedHeight = localStorage.getItem('lyricsHeight');
+  if (savedWidth) lyricsWindow.style.width = savedWidth + 'px';
+  if (savedHeight) lyricsWindow.style.height = savedHeight + 'px';
   
   const savedVisible = localStorage.getItem('lyricsVisible');
   if (savedVisible === 'true') {
