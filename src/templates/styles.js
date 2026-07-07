@@ -1074,5 +1074,12 @@ export function getStyles() {
       width: calc(100% - 24px);
     }
   }
-</style>`;
-}
+ /* ===== 右键菜单 hover ===== */
+  #right-menu li:hover {
+    background: #3b82f6 !important;
+    color: white !important;
+    border-radius: 6px;
+    transform: translateX(5px);
+  }
+  </style>`;
+} 
