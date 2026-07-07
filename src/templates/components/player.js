@@ -6,7 +6,7 @@ export function getPlayer() {
  <!-- 顶部工具栏 - 超窄版 -->
 <div style="display:flex; justify-content:flex-end; align-items:center; padding:3px 6px 2px 6px; gap:3px; background:rgba(255,255,255,0.02); border-bottom:1px solid rgba(255,255,255,0.04);">
   <input type="color" id="lyricsColorPicker" value="#ff4500" style="width:14px; height:14px; border:none; border-radius:3px; cursor:pointer; background:transparent; padding:0; border:1px solid rgba(255,255,255,0.12);">
-  <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.05); border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:1px 6px; border-radius:3px; font-size:10px;">hidden</button>
+  <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.05); border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:1px 6px; border-radius:3px; font-size:10px;">▾</button>
   <button id="lyricsCloseBtn" style="background:rgba(255,255,255,0.05); border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10px;">✕</button>
 </div>
   
