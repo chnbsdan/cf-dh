@@ -181,13 +181,13 @@ function toggleLyricsVisibility() {
   if (lyricsVisible) {
     lyricsWindow.style.display = 'block';
     lyricsContent.style.display = 'block';
-    lyricsToggleBtn.textContent = '隐藏';
+    lyricsToggleBtn.textContent = '▾';
     if (aplayer && !aplayer.audio.paused) {
       startLyricsUpdate();
     }
   } else {
     lyricsWindow.style.display = 'none';
-    lyricsToggleBtn.textContent = '显示';
+    lyricsToggleBtn.textContent = '▸';
     if (lyricsInterval) {
       clearInterval(lyricsInterval);
     }
@@ -199,7 +199,7 @@ function toggleLyricsVisibility() {
 function closeLyricsWindow() {
   lyricsVisible = false;
   lyricsWindow.style.display = 'none';
-  lyricsToggleBtn.textContent = '显示';
+  lyricsToggleBtn.textContent = '▸';
   if (lyricsInterval) {
     clearInterval(lyricsInterval);
   }
