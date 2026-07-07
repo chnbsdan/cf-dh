@@ -3,12 +3,12 @@ export function getPlayer() {
 <!-- 浮动歌词窗口 - 毛玻璃 + 可调整大小 -->
 <div id="lyrics-window" style="display:none; position:fixed; z-index:9999; min-width:280px; min-height:120px; max-width:600px; max-height:500px; background:rgba(255,255,255,0.12); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border-radius:16px; border:1px solid rgba(255,255,255,0.25); box-shadow:0 20px 60px rgba(0,0,0,0.4); overflow:hidden; left:100px; top:100px;">
   
-  <!-- 顶部工具栏 -->
-  <div style="display:flex; justify-content:flex-end; align-items:center; padding:10px 14px 4px 14px; gap:6px; background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.08);">
-    <input type="color" id="lyricsColorPicker" value="#ff4500" style="width:26px; height:26px; border:none; border-radius:6px; cursor:pointer; background:transparent; padding:0; border:1px solid rgba(255,255,255,0.2);">
-    <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.1); border:none; color:rgba(255,255,255,0.8); cursor:pointer; padding:3px 12px; border-radius:6px; font-size:12px;">隐藏</button>
-    <button id="lyricsCloseBtn" style="background:rgba(255,255,255,0.1); border:none; color:rgba(255,255,255,0.8); cursor:pointer; padding:3px 10px; border-radius:6px; font-size:12px;">✕</button>
-  </div>
+  <!-- 顶部工具栏 - 窄版 -->
+<div style="display:flex; justify-content:flex-end; align-items:center; padding:6px 10px 4px 10px; gap:4px; background:rgba(255,255,255,0.03); border-bottom:1px solid rgba(255,255,255,0.06);">
+  <input type="color" id="lyricsColorPicker" value="#ff4500" style="width:18px; height:18px; border:none; border-radius:4px; cursor:pointer; background:transparent; padding:0; border:1px solid rgba(255,255,255,0.15);">
+  <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.06); border:none; color:rgba(255,255,255,0.6); cursor:pointer; padding:2px 8px; border-radius:4px; font-size:11px;">隐藏</button>
+  <button id="lyricsCloseBtn" style="background:rgba(255,255,255,0.06); border:none; color:rgba(255,255,255,0.6); cursor:pointer; padding:2px 7px; border-radius:4px; font-size:11px;">✕</button>
+</div>
   
   <!-- 歌词内容 -->
   <div id="lyrics-content" style="padding:12px 20px 20px 20px; min-height:60px; max-height:400px; overflow-y:auto; cursor:grab; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.2) transparent;">
