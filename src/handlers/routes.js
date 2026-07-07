@@ -1,4 +1,4 @@
-import { handleHomePage, handleGetData } from './ui.js';
+import { handleHomePage, handleGetData, handleBackup, handleRestore } from './ui.js';
 import { handleLogin } from './auth.js';
 import { 
   handleAddCategory, 
@@ -21,6 +21,8 @@ import { handleNotFound } from '../utils/response.js';
 const routes = {
   'GET /': handleHomePage,
   'GET /data': handleGetData,
+  'GET /backup': withAuth(handleBackup),
+  'POST /restore': withAuth(handleRestore),
   'POST /login': handleLogin,
   'POST /add-category': withAuth(handleAddCategory),
   'POST /add-site': withAuth(handleAddSite),
