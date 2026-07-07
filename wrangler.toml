@@ -1,0 +1,12 @@
+name = "cf-navigation"
+type = "javascript"
+account_id = "your-account-id"
+workers_dev = true
+
+[env.production]
+vars = { ADMIN_PASSWORD = "your-secure-password-here" }
+
+[[kv_namespaces]]
+binding = "NAVIGATION_DATA"
+id = "your-kv-namespace-id"
+preview_id = "your-kv-preview-id"
