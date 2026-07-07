@@ -16,15 +16,16 @@
 
 ### 1. 创建 KV Namespace
 在 Cloudflare Dashboard 中创建 KV Namespace：
-```bash
+
+ ```
 wrangler kv:namespace create "NAVIGATION_DATA"
+```
 
-
-是的，这是完整的目录结构。让我列出所有文件及其说明：
 
 ## 完整目录结构
 
 ```
+
 cf-navigation/
 ├── src/
 │   ├── index.js                          # ✅ 入口文件
@@ -58,6 +59,7 @@ cf-navigation/
 ├── package.json                          # ✅ 项目配置
 ├── .gitignore                            # ✅ Git 忽略文件
 └── README.md                             # ✅ 项目说明
+
 ```
 
 ## 各文件功能说明
