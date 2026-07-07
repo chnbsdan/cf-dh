@@ -23,14 +23,15 @@ let currentLyric = '';
 let lyricsVisible = false;
 let isDragging = false;
 
-// ============ 歌词窗口拖动功能 ============
+// ============ 歌词窗口拖动功能（整个窗口可拖，除了按钮） ============
 function initDrag() {
-  const dragArea = document.getElementById('lyrics-content');
+  const headerEl = document.getElementById('lyrics-header');
+  const contentEl = document.getElementById('lyrics-content');
   let startX, startY, origLeft, origTop;
   
-  if (!dragArea) return;
-  
-  dragArea.addEventListener('mousedown', function(e) {
+  // 整个窗口的拖动
+  function onDragStart(e) {
+    // 如果点击的是按钮或输入框，不触发拖动
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
     
     isDragging = true;
@@ -40,10 +41,15 @@ function initDrag() {
     origTop = parseInt(lyricsWindow.style.top) || 100;
     
     lyricsWindow.style.cursor = 'grabbing';
-    dragArea.style.cursor = 'grabbing';
+    if (headerEl) headerEl.style.cursor = 'grabbing';
+    if (contentEl) contentEl.style.cursor = 'grabbing';
     e.preventDefault();
-  });
+  }
 
+  // 鼠标按下时触发拖动
+  lyricsWindow.addEventListener('mousedown', onDragStart);
+
+  // 鼠标移动时更新位置
   document.addEventListener('mousemove', function(e) {
     if (!isDragging) return;
     
@@ -62,16 +68,18 @@ function initDrag() {
     lyricsWindow.style.top = newTop + 'px';
   });
 
+  // 鼠标松开时停止拖动
   document.addEventListener('mouseup', function() {
     if (isDragging) {
       isDragging = false;
       lyricsWindow.style.cursor = 'default';
-      if (dragArea) dragArea.style.cursor = 'grab';
+      if (headerEl) headerEl.style.cursor = 'grab';
+      if (contentEl) contentEl.style.cursor = 'grab';
     }
   });
 }
 
-// ============ 歌词窗口调整大小 ============
+// ============ 歌词窗口调整大小（底部粗线） ============
 function initResize() {
   const resizeHandle = document.getElementById('resize-handle');
   if (!resizeHandle) return;
@@ -473,10 +481,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const savedVisible = localStorage.getItem('lyricsVisible');
   if (savedVisible === 'true') {
-  lyricsVisible = true;
-  lyricsWindow.style.display = 'block';
-  lyricsToggleBtn.textContent = '▾';
-}
+    lyricsVisible = true;
+    lyricsWindow.style.display = 'block';
+    lyricsToggleBtn.textContent = '▾';
+  }
   
   initMeting().then(() => {
     console.log('APlayer初始化完成');
