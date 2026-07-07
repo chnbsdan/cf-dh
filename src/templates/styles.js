@@ -477,19 +477,21 @@ export function getStyles() {
     transform: scale(1.1);
   }
 
+  /* ===== 网站网格 - 更紧凑（一行8个） ===== */
   .sites-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.8rem;
   }
 
+  /* ===== 网站卡片 - 更紧凑 ===== */
   .site-card {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 16px;
-    padding: 1.2rem 0.8rem;
+    border-radius: 12px;
+    padding: 0.8rem 0.4rem;
     text-align: center;
     transition: all 0.3s ease;
     position: relative;
@@ -503,15 +505,16 @@ export function getStyles() {
     background: rgba(255, 255, 255, 0.3);
   }
 
+  /* ===== 网站图标 - 更小 ===== */
   .site-icon {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 0.8rem;
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 2rem;
+    font-size: 1.6rem;
     filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
   }
 
@@ -522,19 +525,27 @@ export function getStyles() {
     border-radius: 8px;
   }
 
+  /* ===== 网站名称 - 更小 ===== */
   .site-name {
     font-weight: 600;
     color: white;
-    margin-bottom: 0.3rem;
-    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    font-size: 0.78rem;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
+  /* ===== 网站地址 - 更小 ===== */
   .site-url {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.6);
     word-break: break-all;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .site-actions {
@@ -992,7 +1003,7 @@ export function getStyles() {
   #right-menu {
     position: fixed;
     display: none;
-    z-index: 40000;
+    z-index: 99999;
     min-width: 220px;
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(10px);
@@ -1001,9 +1012,6 @@ export function getStyles() {
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     padding: 6px 0;
-    opacity: 0;
-    transform: scale(.98);
-    transition: opacity .12s, transform .12s;
     border: 2px solid #10b981;
   }
 
@@ -1074,12 +1082,66 @@ export function getStyles() {
       width: calc(100% - 24px);
     }
   }
- /* ===== 右键菜单 hover ===== */
-  #right-menu li:hover {
-    background: #3b82f6 !important;
-    color: white !important;
-    border-radius: 6px;
-    transform: translateX(5px);
+
+  /* ===== 移动端卡片适配 ===== */
+  @media (max-width: 600px) {
+    .sites-grid {
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 0.5rem;
+    }
+    .site-card {
+      padding: 0.5rem 0.2rem;
+      border-radius: 8px;
+    }
+    .site-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 1.2rem;
+      margin: 0 auto 0.3rem;
+    }
+    .site-icon img {
+      width: 24px;
+      height: 24px;
+    }
+    .site-name {
+      font-size: 0.65rem;
+    }
+    .site-url {
+      font-size: 0.55rem;
+    }
+    .category {
+      padding: 0.8rem;
+    }
+    .category-title {
+      font-size: 1.1rem;
+    }
   }
-  </style>`;
-} 
+
+  @media (max-width: 400px) {
+    .sites-grid {
+      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+      gap: 0.4rem;
+    }
+    .site-card {
+      padding: 0.4rem 0.1rem;
+      border-radius: 6px;
+    }
+    .site-icon {
+      width: 30px;
+      height: 30px;
+      font-size: 1rem;
+      margin: 0 auto 0.2rem;
+    }
+    .site-icon img {
+      width: 20px;
+      height: 20px;
+    }
+    .site-name {
+      font-size: 0.55rem;
+    }
+    .site-url {
+      display: none;
+    }
+  }
+</style>`;
+}
