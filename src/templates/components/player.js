@@ -1,21 +1,28 @@
 export function getPlayer() {
   return `
-<!-- 浮动歌词窗口 - 可拖动 -->
-<div id="lyrics-window" style="display:none; position:fixed; z-index:9999; min-width:320px; max-width:500px; background:rgba(0,0,0,0.85); backdrop-filter:blur(20px); border-radius:16px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 20px 60px rgba(0,0,0,0.6); overflow:hidden; left:100px; top:100px;">
+<!-- 浮动歌词窗口 - 毛玻璃 + 可调整大小 -->
+<div id="lyrics-window" style="display:none; position:fixed; z-index:9999; min-width:280px; min-height:120px; max-width:600px; max-height:500px; background:rgba(255,255,255,0.12); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border-radius:16px; border:1px solid rgba(255,255,255,0.25); box-shadow:0 20px 60px rgba(0,0,0,0.4); overflow:hidden; left:100px; top:100px;">
   
   <!-- 顶部工具栏 -->
-  <div style="display:flex; justify-content:flex-end; align-items:center; padding:10px 14px 4px 14px; gap:6px;">
-    <input type="color" id="lyricsColorPicker" value="#ff4500" style="width:26px; height:26px; border:none; border-radius:6px; cursor:pointer; background:transparent; padding:0; border:1px solid rgba(255,255,255,0.15);">
-    <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.08); border:none; color:rgba(255,255,255,0.7); cursor:pointer; padding:3px 12px; border-radius:6px; font-size:12px;">隐藏</button>
-    <button id="lyricsCloseBtn" style="background:rgba(255,255,255,0.08); border:none; color:rgba(255,255,255,0.7); cursor:pointer; padding:3px 10px; border-radius:6px; font-size:12px;">✕</button>
+  <div style="display:flex; justify-content:flex-end; align-items:center; padding:10px 14px 4px 14px; gap:6px; background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.08);">
+    <input type="color" id="lyricsColorPicker" value="#ff4500" style="width:26px; height:26px; border:none; border-radius:6px; cursor:pointer; background:transparent; padding:0; border:1px solid rgba(255,255,255,0.2);">
+    <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.1); border:none; color:rgba(255,255,255,0.8); cursor:pointer; padding:3px 12px; border-radius:6px; font-size:12px;">隐藏</button>
+    <button id="lyricsCloseBtn" style="background:rgba(255,255,255,0.1); border:none; color:rgba(255,255,255,0.8); cursor:pointer; padding:3px 10px; border-radius:6px; font-size:12px;">✕</button>
   </div>
   
-  <!-- 歌词内容 - 整个区域可拖动 -->
-  <div id="lyrics-content" style="padding:4px 20px 20px 20px; min-height:80px; max-height:320px; overflow-y:auto; cursor:grab; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.15) transparent;">
-    <div id="floating-lyrics" style="text-align:left; color:#ff4500; font-weight:bold; text-shadow:0 2px 20px rgba(0,0,0,0.9);">
-      <div id="currentLine" style="font-size:26px; margin-bottom:6px; min-height:32px; line-height:1.4;">🎵 等待播放...</div>
-      <div id="nextLine" style="font-size:15px; opacity:0.6; min-height:20px;"></div>
+  <!-- 歌词内容 -->
+  <div id="lyrics-content" style="padding:12px 20px 20px 20px; min-height:60px; max-height:400px; overflow-y:auto; cursor:grab; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.2) transparent;">
+    <div id="floating-lyrics" style="text-align:left; color:#ff4500; font-weight:bold; text-shadow:0 2px 20px rgba(0,0,0,0.5);">
+      <div id="currentLine" style="font-size:26px; margin-bottom:6px; min-height:32px; line-height:1.4;"></div>
+      <div id="nextLine" style="font-size:15px; opacity:0.6; min-height:20px; color:inherit;"></div>
     </div>
+  </div>
+  
+  <!-- 右下角拖拽调整大小手柄 -->
+  <div id="resize-handle" style="position:absolute; bottom:4px; right:6px; width:16px; height:16px; cursor:nwse-resize; opacity:0.5; display:flex; align-items:center; justify-content:center; font-size:14px; color:rgba(255,255,255,0.4); user-select:none;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round">
+      <path d="M16 20L20 16M12 20L20 12M8 20L20 8"/>
+    </svg>
   </div>
 </div>
 
