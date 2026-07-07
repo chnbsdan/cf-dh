@@ -20,18 +20,15 @@ let lyricsInterval = null;
 let currentLyric = '';
 let lyricsVisible = false;
 let isDragging = false;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
 
 // ============ 歌词窗口拖动功能 ============
 function initDrag() {
-  const content = document.getElementById('lyrics-content');
+  const dragArea = document.getElementById('lyrics-content');
   let startX, startY, origLeft, origTop;
   
-  if (!content) return;
+  if (!dragArea) return;
   
-  content.addEventListener('mousedown', function(e) {
-    // 如果点击的是输入框或按钮，不触发拖动
+  dragArea.addEventListener('mousedown', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
     
     isDragging = true;
@@ -41,7 +38,7 @@ function initDrag() {
     origTop = parseInt(lyricsWindow.style.top) || 100;
     
     lyricsWindow.style.cursor = 'grabbing';
-    content.style.cursor = 'grabbing';
+    dragArea.style.cursor = 'grabbing';
     e.preventDefault();
   });
 
@@ -67,26 +64,23 @@ function initDrag() {
     if (isDragging) {
       isDragging = false;
       lyricsWindow.style.cursor = 'default';
-      if (content) content.style.cursor = 'grab';
+      if (dragArea) dragArea.style.cursor = 'grab';
     }
   });
 }
 
 // ============ 颜色修改功能 ============
 function initColorPicker() {
+  if (!colorPicker) return;
+  
   colorPicker.addEventListener('input', function() {
     const color = this.value;
-    // 修改当前歌词颜色
     lyricsContent.style.color = color;
-    // 修改当前行颜色
     currentLineEl.style.color = color;
-    // 修改下一行颜色
     nextLineEl.style.color = color;
-    // 保存到本地
     localStorage.setItem('lyricsColor', color);
   });
   
-  // 恢复保存的颜色
   const savedColor = localStorage.getItem('lyricsColor');
   if (savedColor) {
     colorPicker.value = savedColor;
@@ -108,7 +102,6 @@ function showLyrics(currentText, nextText) {
     currentLineEl.style.color = color;
     nextLineEl.style.color = color;
     
-    // 打字机效果
     currentLineEl.innerHTML = '';
     const chars = currentText.split('');
     let index = 0;
@@ -116,8 +109,7 @@ function showLyrics(currentText, nextText) {
       if (index < chars.length) {
         currentLineEl.textContent += chars[index];
         index++;
-        // 滚动到底部
-        const container = lyricsContent.parentElement;
+        const container = document.getElementById('lyrics-content');
         if (container) container.scrollTop = container.scrollHeight;
       } else {
         clearInterval(typeInterval);
@@ -141,13 +133,13 @@ function toggleLyricsVisibility() {
   if (lyricsVisible) {
     lyricsWindow.style.display = 'block';
     lyricsContent.style.display = 'block';
-    btn.textContent = '隐藏';
+    if (btn) btn.textContent = '隐藏';
     if (aplayer && !aplayer.audio.paused) {
       startLyricsUpdate();
     }
   } else {
     lyricsWindow.style.display = 'none';
-    btn.textContent = '显示';
+    if (btn) btn.textContent = '显示';
     if (lyricsInterval) {
       clearInterval(lyricsInterval);
     }
@@ -167,7 +159,6 @@ function closeLyricsWindow() {
   localStorage.setItem('lyricsVisible', 'false');
 }
 
-// 暴露给全局
 window.toggleLyricsVisibility = toggleLyricsVisibility;
 window.closeLyricsWindow = closeLyricsWindow;
 
@@ -308,9 +299,10 @@ async function ensurePlayerAndRun(fn) {
   }
 }
 
-// ============ 胶囊点击 ============
+// ============ 胶囊点击 - 展开播放器 ============
 capsule.addEventListener('click', () => {
   capsule.style.display = 'none';
+  playerWrap.style.display = 'block';
   playerWrap.classList.add('show');
   initMeting().catch(() => {});
 });
@@ -335,11 +327,12 @@ function showRightMenuAt(clientX, clientY) {
   });
 }
 
+// 使用捕获阶段确保能捕获所有元素上的右键事件
 document.addEventListener('contextmenu', (e) => {
   if (e.ctrlKey) return true;
   e.preventDefault();
   showRightMenuAt(e.clientX, e.clientY);
-});
+}, true);
 
 function hideRightMenuImmediate() {
   rightMenu.classList.remove('show');
@@ -348,6 +341,14 @@ function hideRightMenuImmediate() {
 
 document.addEventListener('click', (e) => {
   if (!rightMenu.contains(e.target)) hideRightMenuImmediate();
+});
+
+document.addEventListener('touchstart', (e) => {
+  if (!rightMenu.contains(e.target)) hideRightMenuImmediate();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') hideRightMenuImmediate();
 });
 
 // ============ 菜单事件 ============
@@ -398,19 +399,16 @@ document.getElementById('menu-fullscreen').addEventListener('click', () => {
 document.getElementById('menu-close').addEventListener('click', () => {
   ensurePlayerAndRun(ap => ap.pause());
   playerWrap.classList.remove('show');
+  playerWrap.style.display = 'none';
   capsule.style.display = 'flex';
   hideRightMenuImmediate();
 });
 
 // ============ 初始化 ============
 document.addEventListener('DOMContentLoaded', function() {
-  // 初始化拖动
   initDrag();
-  
-  // 初始化颜色选择器
   initColorPicker();
   
-  // 恢复歌词显示状态
   const savedVisible = localStorage.getItem('lyricsVisible');
   if (savedVisible === 'true') {
     lyricsVisible = true;
@@ -419,7 +417,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btn) btn.textContent = '隐藏';
   }
   
-  // 初始化播放器
   initMeting().then(() => {
     console.log('APlayer初始化完成');
   }).catch(() => {
