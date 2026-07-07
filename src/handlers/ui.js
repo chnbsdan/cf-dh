@@ -1,9 +1,9 @@
 import { getNavigationData } from '../services/kv.js';
 import { jsonResponse } from '../utils/response.js';
-import { htmlTemplate } from './html.js';
+import { renderNavigationPage } from '../templates/index.js';
 
 export async function handleHomePage(request) {
-  return new Response(htmlTemplate, {
+  return new Response(await renderNavigationPage(), {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
   });
 }
