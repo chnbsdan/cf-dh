@@ -777,5 +777,89 @@ window.openSearchModal = openSearchModal;
 window.closeSearchModal = closeSearchModal;
 window.performSearch = performSearch;
 window.scrollToTop = scrollToTop;
+
+// ============ 备份功能 ============
+async function downloadBackup() {
+  try {
+    showNotification('⏳ 正在备份...', 'info');
+    
+    const response = await fetch('/backup', {
+      headers: { 'Authorization': 'Bearer ' + authToken }
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || '备份失败');
+    }
+    
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `kv_backup_${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showNotification('✅ 备份下载成功！', 'success');
+  } catch (error) {
+    showNotification('❌ 备份失败: ' + error.message, 'error');
+  }
+}
+
+// ============ 恢复功能 ============
+function uploadRestore() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  
+  input.onchange = async function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      
+      // 验证格式
+      if (!data.data || !data.data.categories) {
+        showNotification('❌ 无效的备份文件格式', 'error');
+        return;
+      }
+      
+      if (!confirm('⚠️ 确定要恢复数据吗？这将覆盖当前所有数据！')) return;
+      
+      showNotification('⏳ 正在恢复...', 'info');
+      
+      const response = await fetch('/restore', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        showNotification('✅ 恢复成功！共恢复 ' + result.restored.categories + ' 个分类，' + result.restored.linkApplies + ' 个友链', 'success');
+        loadNavigationData();
+      } else {
+        showNotification('❌ 恢复失败: ' + result.error, 'error');
+      }
+    } catch (error) {
+      showNotification('❌ 文件解析失败: ' + error.message, 'error');
+    }
+  };
+  
+  input.click();
+}
+
+// 暴露全局
+window.downloadBackup = downloadBackup;
+window.uploadRestore = uploadRestore;
+
 </script>`;
 }
