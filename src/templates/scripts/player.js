@@ -473,10 +473,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const savedVisible = localStorage.getItem('lyricsVisible');
   if (savedVisible === 'true') {
-    lyricsVisible = true;
-    lyricsWindow.style.display = 'block';
-    lyricsToggleBtn.textContent = '隐藏';
-  }
+  lyricsVisible = true;
+  lyricsWindow.style.display = 'block';
+  lyricsToggleBtn.textContent = '▾';
+}
   
   initMeting().then(() => {
     console.log('APlayer初始化完成');
