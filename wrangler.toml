@@ -1,5 +1,6 @@
 name = "cf-dh"
-type = "javascript"
+main = "src/index.js"
+compatibility_date = "2026-07-07"
 account_id = "677f9e4ae3fa2bb512634405f86f124c"
 workers_dev = true
 
