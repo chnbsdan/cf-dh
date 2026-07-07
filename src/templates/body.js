@@ -47,6 +47,12 @@ ${getPlayer()}
       <button class="btn btn-warning" onclick="openApproveLinksModal()" id="approveLinksBtn">
         <span class="iconify" data-icon="mdi:account-check"></span> 审批友链
       </button>
+      <button class="btn" onclick="downloadBackup()" style="background:linear-gradient(135deg,#10b981,#059669); color:white;">
+        <span class="iconify" data-icon="mdi:download"></span> 备份数据
+      </button>
+      <button class="btn" onclick="uploadRestore()" style="background:linear-gradient(135deg,#f59e0b,#d97706); color:white;">
+        <span class="iconify" data-icon="mdi:upload"></span> 恢复数据
+      </button>
     </div>
   </div>
 
