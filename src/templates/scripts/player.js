@@ -447,7 +447,7 @@ document.getElementById('menu-lyrics').addEventListener('click', () => {
 });
 
 document.getElementById('menu-support').addEventListener('click', () => { 
-  window.open('https://1356666.xyz','_blank'); 
+  window.open('https://aoso.hangdn.com','_blank'); 
   hideRightMenuImmediate(); 
 });
 
