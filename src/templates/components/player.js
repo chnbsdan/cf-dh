@@ -1,30 +1,25 @@
 export function getPlayer() {
   return `
 <!-- 浮动歌词窗口 - 整个窗口可拖动 -->
-<div id="lyrics-window" style="display:none; position:fixed; z-index:9999; min-width:280px; min-height:120px; max-width:600px; max-height:500px; background:rgba(255,255,255,0.12); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border-radius:16px; border:1px solid rgba(255,255,255,0.25); box-shadow:0 20px 60px rgba(0,0,0,0.4); overflow:hidden; left:100px; top:100px;">
+<div id="lyrics-window" style="display:none; position:fixed; z-index:9999; min-width:260px; min-height:100px; max-width:550px; max-height:450px; background:rgba(255,255,255,0.10); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:14px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 12px 40px rgba(0,0,0,0.25); overflow:hidden; left:100px; top:100px;">
   
   <!-- 顶部工具栏 -->
-  <div id="lyrics-header" style="display:flex; justify-content:flex-end; align-items:center; padding:4px 8px 2px 8px; gap:3px; background:rgba(255,255,255,0.02); border-bottom:1px solid rgba(255,255,255,0.04); cursor:grab;">
-    <input type="color" id="lyricsColorPicker" value="#ff4500" style="width:14px; height:14px; border:none; border-radius:3px; cursor:pointer; background:transparent; padding:0; border:1px solid rgba(255,255,255,0.12);">
-    <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.05); border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:1px 6px; border-radius:3px; font-size:10px;">▾</button>
+  <div id="lyrics-header" style="display:flex; justify-content:flex-end; align-items:center; padding:3px 6px 2px 6px; gap:3px; background:rgba(255,255,255,0.02); border-bottom:1px solid rgba(255,255,255,0.04); cursor:grab;">
+    <input type="color" id="lyricsColorPicker" value="#ff4500" style="width:12px; height:12px; border:none; border-radius:3px; cursor:pointer; background:transparent; padding:0; border:1px solid rgba(255,255,255,0.12);">
+    <button id="lyricsToggleBtn" style="background:rgba(255,255,255,0.05); border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10px;">▾</button>
     <button id="lyricsCloseBtn" style="background:rgba(255,255,255,0.05); border:none; color:rgba(255,255,255,0.5); cursor:pointer; padding:1px 5px; border-radius:3px; font-size:10px;">✕</button>
   </div>
   
   <!-- 歌词内容 -->
-<div id="lyrics-content" style="padding:8px 16px 6px 16px; min-height:50px; max-height:350px; overflow-y:hidden; cursor:grab;">
-  <div id="floating-lyrics" style="text-align:left; color:#ff4500; font-weight:bold; text-shadow:0 2px 20px rgba(0,0,0,0.5);">
-    <div id="currentLine" style="font-size:24px; margin-bottom:4px; min-height:28px; line-height:1.4;"></div>
-    <div id="nextLine" style="font-size:14px; opacity:0.6; min-height:18px; color:inherit;"></div>
-  </div>
-</div>
-  
-  <!-- 底部粗线拖拽条 -->
-  <div id="resize-handle" style="position:absolute; bottom:0; left:0; right:0; height:8px; cursor:nwse-resize; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; user-select:none; border-top:1px solid rgba(255,255,255,0.10);">
-    <div style="display:flex; gap:3px; align-items:center; opacity:0.3;">
-      <span style="display:block; width:16px; height:2px; background:rgba(255,255,255,0.5); border-radius:1px;"></span>
-      <span style="display:block; width:16px; height:2px; background:rgba(255,255,255,0.5); border-radius:1px;"></span>
-      <span style="display:block; width:16px; height:2px; background:rgba(255,255,255,0.5); border-radius:1px;"></span>
+  <div id="lyrics-content" style="padding:4px 12px 4px 12px; min-height:40px; max-height:300px; overflow-y:hidden; cursor:grab;">
+    <div id="floating-lyrics" style="text-align:left; color:#ff4500; font-weight:bold; text-shadow:0 2px 20px rgba(0,0,0,0.5);">
+      <div id="currentLine" style="font-size:22px; margin-bottom:2px; min-height:26px; line-height:1.3;"></div>
+      <div id="nextLine" style="font-size:13px; opacity:0.6; min-height:16px; color:inherit;"></div>
     </div>
+  </div>
+  
+  <!-- 底部细拖拽条 -->
+  <div id="resize-handle" style="position:absolute; bottom:0; left:0; right:0; height:4px; cursor:nwse-resize; background:rgba(255,255,255,0.04); user-select:none; border-top:1px solid rgba(255,255,255,0.04);">
   </div>
 </div>
 
