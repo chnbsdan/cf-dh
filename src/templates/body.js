@@ -6,13 +6,7 @@ import { getModals } from './components/modals.js';
 
 export function getBody() {
   return `
-<div class="background-container">
-  <img src="https://pico.1356666.xyz/api/hf/hd/fj91_20260705.webp" class="background-slide active" alt="bg1">
-  <img src="https://pico.1356666.xyz/api/image?path=wallpaper%2F20260622_bz3.webp" class="background-slide" alt="bg2">
-    <img src="https://pico.1356666.xyz/api/hf/20260704_bz2.webp" class="background-slide" alt="bg11">
-  <img src="https://webp.hangdn.com/fg/sh1.jpg" class="background-slide" alt="bg12">
-  <img src="https://pico.1356666.xyz/api/hf/hd/20260705_zc2l7i.webp" class="background-slide" alt="bg13">
-</div>
+<div class="background-container" id="bgContainer"></div>
 
 <div class="bg-overlay"></div>
 
@@ -21,6 +15,9 @@ ${getSidebar()}
 <div class="datetime-display">
   <div id="currentDate" class="date-text"></div>
   <div id="currentTime" class="time-text"></div>
+  <button onclick="changeBackground()" style="margin-top:6px; padding:3px 12px; border:1px solid rgba(255,255,255,0.3); border-radius:6px; background:rgba(255,255,255,0.1); backdrop-filter:blur(8px); color:#fff; font-size:12px; cursor:pointer; transition:all 0.3s; width:100%;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+    🖼️ 换背景
+  </button>
 </div>
 
 ${getPlayer()}
