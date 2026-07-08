@@ -232,19 +232,20 @@ export function getModals() {
         </div>
       </div>
 
-      <div style="margin-bottom:1.5rem; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.12); border-radius:12px; padding:1.2rem;">
-        <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
-          <span class="iconify" data-icon="mdi:shield-check" style="color:#10b981;"></span> 本站承诺
-        </h4>
-        <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
-          <p style="color: #059669; font-weight: 600; margin-bottom: 0.8rem;">✅ 绝对不会收集用户的隐私信息</p>
-          <p>区别于部分导航网站，本站链接直接跳转目标，不会对链接处理再后跳转，不会收集用户的隐藏信息，包括但不限于点击记录，访问记录和搜索记录，请放心使用。</p>
-          <p style="margin-top: 0.8rem;">
-            <strong>申请收录：</strong>本站可以直接申请友链，填写表单后提交，管理员后台审核批准后就可以显示在导航上；请点击右下角的
-            <span style="color: #059669; font-weight: 600;">申请友链按钮</span> 进行申请。
-          </p>
-        </div>
-      </div>
+     <div style="margin-bottom:1.5rem; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.12); border-radius:12px; padding:1.2rem;">
+  <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+    <span class="iconify" data-icon="mdi:shield-check" style="color:#10b981;"></span> 本站承诺
+  </h4>
+  <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
+    <p style="color: #059669; font-weight: 600; margin-bottom: 0.8rem;">✅ 绝对不会收集用户的隐私信息</p>
+    <p>区别于部分导航网站，本站链接直接跳转目标，不会对链接处理再后跳转，不会收集用户的隐藏信息，包括但不限于点击记录，访问记录和搜索记录，请放心使用。</p>
+    <p style="margin-top: 0.8rem;">
+      <strong>申请收录：</strong>本站可以直接申请友链，填写表单后提交，管理员后台审核批准后就可以显示在导航上；请点击右下角的
+      <a href="javascript:void(0)" onclick="closeAboutModal(); openApplyLinkModal();" style="color: #059669; font-weight: 600; text-decoration: none; border-bottom: 1px dashed #059669; cursor: pointer;">申请友链按钮</a>
+      进行申请。
+    </p>
+  </div>
+</div>
 
       <div style="margin-bottom:1.5rem; background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.12); border-radius:12px; padding:1.2rem;">
         <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
