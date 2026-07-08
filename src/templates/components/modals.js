@@ -286,7 +286,7 @@ export function getModals() {
       <div class="playlist-current">
         <div class="playlist-current-info">
           <span class="playlist-current-label">▶ 当前播放</span>
-          <span class="playlist-current-name" id="currentPlaylistName">加载中...</span>
+          <span class="playlist-current-name" id="currentPlaylistName">加载中</span>
         </div>
         <div class="playlist-current-id">ID: <span id="currentPlaylistId">-</span></div>
       </div>
@@ -294,7 +294,7 @@ export function getModals() {
       <div>
         <div class="playlist-header">
           <span class="playlist-header-label">📋 我的歌单</span>
-          <span class="playlist-header-count" id="playlistCount">0 个</span>
+          <span class="playlist-header-count" id="playlistCount">0个</span>
         </div>
         <div class="playlist-list" id="playlistList">
           <div class="playlist-empty">暂无歌单，请添加</div>
@@ -305,12 +305,13 @@ export function getModals() {
         <div class="playlist-add-form">
           <input type="text" id="playlistNameInput" class="playlist-add-input" placeholder="歌单名称">
           <input type="text" id="playlistIdInput" class="playlist-add-input" placeholder="歌单ID">
-          <button onclick="addPlaylist()" class="playlist-add-btn">➕ 添加</button>
+          <button onclick="addPlaylist()" class="playlist-add-btn">添加</button>
         </div>
         <div class="playlist-status" id="playlistFormStatus"></div>
-        <div class="playlist-hint">从网易云歌单URL获取ID，如: https://music.163.com/playlist?id=14148542684</div>
+        <div class="playlist-hint">网易云歌单ID获取方式: music.163.com/playlist</div>
       </div>
     </div>
   </div>
+</div>
 </div>`;
 }
