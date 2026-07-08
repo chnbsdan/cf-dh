@@ -2,7 +2,7 @@ export function getPlayerScript() {
   return `<script>
 // ============ 歌单列表 ============
 const PLAYLIST_DATA = [
-  { id: '14148542684', name: 'Hangdn' },
+   { id: '14148542684', name: 'Hangdn' },
   { id: '13960325774', name: 'bsdan1688' },
   { id: '17980094136', name: ' 清新纯音乐' },
 ];
@@ -18,9 +18,50 @@ function switchPlaylist(id) {
   }
 }
 
+function togglePlaylistMenu() {
+  var menu = document.getElementById('playlistMenu');
+  if (!menu) return;
+  
+  if (menu.style.display === 'block') {
+    menu.style.display = 'none';
+    return;
+  }
+  
+  var list = window.PLAYLIST_DATA || [];
+  var current = localStorage.getItem('playlistId') || (list[0] ? list[0].id : '');
+  var html = '';
+  
+  if (list.length === 0) {
+    html = '<div style="padding:12px 16px;color:rgba(255,255,255,0.4);font-size:13px;">暂无歌单</div>';
+  } else {
+    list.forEach(function(item) {
+      var isActive = (item.id === current);
+      html += '<div onclick="switchPlaylist(\'' + item.id + '\')" style="padding:8px 16px;color:' + (isActive ? '#10b981' : 'rgba(255,255,255,0.8)') + ';cursor:pointer;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.05);" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'" onmouseout="this.style.background=\'transparent\'">';
+      html += (isActive ? '✓ ' : '') + item.name;
+      html += '</div>';
+    });
+  }
+  
+  menu.innerHTML = html;
+  menu.style.display = 'block';
+}
+
+// 点击其他地方关闭菜单
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('playlistMenu');
+  if (!menu) return;
+  var target = e.target;
+  var isButton = target.closest && target.closest('.apply-link-btn');
+  var isMenu = target.closest && target.closest('#playlistMenu');
+  if (!isButton && !isMenu) {
+    menu.style.display = 'none';
+  }
+});
+
 // 暴露到全局
 window.switchPlaylist = switchPlaylist;
 window.PLAYLIST_DATA = PLAYLIST_DATA;
+window.togglePlaylistMenu = togglePlaylistMenu;
 
 const capsule = document.getElementById('music-capsule');
 const capsuleCover = document.getElementById('capsule-cover');
