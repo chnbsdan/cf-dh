@@ -232,20 +232,20 @@ export function getModals() {
         </div>
       </div>
 
-     <div style="margin-bottom:1.5rem; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.12); border-radius:12px; padding:1.2rem;">
-  <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
-    <span class="iconify" data-icon="mdi:shield-check" style="color:#10b981;"></span> 本站承诺
-  </h4>
-  <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
-    <p style="color: #059669; font-weight: 600; margin-bottom: 0.8rem;">✅ 绝对不会收集用户的隐私信息</p>
-    <p>区别于部分导航网站，本站链接直接跳转目标，不会对链接处理再后跳转，不会收集用户的隐藏信息，包括但不限于点击记录，访问记录和搜索记录，请放心使用。</p>
-    <p style="margin-top: 0.8rem;">
-      <strong>申请收录：</strong>本站可以直接申请友链，填写表单后提交，管理员后台审核批准后就可以显示在导航上；请点击右下角的
-      <a href="javascript:void(0)" onclick="closeAboutModal(); openApplyLinkModal();" style="color: #059669; font-weight: 600; text-decoration: none; border-bottom: 1px dashed #059669; cursor: pointer;">申请友链按钮</a>
-      进行申请。
-    </p>
-  </div>
-</div>
+      <div style="margin-bottom:1.5rem; background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.12); border-radius:12px; padding:1.2rem;">
+        <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <span class="iconify" data-icon="mdi:shield-check" style="color:#10b981;"></span> 本站承诺
+        </h4>
+        <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
+          <p style="color: #059669; font-weight: 600; margin-bottom: 0.8rem;">✅ 绝对不会收集用户的隐私信息</p>
+          <p>区别于部分导航网站，本站链接直接跳转目标，不会对链接处理再后跳转，不会收集用户的隐藏信息，包括但不限于点击记录，访问记录和搜索记录，请放心使用。</p>
+          <p style="margin-top: 0.8rem;">
+            <strong>申请收录：</strong>本站可以直接申请友链，填写表单后提交，管理员后台审核批准后就可以显示在导航上；请点击右下角的
+            <a href="javascript:void(0)" onclick="closeAboutModal(); openApplyLinkModal();" style="color: #059669; font-weight: 600; text-decoration: none; border-bottom: 1px dashed #059669; cursor: pointer;">申请友链按钮</a>
+            进行申请。
+          </p>
+        </div>
+      </div>
 
       <div style="margin-bottom:1.5rem; background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.12); border-radius:12px; padding:1.2rem;">
         <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
@@ -266,18 +266,18 @@ export function getModals() {
       </div>
 
       <div style="margin-bottom:1.5rem; background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.10); border-radius:12px; padding:1.2rem;">
-  <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
-    <span class="iconify" data-icon="mdi:email-fast" style="color:#ef4444;"></span> 联系邮箱
-  </h4>
-  <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
-    <p style="background: rgba(239,68,68,0.06); padding: 0.8rem 1rem; border-radius: 8px; border-left: 4px solid #ef4444; color:#1e293b; font-weight:500;">
-      chnbsdan@gmail.com
-    </p>
-    <p style="margin-top: 0.5rem; color: #475569; font-weight:400;">
-      或留言：<a href="https://aoso.hangdn.com/guestbook" target="_blank" style="color: #6366f1; text-decoration: none; border-bottom: 1px dashed #6366f1; font-weight:500;">https://aoso.hangdn.com/guestbook</a>
-    </p>
-  </div>
-</div>
+        <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <span class="iconify" data-icon="mdi:email-fast" style="color:#ef4444;"></span> 联系邮箱
+        </h4>
+        <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
+          <p style="background: rgba(239,68,68,0.06); padding: 0.8rem 1rem; border-radius: 8px; border-left: 4px solid #ef4444; color:#1e293b; font-weight:500;">
+            chnbsdan@gmail.com
+          </p>
+          <p style="margin-top: 0.5rem; color: #475569; font-weight:400;">
+            或留言：<a href="https://aoso.hangdn.com/guestbook" target="_blank" style="color: #6366f1; text-decoration: none; border-bottom: 1px dashed #6366f1; font-weight:500;">https://aoso.hangdn.com/guestbook</a>
+          </p>
+        </div>
+      </div>
 
       <div style="background:rgba(99,102,241,0.04); border:1px solid rgba(99,102,241,0.08); border-radius:12px; padding:1.2rem;">
         <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
@@ -292,6 +292,48 @@ export function getModals() {
             <span style="background: rgba(245,158,11,0.10); padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color:#b45309;">【友链】</span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 歌单管理模态框 -->
+<div id="playlistModal" class="modal">
+  <div class="modal-content" style="max-width: 500px;">
+    <div class="modal-header">
+      <h3 class="modal-title">🎵 歌单管理</h3>
+      <button class="close-btn" onclick="closePlaylistModal()">&times;</button>
+    </div>
+    <div style="padding: 0.5rem 0;">
+      <!-- 当前播放 -->
+      <div style="background:rgba(99,102,241,0.08); border-radius:8px; padding:10px 14px; margin-bottom:12px; border-left:3px solid #6366f1;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:rgba(255,255,255,0.5); font-size:12px;">▶ 当前播放</span>
+          <span id="currentPlaylistName" style="color:#fff; font-weight:600; font-size:14px;">加载中...</span>
+        </div>
+        <div style="color:rgba(255,255,255,0.3); font-size:11px; margin-top:2px;">ID: <span id="currentPlaylistId">-</span></div>
+      </div>
+
+      <!-- 歌单列表 -->
+      <div style="margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="color:rgba(255,255,255,0.5); font-size:12px;">📋 我的歌单</span>
+          <span id="playlistCount" style="color:rgba(255,255,255,0.3); font-size:11px;">0 个</span>
+        </div>
+        <div id="playlistList" style="max-height:200px; overflow-y:auto;">
+          <div style="text-align:center; padding:20px 0; color:rgba(255,255,255,0.3); font-size:13px;">暂无歌单，请添加</div>
+        </div>
+      </div>
+
+      <!-- 添加歌单 -->
+      <div style="border-top:1px solid rgba(255,255,255,0.06); padding-top:12px;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="text" id="playlistNameInput" placeholder="歌单名称" style="flex:1; min-width:100px; padding:6px 10px; border:1px solid rgba(255,255,255,0.15); border-radius:6px; background:rgba(255,255,255,0.06); color:white; font-size:13px; outline:none;">
+          <input type="text" id="playlistIdInput" placeholder="歌单ID" style="flex:1; min-width:100px; padding:6px 10px; border:1px solid rgba(255,255,255,0.15); border-radius:6px; background:rgba(255,255,255,0.06); color:white; font-size:13px; outline:none;">
+          <button onclick="addPlaylist()" style="padding:6px 16px; background:linear-gradient(135deg,#6366f1,#8b5cf6); border:none; border-radius:6px; color:white; cursor:pointer; font-size:13px; white-space:nowrap;">➕ 添加</button>
+        </div>
+        <div id="playlistFormStatus" style="margin-top:6px; font-size:12px; text-align:center; display:none;"></div>
+        <div style="margin-top:4px; color:rgba(255,255,255,0.2); font-size:10px;">从网易云歌单URL获取ID，如: https://music.163.com/playlist?id=14148542684</div>
       </div>
     </div>
   </div>
