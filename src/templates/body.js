@@ -11,7 +11,7 @@ export function getBody() {
   <img src="https://pico.1356666.xyz/api/image?path=wallpaper%2F20260622_bz3.webp" class="background-slide" alt="bg2">
     <img src="https://pico.1356666.xyz/api/hf/20260704_bz2.webp" class="background-slide" alt="bg11">
   <img src="https://webp.hangdn.com/fg/sh1.jpg" class="background-slide" alt="bg12">
-  <img src="https://webp.hangdn.com/fg/bj1.jpg" class="background-slide" alt="bg13">
+  <img src="https://pico.1356666.xyz/api/hf/hd/20260705_zc2l7i.webp" class="background-slide" alt="bg13">
 </div>
 
 <div class="bg-overlay"></div>
