@@ -39,37 +39,33 @@ export function getPlayer() {
 </div>
 
 <!-- 右键菜单 -->
-<ul id="right-menu" style="position:fixed; display:none; z-index:99999; min-width:160px; background:rgba(255,255,255,0.12); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.35); padding:4px 0; border:2px solid #10b981;">
-  <li id="menu-play" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> 播放/暂停
+<ul id="right-menu" style="position:fixed; display:none; z-index:99999; min-width:150px; background:rgba(20,20,30,0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); color:#e8e8e8; border-radius:8px; box-shadow:0 8px 30px rgba(0,0,0,0.4); padding:2px 0; border:1px solid rgba(255,255,255,0.06);">
+  <li id="menu-play" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> 播放/暂停
   </li>
-  <li id="menu-prev" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg> 上一首
+  <li id="menu-prev" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg> 上一首
   </li>
-  <li id="menu-next" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg> 下一首
+  <li id="menu-next" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg> 下一首
   </li>
-  <li style="height:1px; background:rgba(255,255,255,0.08); margin:3px 10px;"></li>
-  <li id="menu-volup" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> 音量+
+  <li id="menu-volup" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> 音量+
   </li>
-  <li id="menu-voldown" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> 音量-
+  <li id="menu-voldown" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> 音量-
   </li>
-  <li style="height:1px; background:rgba(255,255,255,0.08); margin:3px 10px;"></li>
-  <li id="menu-lyrics" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> 显示/隐藏歌词
+  <li id="menu-lyrics" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> 显示/隐藏歌词
   </li>
-  <li style="height:1px; background:rgba(255,255,255,0.08); margin:3px 10px;"></li>
-  <li id="menu-support" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><circle cx="12" cy="12" r="10"/><line x1="9.09" y1="9" x2="9.09" y2="9.01"/><line x1="14.09" y1="9" x2="14.09" y2="9.01"/><path d="M9 15a3 3 0 0 0 6 0"/></svg> 技术支持
+  <li id="menu-support" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><circle cx="12" cy="12" r="10"/><line x1="9.09" y1="9" x2="9.09" y2="9.01"/><line x1="14.09" y1="9" x2="14.09" y2="9.01"/><path d="M9 15a3 3 0 0 0 6 0"/></svg> 支持
   </li>
-  <li id="menu-fullscreen" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> 全屏模式
+  <li id="menu-fullscreen" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#e8e8e8; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> 全屏
   </li>
-  <li style="height:1px; background:rgba(255,255,255,0.08); margin:3px 10px;"></li>
-  <li id="menu-close" style="list-style:none; padding:6px 14px; cursor:pointer; white-space:nowrap; font-weight:600; font-size:13px; transition:all 0.2s; border-radius:4px; margin:0 4px; color:#f87171;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:8px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> 关闭播放器
+  <li id="menu-close" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#f87171; transition:background 0.12s; border-radius:3px; margin:0 3px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> 关闭
   </li>
 </ul>`;
 }
