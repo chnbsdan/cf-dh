@@ -7,7 +7,7 @@ function initBackgroundRotation() {
   setInterval(() => {
     bgImgs.forEach((img, i) => img.classList.toggle('active', i === bgIndex));
     bgIndex = (bgIndex + 1) % bgImgs.length;
-  }, 10000);
+  }, 30000);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
