@@ -15,8 +15,12 @@ ${getSidebar()}
 <div class="datetime-display">
   <div id="currentDate" class="date-text"></div>
   <div id="currentTime" class="time-text"></div>
-  <button onclick="changeBackground()" style="margin-top:6px; padding:3px 12px; border:1px solid rgba(255,255,255,0.3); border-radius:6px; background:rgba(255,255,255,0.1); backdrop-filter:blur(8px); color:#fff; font-size:12px; cursor:pointer; transition:all 0.3s; width:100%;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-    🖼️ 换背景
+  <button onclick="changeBackground()" style="position:absolute; bottom:10px; right:10px; width:32px; height:32px; border:1px solid rgba(255,255,255,0.25); border-radius:50%; background:rgba(255,255,255,0.1); backdrop-filter:blur(8px); color:#fff; cursor:pointer; transition:all 0.3s; display:flex; align-items:center; justify-content:center; padding:0;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.transform='scale(1.1)'" onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.transform='scale(1)'" title="换背景">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+      <circle cx="8.5" cy="8.5" r="1.5"/>
+      <polyline points="21 15 16 10 5 21"/>
+    </svg>
   </button>
 </div>
 
