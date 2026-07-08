@@ -865,9 +865,9 @@ if (typeof window.switchPlaylist === 'undefined') {
 }
 if (typeof window.PLAYLIST_DATA === 'undefined') {
   window.PLAYLIST_DATA = [
-    { id: '14148542684', name: '默认歌单' },
-    { id: '3778678', name: '歌单2' },
-    { id: '123456789', name: '歌单3' },
+    { id: '14148542684', name: 'Hangdn' },
+  { id: '13960325774', name: 'bsdan1688' },
+  { id: '17980094136', name: ' 清新纯音乐' },
   ];
 }
 if (typeof window.togglePlaylistMenu === 'undefined') {
