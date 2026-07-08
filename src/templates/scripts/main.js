@@ -864,7 +864,7 @@ function changeBackground() {
   const bgContainer = document.getElementById('bgContainer');
   if (!bgContainer) return;
   
-  fetch('https://pico.1356666.xyz/api/tg')
+  fetch('https://pico.1356666.xyz/api/wallpaper?folder=sh')
     .then(response => {
       if (!response.ok) throw new Error('请求失败');
       return response.blob();
