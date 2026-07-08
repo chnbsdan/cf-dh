@@ -53,10 +53,8 @@ ${getPlayer()}
       <button class="btn" onclick="uploadRestore()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:white;">
         <span class="iconify" data-icon="mdi:upload"></span> 恢复数据
       </button>
-      <button class="btn" onclick="openPlaylistModal()" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:white;">
-        <span class="iconify" data-icon="mdi:playlist-music"></span> 歌单管理
-      </button>
-    </div>
+      
+          </div>
   </div>
 
   <div id="content"></div>
