@@ -53,8 +53,7 @@ ${getPlayer()}
       <button class="btn" onclick="uploadRestore()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:white;">
         <span class="iconify" data-icon="mdi:upload"></span> 恢复数据
       </button>
-      
-          </div>
+    </div>
   </div>
 
   <div id="content"></div>
