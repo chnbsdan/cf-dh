@@ -864,12 +864,6 @@ function changeBackground() {
   const bgContainer = document.getElementById('bgContainer');
   if (!bgContainer) return;
   
-  const btn = document.querySelector('.datetime-display button');
-  if (btn) {
-    btn.textContent = '⏳ 加载中...';
-    btn.disabled = true;
-  }
-  
   fetch('https://pico.1356666.xyz/api/tg')
     .then(response => {
       if (!response.ok) throw new Error('请求失败');
@@ -885,34 +879,10 @@ function changeBackground() {
         bgContainer.innerHTML = '';
         bgContainer.appendChild(img);
         localStorage.setItem('customBg', url);
-        if (btn) {
-          btn.textContent = '✅ 已更换';
-          setTimeout(() => {
-            btn.textContent = '🖼️ 换背景';
-            btn.disabled = false;
-          }, 2000);
-        }
-      };
-      img.onerror = function() {
-        URL.revokeObjectURL(url);
-        if (btn) {
-          btn.textContent = '❌ 加载失败';
-          setTimeout(() => {
-            btn.textContent = '🖼️ 换背景';
-            btn.disabled = false;
-          }, 2000);
-        }
       };
     })
     .catch(error => {
       console.error('换背景失败:', error);
-      if (btn) {
-        btn.textContent = '❌ 请求失败';
-        setTimeout(() => {
-          btn.textContent = '🖼️ 换背景';
-          btn.disabled = false;
-        }, 2000);
-      }
     });
 }
 
