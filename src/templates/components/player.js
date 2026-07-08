@@ -56,7 +56,7 @@ export function getPlayer() {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> 音量-
   </li>
   <li id="menu-lyrics" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#fff; transition:background 0.12s; border-radius:3px; margin:0 3px;">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> 显示/隐藏歌词
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> 隐藏/显示歌词
   </li>
   <li id="menu-support" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#fff; transition:background 0.12s; border-radius:3px; margin:0 3px;">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><circle cx="12" cy="12" r="10"/><line x1="9.09" y1="9" x2="9.09" y2="9.01"/><line x1="14.09" y1="9" x2="14.09" y2="9.01"/><path d="M9 15a3 3 0 0 0 6 0"/></svg> 支持
