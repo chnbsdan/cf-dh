@@ -73,6 +73,29 @@ ${getPlayer()}
   <button class="apply-link-btn" onclick="openApplyLinkModal()" title="申请友链">
     <span class="iconify" data-icon="mdi:link-plus"></span>
   </button>
+  
+  <!-- 歌单切换 -->
+  <div style="position:relative;">
+    <button class="apply-link-btn" onclick="document.getElementById('playlistMenu').style.display=document.getElementById('playlistMenu').style.display==='block'?'none':'block'" title="切换歌单" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);">
+      <span class="iconify" data-icon="mdi:playlist-music"></span>
+    </button>
+    <div id="playlistMenu" style="display:none;position:absolute;bottom:45px;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);border-radius:10px;padding:8px 0;min-width:140px;border:1px solid rgba(255,255,255,0.1);">
+      <script>
+        (function() {
+          var list = window.PLAYLIST_DATA || [];
+          var current = localStorage.getItem('playlistId') || (list[0] ? list[0].id : '');
+          var html = '';
+          list.forEach(function(item) {
+            var isActive = (item.id === current);
+            html += '<div onclick="switchPlaylist(\'' + item.id + '\')" style="padding:8px 16px;color:' + (isActive ? '#10b981' : 'rgba(255,255,255,0.8)') + ';cursor:pointer;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.05);" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'" onmouseout="this.style.background=\'transparent\'">';
+            html += (isActive ? '✓ ' : '') + item.name;
+            html += '</div>';
+          });
+          document.write(html);
+        })();
+      </script>
+    </div>
+  </div>
 </div>
 
 ${getModals()}
