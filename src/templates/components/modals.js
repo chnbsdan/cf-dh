@@ -221,18 +221,22 @@ export function getModals() {
       <button class="close-btn" onclick="closeAboutModal()">&times;</button>
     </div>
     <div style="max-height: 70vh; overflow-y: auto; padding: 1rem 0;">
-      <div class="footer-link-section" style="margin-bottom: 2rem;">
-        <h4><span class="iconify" data-icon="mdi:information"></span> 关于本站</h4>
-        <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.6; font-size: 0.95rem;">
+      <div class="footer-link-section" style="margin-bottom: 2rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1.2rem;">
+        <h4 style="color:rgba(255,255,255,0.8); margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <span class="iconify" data-icon="mdi:information"></span> 关于本站
+        </h4>
+        <div style="color: rgba(255,255,255,0.85); line-height: 1.8; font-size: 0.95rem;">
           <p>感谢来访，本站致力于简洁高效的上网导航和搜索入口，安全快捷。</p>
           <p>搜索入口正常网页中看不到，为隐藏设计，需要用鼠标点击本站LOGO图标就会弹出搜索框。</p>
           <p>如果您喜欢我们的网站，请将本站添加到收藏夹（快捷键Ctrl+D），并设为浏览器主页，方便您的下次访问，感谢支持。</p>
         </div>
       </div>
 
-      <div class="footer-link-section" style="margin-bottom: 2rem;">
-        <h4><span class="iconify" data-icon="mdi:shield-check"></span> 本站承诺</h4>
-        <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.6; font-size: 0.95rem;">
+      <div class="footer-link-section" style="margin-bottom: 2rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1.2rem;">
+        <h4 style="color:rgba(255,255,255,0.8); margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <span class="iconify" data-icon="mdi:shield-check"></span> 本站承诺
+        </h4>
+        <div style="color: rgba(255,255,255,0.85); line-height: 1.8; font-size: 0.95rem;">
           <p style="color: #4ade80; font-weight: 600; margin-bottom: 1rem;">绝对不会收集用户的隐私信息</p>
           <p>区别于部分导航网站，本站链接直接跳转目标，不会对链接处理再后跳转，不会收集用户的隐藏信息，包括但不限于点击记录，访问记录和搜索记录，请放心使用。</p>
           <p style="margin-top: 1rem;">
@@ -242,11 +246,13 @@ export function getModals() {
         </div>
       </div>
 
-      <div class="footer-link-section" style="margin-bottom: 2rem;">
-        <h4><span class="iconify" data-icon="mdi:email"></span> 联系我们</h4>
-        <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.6; font-size: 0.95rem;">
+      <div class="footer-link-section" style="margin-bottom: 2rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1.2rem;">
+        <h4 style="color:rgba(255,255,255,0.8); margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <span class="iconify" data-icon="mdi:email"></span> 联系我们
+        </h4>
+        <div style="color: rgba(255,255,255,0.85); line-height: 1.8; font-size: 0.95rem;">
           <p>若您在使用本站时遇到了包括但不限于以下问题：</p>
-          <ul style="margin: 0.5rem 0 1rem 1.5rem; color: rgba(255, 255, 255, 0.9);">
+          <ul style="margin: 0.5rem 0 1rem 1.5rem; color: rgba(255,255,255,0.85);">
             <li>图标缺失</li>
             <li>目标网站无法打开</li>
             <li>描述错误</li>
@@ -258,24 +264,28 @@ export function getModals() {
         </div>
       </div>
 
-      <div class="footer-link-section" style="margin-bottom: 2rem;">
-        <h4><span class="iconify" data-icon="mdi:email-fast"></span> 联系邮箱</h4>
-        <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.6; font-size: 0.95rem;">
-          <p style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #6366f1;">
+      <div class="footer-link-section" style="margin-bottom: 2rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1.2rem;">
+        <h4 style="color:rgba(255,255,255,0.8); margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <span class="iconify" data-icon="mdi:email-fast"></span> 联系邮箱
+        </h4>
+        <div style="color: rgba(255,255,255,0.85); line-height: 1.8; font-size: 0.95rem;">
+          <p style="background: rgba(255,255,255,0.08); padding: 1rem; border-radius: 8px; border-left: 4px solid #f97316;">
             <strong>sfx@hangdn.com</strong>
           </p>
         </div>
       </div>
 
-      <div class="footer-link-section">
-        <h4><span class="iconify" data-icon="mdi:help-circle"></span> 联系说明</h4>
-        <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.6; font-size: 0.95rem;">
+      <div class="footer-link-section" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1.2rem;">
+        <h4 style="color:rgba(255,255,255,0.8); margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <span class="iconify" data-icon="mdi:help-circle"></span> 联系说明
+        </h4>
+        <div style="color: rgba(255,255,255,0.85); line-height: 1.8; font-size: 0.95rem;">
           <p>为了您的问题能快速被处理，建议在邮件主题添加：</p>
           <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0;">
-            <span style="background: rgba(99, 102, 241, 0.3); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">【反馈】</span>
-            <span style="background: rgba(239, 68, 68, 0.3); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">【投诉】</span>
-            <span style="background: rgba(34, 197, 94, 0.3); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">【推荐】</span>
-            <span style="background: rgba(245, 158, 11, 0.3); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">【友链】</span>
+            <span style="background: rgba(99, 102, 241, 0.2); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color:rgba(255,255,255,0.8);">【反馈】</span>
+            <span style="background: rgba(239, 68, 68, 0.2); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color:rgba(255,255,255,0.8);">【投诉】</span>
+            <span style="background: rgba(34, 197, 94, 0.2); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color:rgba(255,255,255,0.8);">【推荐】</span>
+            <span style="background: rgba(245, 158, 11, 0.2); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color:rgba(255,255,255,0.8);">【友链】</span>
           </div>
         </div>
       </div>
