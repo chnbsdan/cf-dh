@@ -7,17 +7,9 @@ import { getModals } from './components/modals.js';
 export function getBody() {
   return `
 <div class="background-container">
-  <img src="https://webp.hangdn.com/fg/fg1.jpg" class="background-slide active" alt="bg1">
-  <img src="https://webp.hangdn.com/fg/fg2.jpg" class="background-slide" alt="bg2">
-  <img src="https://webp.hangdn.com/fg/yk5.jpg" class="background-slide" alt="bg3">
-  <img src="https://pan.hangdn.com/raw/img/352347587.jpg" class="background-slide" alt="bg4">
-  <img src="https://pan.hangdn.com/raw/img/377786273.jpg" class="background-slide" alt="bg5">
-  <img src="https://webp.hangdn.com/fg/fj22.jpg" class="background-slide" alt="bg6">
-  <img src="https://webp.hangdn.com/fg/yk1.jpg" class="background-slide" alt="bg7">
-  <img src="https://webp.hangdn.com/fg/yk2.jpg" class="background-slide" alt="bg8">
-  <img src="https://webp.hangdn.com/fg/yk3.jpg" class="background-slide" alt="bg9">
-  <img src="https://webp.hangdn.com/fg/sh3.jpg" class="background-slide" alt="bg10">
-  <img src="https://webp.hangdn.com/fg/sh2.jpg" class="background-slide" alt="bg11">
+  <img src="https://pico.1356666.xyz/api/hf/hd/fj91_20260705.webp" class="background-slide active" alt="bg1">
+  <img src="https://pico.1356666.xyz/api/image?path=wallpaper%2F20260622_bz3.webp" class="background-slide" alt="bg2">
+    <img src="https://pico.1356666.xyz/api/hf/20260704_bz2.webp" class="background-slide" alt="bg11">
   <img src="https://webp.hangdn.com/fg/sh1.jpg" class="background-slide" alt="bg12">
   <img src="https://webp.hangdn.com/fg/bj1.jpg" class="background-slide" alt="bg13">
 </div>
