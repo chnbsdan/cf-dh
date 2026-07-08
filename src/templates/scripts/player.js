@@ -41,6 +41,7 @@ function initDrag() {
     origTop = parseInt(lyricsWindow.style.top) || 100;
     
     lyricsWindow.style.cursor = 'grabbing';
+    lyricsWindow.style.willChange = 'transform';
     if (headerEl) headerEl.style.cursor = 'grabbing';
     if (contentEl) contentEl.style.cursor = 'grabbing';
     e.preventDefault();
@@ -73,6 +74,7 @@ function initDrag() {
     if (isDragging) {
       isDragging = false;
       lyricsWindow.style.cursor = 'default';
+      lyricsWindow.style.willChange = 'auto';
       if (headerEl) headerEl.style.cursor = 'grab';
       if (contentEl) contentEl.style.cursor = 'grab';
     }
