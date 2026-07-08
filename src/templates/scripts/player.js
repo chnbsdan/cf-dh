@@ -1,6 +1,9 @@
 export function getPlayerScript() {
   return `<script>
-const PLAYLIST_ID = '14148542684';
+// 获取歌单ID（从localStorage或默认）
+function getPlaylistId() {
+  return localStorage.getItem('playlistId') || '14148542684';
+}
 
 const capsule = document.getElementById('music-capsule');
 const capsuleCover = document.getElementById('capsule-cover');
@@ -23,15 +26,14 @@ let currentLyric = '';
 let lyricsVisible = false;
 let isDragging = false;
 
-// ============ 歌词窗口拖动功能（整个窗口可拖，除了按钮） ============
+// ============ 歌词窗口拖动功能 ============
 function initDrag() {
-  const headerEl = document.getElementById('lyrics-header');
-  const contentEl = document.getElementById('lyrics-content');
+  const dragArea = document.getElementById('lyrics-content');
   let startX, startY, origLeft, origTop;
   
-  // 整个窗口的拖动
-  function onDragStart(e) {
-    // 如果点击的是按钮或输入框，不触发拖动
+  if (!dragArea) return;
+  
+  dragArea.addEventListener('mousedown', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
     
     isDragging = true;
@@ -41,15 +43,10 @@ function initDrag() {
     origTop = parseInt(lyricsWindow.style.top) || 100;
     
     lyricsWindow.style.cursor = 'grabbing';
-    if (headerEl) headerEl.style.cursor = 'grabbing';
-    if (contentEl) contentEl.style.cursor = 'grabbing';
+    dragArea.style.cursor = 'grabbing';
     e.preventDefault();
-  }
+  });
 
-  // 鼠标按下时触发拖动
-  lyricsWindow.addEventListener('mousedown', onDragStart);
-
-  // 鼠标移动时更新位置
   document.addEventListener('mousemove', function(e) {
     if (!isDragging) return;
     
@@ -68,24 +65,31 @@ function initDrag() {
     lyricsWindow.style.top = newTop + 'px';
   });
 
-  // 鼠标松开时停止拖动
   document.addEventListener('mouseup', function() {
     if (isDragging) {
       isDragging = false;
       lyricsWindow.style.cursor = 'default';
-      if (headerEl) headerEl.style.cursor = 'grab';
-      if (contentEl) contentEl.style.cursor = 'grab';
+      if (dragArea) dragArea.style.cursor = 'grab';
     }
   });
 }
 
-// ============ 歌词窗口调整大小（底部粗线） ============
+// ============ 歌词窗口调整大小 ============
 function initResize() {
   const resizeHandle = document.getElementById('resize-handle');
   if (!resizeHandle) return;
   
   let isResizing = false;
   let startX, startY, startWidth, startHeight;
+  
+  resizeHandle.addEventListener('mouseenter', function() {
+    this.style.background = 'rgba(255,255,255,0.10)';
+  });
+  resizeHandle.addEventListener('mouseleave', function() {
+    if (!isResizing) {
+      this.style.background = 'rgba(255,255,255,0.04)';
+    }
+  });
   
   resizeHandle.addEventListener('mousedown', function(e) {
     isResizing = true;
@@ -94,6 +98,7 @@ function initResize() {
     startWidth = lyricsWindow.offsetWidth;
     startHeight = lyricsWindow.offsetHeight;
     lyricsWindow.style.cursor = 'nwse-resize';
+    this.style.background = 'rgba(255,255,255,0.15)';
     e.preventDefault();
     e.stopPropagation();
   });
@@ -120,6 +125,8 @@ function initResize() {
     if (isResizing) {
       isResizing = false;
       lyricsWindow.style.cursor = 'default';
+      const handle = document.getElementById('resize-handle');
+      if (handle) handle.style.background = 'rgba(255,255,255,0.04)';
       localStorage.setItem('lyricsWidth', lyricsWindow.offsetWidth);
       localStorage.setItem('lyricsHeight', lyricsWindow.offsetHeight);
     }
@@ -265,14 +272,15 @@ function updateLyricsFromDOM() {
   }
 }
 
-// ============ 初始化播放器 ============
+// ============ 初始化播放器（支持动态歌单） ============
 function initMeting() {
   if (aplayer) return Promise.resolve(aplayer);
   return new Promise(async (resolve, reject) => {
     try {
       aplayerContainer.innerHTML = '';
       
-      const apiUrl = 'https://api.injahow.cn/meting/?server=netease&type=playlist&id=' + PLAYLIST_ID;
+      const playlistId = getPlaylistId();
+      const apiUrl = 'https://api.injahow.cn/meting/?server=netease&type=playlist&id=' + playlistId;
       const response = await fetch(apiUrl);
       const songs = await response.json();
       
@@ -473,7 +481,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initColorPicker();
   initResize();
   
-  // 恢复尺寸
   const savedWidth = localStorage.getItem('lyricsWidth');
   const savedHeight = localStorage.getItem('lyricsHeight');
   if (savedWidth) lyricsWindow.style.width = savedWidth + 'px';
