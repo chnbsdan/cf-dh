@@ -779,6 +779,7 @@ window.openSearchModal = openSearchModal;
 window.closeSearchModal = closeSearchModal;
 window.performSearch = performSearch;
 window.scrollToTop = scrollToTop;
+window.scrollToCategory = scrollToCategory;  // ← 添加这一行
 
 // ============ 备份功能 ============
 async function downloadBackup() {
