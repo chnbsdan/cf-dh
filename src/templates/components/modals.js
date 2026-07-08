@@ -305,7 +305,6 @@ export function getModals() {
       <button class="close-btn" onclick="closePlaylistModal()">&times;</button>
     </div>
     <div style="padding: 0.5rem 0;">
-      <!-- 当前播放 -->
       <div style="background:rgba(99,102,241,0.08); border-radius:8px; padding:10px 14px; margin-bottom:12px; border-left:3px solid #6366f1;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="color:rgba(255,255,255,0.5); font-size:12px;">▶ 当前播放</span>
@@ -314,7 +313,6 @@ export function getModals() {
         <div style="color:rgba(255,255,255,0.3); font-size:11px; margin-top:2px;">ID: <span id="currentPlaylistId">-</span></div>
       </div>
 
-      <!-- 歌单列表 -->
       <div style="margin-bottom:10px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="color:rgba(255,255,255,0.5); font-size:12px;">📋 我的歌单</span>
@@ -325,7 +323,6 @@ export function getModals() {
         </div>
       </div>
 
-      <!-- 添加歌单 -->
       <div style="border-top:1px solid rgba(255,255,255,0.06); padding-top:12px;">
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <input type="text" id="playlistNameInput" placeholder="歌单名称" style="flex:1; min-width:100px; padding:6px 10px; border:1px solid rgba(255,255,255,0.15); border-radius:6px; background:rgba(255,255,255,0.06); color:white; font-size:13px; outline:none;">
