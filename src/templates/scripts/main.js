@@ -854,6 +854,40 @@ function uploadRestore() {
 window.downloadBackup = downloadBackup;
 window.uploadRestore = uploadRestore;
 
-
+// ============ 歌单切换全局兜底 ============
+if (typeof window.switchPlaylist === 'undefined') {
+  window.switchPlaylist = function(id) {
+    if (id) {
+      localStorage.setItem('playlistId', id);
+      location.reload();
+    }
+  };
+}
+if (typeof window.PLAYLIST_DATA === 'undefined') {
+  window.PLAYLIST_DATA = [
+    { id: '14148542684', name: '默认歌单' },
+    { id: '3778678', name: '歌单2' },
+    { id: '123456789', name: '歌单3' },
+  ];
+}
+if (typeof window.togglePlaylistMenu === 'undefined') {
+  window.togglePlaylistMenu = function() {
+    var menu = document.getElementById('playlistMenu');
+    if (!menu) return;
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    if (menu.style.display === 'block') {
+      var list = window.PLAYLIST_DATA || [];
+      var current = localStorage.getItem('playlistId') || (list[0] ? list[0].id : '');
+      var html = '';
+      list.forEach(function(item) {
+        var isActive = (item.id === current);
+        html += '<div onclick="switchPlaylist(\'' + item.id + '\')" style="padding:8px 16px;color:' + (isActive ? '#10b981' : 'rgba(255,255,255,0.8)') + ';cursor:pointer;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.05);" onmouseover="this.style.background=\'rgba(255,255,255,0.1)\'" onmouseout="this.style.background=\'transparent\'">';
+        html += (isActive ? '✓ ' : '') + item.name;
+        html += '</div>';
+      });
+      menu.innerHTML = html;
+    }
+  };
+}
 </script>`;
 }
