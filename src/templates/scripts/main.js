@@ -864,26 +864,21 @@ function changeBackground() {
   const bgContainer = document.getElementById('bgContainer');
   if (!bgContainer) return;
   
-  fetch('https://pico.1356666.xyz/api/wallpaper?folder=sh')
-    .then(response => {
-      if (!response.ok) throw new Error('请求失败');
-      return response.blob();
-    })
-    .then(blob => {
-      const url = URL.createObjectURL(blob);
-      const img = document.createElement('img');
-      img.src = url;
-      img.className = 'background-slide active';
-      img.alt = 'bg-' + Date.now();
-      img.onload = function() {
-        bgContainer.innerHTML = '';
-        bgContainer.appendChild(img);
-        localStorage.setItem('customBg', url);
-      };
-    })
-    .catch(error => {
-      console.error('换背景失败:', error);
-    });
+  const url = 'https://pico.1356666.xyz/api/wallpaper?folder=sh?t=' + Date.now();
+  
+  const img = document.createElement('img');
+  img.src = url;
+  img.className = 'background-slide active';
+  img.alt = 'bg-' + Date.now();
+  img.onload = function() {
+    bgContainer.innerHTML = '';
+    bgContainer.appendChild(img);
+    localStorage.setItem('customBg', url);
+    console.log('背景更换成功');
+  };
+  img.onerror = function() {
+    console.error('图片加载失败');
+  };
 }
 
 function restoreBackground() {
@@ -897,6 +892,7 @@ function restoreBackground() {
       img.className = 'background-slide active';
       img.alt = 'bg-custom';
       bgContainer.appendChild(img);
+      console.log('恢复背景成功');
     }
   }
 }
