@@ -1,13 +1,4 @@
-import { 
-  handleHomePage, 
-  handleGetData, 
-  handleBackup, 
-  handleRestore,
-  handleGetPlaylists,
-  handleAddPlaylist,
-  handleDeletePlaylist,
-  handleSwitchPlaylist
-} from './ui.js';
+import { handleHomePage, handleGetData, handleBackup, handleRestore } from './ui.js';
 import { handleLogin } from './auth.js';
 import { 
   handleAddCategory, 
@@ -42,11 +33,6 @@ const routes = {
   'GET /pending-links': withAuth(handleGetPendingLinks),
   'POST /approve-link': withAuth(handleApproveLink),
   'POST /reject-link': withAuth(handleRejectLink),
-  // 歌单管理
-  'GET /get-playlists': withAuth(handleGetPlaylists),
-  'POST /add-playlist': withAuth(handleAddPlaylist),
-  'POST /delete-playlist': withAuth(handleDeletePlaylist),
-  'POST /switch-playlist': withAuth(handleSwitchPlaylist),
 };
 
 export function handleRoutes(request) {
