@@ -39,7 +39,7 @@ export function getPlayer() {
 </div>
 
 <!-- 右键菜单 -->
-<ul id="right-menu" style="position:fixed; display:none; z-index:99999; min-width:150px; background:rgba(255,255,255,0.12); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); color:#fff; border-radius:10px; box-shadow:0 8px 32px rgba(0,0,0,0.2); padding:2px 0; border:1.5px solid rgba(255,255,255,0.2);">
+<ul id="right-menu" style="position:fixed; display:none; z-index:99999; min-width:150px; background:rgba(255,255,255,0.12); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); color:#fff; border-radius:10px; box-shadow:0 8px 32px rgba(0,0,0,0.2); padding:2px 0; border:1.5px solid #10b981;">
   <li id="menu-play" style="list-style:none; padding:4px 12px; cursor:pointer; font-size:12.5px; color:#fff; transition:background 0.12s; border-radius:3px; margin:0 3px;">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> 播放/暂停
   </li>
