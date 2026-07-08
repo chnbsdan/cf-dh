@@ -266,15 +266,18 @@ export function getModals() {
       </div>
 
       <div style="margin-bottom:1.5rem; background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.10); border-radius:12px; padding:1.2rem;">
-        <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
-          <span class="iconify" data-icon="mdi:email-fast" style="color:#ef4444;"></span> 联系邮箱
-        </h4>
-        <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
-          <p style="background: rgba(239,68,68,0.06); padding: 0.8rem 1rem; border-radius: 8px; border-left: 4px solid #ef4444; color:#1e293b; font-weight:500;">
-            sfx@hangdn.com
-          </p>
-        </div>
-      </div>
+  <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
+    <span class="iconify" data-icon="mdi:email-fast" style="color:#ef4444;"></span> 联系邮箱
+  </h4>
+  <div style="color: #475569; line-height: 1.8; font-size: 0.95rem;">
+    <p style="background: rgba(239,68,68,0.06); padding: 0.8rem 1rem; border-radius: 8px; border-left: 4px solid #ef4444; color:#1e293b; font-weight:500;">
+      chnbsdan@gmail.com
+    </p>
+    <p style="margin-top: 0.5rem; color: #475569; font-weight:400;">
+      或留言：<a href="https://aoso.hangdn.com/guestbook" target="_blank" style="color: #6366f1; text-decoration: none; border-bottom: 1px dashed #6366f1; font-weight:500;">https://aoso.hangdn.com/guestbook</a>
+    </p>
+  </div>
+</div>
 
       <div style="background:rgba(99,102,241,0.04); border:1px solid rgba(99,102,241,0.08); border-radius:12px; padding:1.2rem;">
         <h4 style="color:#1e293b; margin-bottom:0.8rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;">
