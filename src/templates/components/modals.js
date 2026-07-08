@@ -166,35 +166,35 @@ export function getModals() {
         <input type="text" class="form-input search-input-lg" id="searchInput" placeholder="请输入搜索内容">
       </div>
       <div class="search-engines-grid">
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://www.baidu.com/s?word=&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://www.baidu.com/s?word=')">
           <span class="iconify" data-icon="simple-icons:baidu"></span>
           <span>百度</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://www.sogou.com/web?query=&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://www.sogou.com/web?query=')">
           <span class="iconify" data-icon="simple-icons:sogou"></span>
           <span>搜狗</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://cn.bing.com/search?q=&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://cn.bing.com/search?q=')">
           <span class="iconify" data-icon="simple-icons:microsoftbing"></span>
           <span>必应</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://www.zhihu.com/search?q=&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://www.zhihu.com/search?q=')">
           <span class="iconify" data-icon="simple-icons:zhihu"></span>
           <span>知乎</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://search.bilibili.com/all?keyword=&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://search.bilibili.com/all?keyword=')">
           <span class="iconify" data-icon="simple-icons:bilibili"></span>
           <span>哔哩哔哩</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://s.weibo.com/weibo/&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://s.weibo.com/weibo/')">
           <span class="iconify" data-icon="simple-icons:sinaweibo"></span>
           <span>微博</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://www.google.com/search?q=&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://www.google.com/search?q=')">
           <span class="iconify" data-icon="simple-icons:google"></span>
           <span>谷歌</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch(&quot;https://fanyi.baidu.com/#auto/zh/&quot;)">
+        <button class="search-engine-btn" onclick="performSearch('https://fanyi.baidu.com/')">
           <span class="iconify" data-icon="mdi:translate"></span>
           <span>翻译</span>
         </button>
