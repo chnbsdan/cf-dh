@@ -26,8 +26,8 @@ export function getBody() {
 
 ${getSidebar()}
 
-<div class="datetime-display" style="display:flex; flex-direction:column; align-items:center; gap:6px;">
-  <div>
+<div class="datetime-display" style="display:flex; flex-direction:column; align-items:center; gap:6px; position:relative;">
+  <div style="text-align:center;">
     <div id="currentDate" class="date-text"></div>
     <div id="currentTime" class="time-text"></div>
   </div>
@@ -44,6 +44,7 @@ ${getSidebar()}
       font-size:12px;
       outline:none;
       transition:all 0.3s;
+      box-sizing:border-box;
     " onfocus="this.style.borderColor='#f97316'; this.style.background='rgba(255,255,255,0.2)'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.background='rgba(255,255,255,0.1)'">
     <span style="position:absolute; right:8px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.4); font-size:12px;">🔍</span>
   </div>
