@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initDateTime();
   initBackToTop();
   initSidebar();
+  restoreBackground();
 });
 
 function setupEventListeners() {
@@ -387,8 +388,7 @@ function renderContent() {
         const escapedUrl = site.url.replace(/'/g, "\\\\'");
         const escapedIcon = site.icon.replace(/'/g, "\\\\'");
         
-        html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;">';
-        html += '<div class="site-card">';
+        html += '<div class="site-card" onclick="openSite(\\'' + escapedUrl + '\\')">';
         html += '<div class="site-icon">';
         
         if (site.icon.startsWith('http://') || site.icon.startsWith('https://') || 
@@ -415,7 +415,7 @@ function renderContent() {
           html += '</div>';
         }
         
-        html += '</div></a>';
+        html += '</div>';
       });
     } else {
       html += '<div class="empty-state" style="padding: 2rem; grid-column: 1 / -1;">';
@@ -429,6 +429,10 @@ function renderContent() {
   });
   
   contentEl.innerHTML = html;
+}
+
+function openSite(url) {
+  window.open(url, '_blank');
 }
 
 async function deleteCategory(categoryIndex) {
@@ -756,6 +760,7 @@ window.openAddSiteModal = openAddSiteModal;
 window.closeAddSiteModal = closeAddSiteModal;
 window.openEditSiteModal = openEditSiteModal;
 window.closeEditSiteModal = closeEditSiteModal;
+window.openSite = openSite;
 window.deleteCategory = deleteCategory;
 window.deleteSite = deleteSite;
 window.logout = logout;
@@ -853,6 +858,81 @@ function uploadRestore() {
 
 window.downloadBackup = downloadBackup;
 window.uploadRestore = uploadRestore;
+
+// ============ 换背景功能 ============
+function changeBackground() {
+  const bgContainer = document.getElementById('bgContainer');
+  if (!bgContainer) return;
+  
+  const btn = document.querySelector('.datetime-display button');
+  if (btn) {
+    btn.textContent = '⏳ 加载中...';
+    btn.disabled = true;
+  }
+  
+  fetch('https://pico.1356666.xyz/api/tg')
+    .then(response => {
+      if (!response.ok) throw new Error('请求失败');
+      return response.blob();
+    })
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      const img = document.createElement('img');
+      img.src = url;
+      img.className = 'background-slide active';
+      img.alt = 'bg-' + Date.now();
+      img.onload = function() {
+        bgContainer.innerHTML = '';
+        bgContainer.appendChild(img);
+        localStorage.setItem('customBg', url);
+        if (btn) {
+          btn.textContent = '✅ 已更换';
+          setTimeout(() => {
+            btn.textContent = '🖼️ 换背景';
+            btn.disabled = false;
+          }, 2000);
+        }
+      };
+      img.onerror = function() {
+        URL.revokeObjectURL(url);
+        if (btn) {
+          btn.textContent = '❌ 加载失败';
+          setTimeout(() => {
+            btn.textContent = '🖼️ 换背景';
+            btn.disabled = false;
+          }, 2000);
+        }
+      };
+    })
+    .catch(error => {
+      console.error('换背景失败:', error);
+      if (btn) {
+        btn.textContent = '❌ 请求失败';
+        setTimeout(() => {
+          btn.textContent = '🖼️ 换背景';
+          btn.disabled = false;
+        }, 2000);
+      }
+    });
+}
+
+function restoreBackground() {
+  const savedBg = localStorage.getItem('customBg');
+  if (savedBg) {
+    const bgContainer = document.getElementById('bgContainer');
+    if (bgContainer) {
+      bgContainer.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = savedBg;
+      img.className = 'background-slide active';
+      img.alt = 'bg-custom';
+      bgContainer.appendChild(img);
+    }
+  }
+}
+
+window.changeBackground = changeBackground;
+window.restoreBackground = restoreBackground;
 
 </script>`;
 }
