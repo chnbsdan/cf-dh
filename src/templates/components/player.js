@@ -11,12 +11,12 @@ export function getPlayer() {
   </div>
   
   <!-- 歌词内容 -->
-  <div id="lyrics-content" style="padding:8px 16px 6px 16px; min-height:50px; max-height:350px; overflow-y:auto; cursor:grab; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.2) transparent;">
-    <div id="floating-lyrics" style="text-align:left; color:#ff4500; font-weight:bold; text-shadow:0 2px 20px rgba(0,0,0,0.5);">
-      <div id="currentLine" style="font-size:24px; margin-bottom:4px; min-height:28px; line-height:1.4;"></div>
-      <div id="nextLine" style="font-size:14px; opacity:0.6; min-height:18px; color:inherit;"></div>
-    </div>
+<div id="lyrics-content" style="padding:8px 16px 6px 16px; min-height:50px; max-height:350px; overflow-y:hidden; cursor:grab;">
+  <div id="floating-lyrics" style="text-align:left; color:#ff4500; font-weight:bold; text-shadow:0 2px 20px rgba(0,0,0,0.5);">
+    <div id="currentLine" style="font-size:24px; margin-bottom:4px; min-height:28px; line-height:1.4;"></div>
+    <div id="nextLine" style="font-size:14px; opacity:0.6; min-height:18px; color:inherit;"></div>
   </div>
+</div>
   
   <!-- 底部粗线拖拽条 -->
   <div id="resize-handle" style="position:absolute; bottom:0; left:0; right:0; height:8px; cursor:nwse-resize; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; user-select:none; border-top:1px solid rgba(255,255,255,0.10);">
