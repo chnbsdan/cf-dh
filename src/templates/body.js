@@ -26,16 +26,9 @@ export function getBody() {
 
 ${getSidebar()}
 
-<div class="datetime-display" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;">
-  <div>
-    <div id="currentDate" class="date-text"></div>
-    <div id="currentTime" class="time-text"></div>
-  </div>
-  <div style="width:100%;position:relative;">
-    <input type="text" id="topSearchInput" placeholder="搜索网站..." style="width:100%;padding:4px 28px 4px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:rgba(255,255,255,0.1);color:white;font-size:12px;outline:none;transition:all 0.3s;box-sizing:border-box;" onfocus="this.style.borderColor='#f97316';this.style.background='rgba(255,255,255,0.2)'" onblur="this.style.borderColor='rgba(255,255,255,0.2)';this.style.background='rgba(255,255,255,0.1)'">
-    <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.4);font-size:12px;">🔍</span>
-  </div>
-  <div id="topSearchResults" style="display:none;position:absolute;top:100%;left:0;right:0;margin-top:4px;background:rgba(0,0,0,0.85);border-radius:8px;border:1px solid rgba(255,255,255,0.1);max-height:300px;overflow-y:auto;z-index:10000;min-width:200px;"></div>
+<div class="datetime-display">
+  <div id="currentDate" class="date-text"></div>
+  <div id="currentTime" class="time-text"></div>
 </div>
 
 ${getPlayer()}
@@ -53,12 +46,6 @@ ${getPlayer()}
       </button>
       <button class="btn btn-warning" onclick="openApproveLinksModal()" id="approveLinksBtn">
         <span class="iconify" data-icon="mdi:account-check"></span> 审批友链
-      </button>
-      <button class="btn" onclick="downloadBackup()" style="background:linear-gradient(135deg,#10b981,#059669);color:white;">
-        <span class="iconify" data-icon="mdi:download"></span> 备份数据
-      </button>
-      <button class="btn" onclick="uploadRestore()" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:white;">
-        <span class="iconify" data-icon="mdi:upload"></span> 恢复数据
       </button>
     </div>
   </div>
