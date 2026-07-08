@@ -387,8 +387,7 @@ function renderContent() {
         const escapedUrl = site.url.replace(/'/g, "\\\\'");
         const escapedIcon = site.icon.replace(/'/g, "\\\\'");
         
-        html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;">';
-        html += '<div class="site-card">';
+        html += '<div class="site-card" onclick="openSite(\\'' + escapedUrl + '\\')">';
         html += '<div class="site-icon">';
         
         if (site.icon.startsWith('http://') || site.icon.startsWith('https://') || 
@@ -415,7 +414,7 @@ function renderContent() {
           html += '</div>';
         }
         
-        html += '</div></a>';
+        html += '</div>';
       });
     } else {
       html += '<div class="empty-state" style="padding: 2rem; grid-column: 1 / -1;">';
@@ -429,6 +428,10 @@ function renderContent() {
   });
   
   contentEl.innerHTML = html;
+}
+
+function openSite(url) {
+  window.open(url, '_blank');
 }
 
 async function deleteCategory(categoryIndex) {
@@ -756,6 +759,7 @@ window.openAddSiteModal = openAddSiteModal;
 window.closeAddSiteModal = closeAddSiteModal;
 window.openEditSiteModal = openEditSiteModal;
 window.closeEditSiteModal = closeEditSiteModal;
+window.openSite = openSite;
 window.deleteCategory = deleteCategory;
 window.deleteSite = deleteSite;
 window.logout = logout;
@@ -853,6 +857,226 @@ function uploadRestore() {
 
 window.downloadBackup = downloadBackup;
 window.uploadRestore = uploadRestore;
+
+// ============ 歌单管理功能 ============
+let playlistData = [];
+let currentPlaylistId = '';
+
+function openPlaylistModal() {
+  const modal = document.getElementById('playlistModal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  loadPlaylists();
+}
+
+function closePlaylistModal() {
+  const modal = document.getElementById('playlistModal');
+  if (modal) modal.style.display = 'none';
+}
+
+async function loadPlaylists() {
+  try {
+    const response = await fetch('/get-playlists', {
+      headers: { 'Authorization': 'Bearer ' + authToken }
+    });
+    const result = await response.json();
+    
+    if (response.ok) {
+      playlistData = result.playlists || [];
+      currentPlaylistId = result.current || localStorage.getItem('playlistId') || '14148542684';
+      renderPlaylistList();
+      updateCurrentPlaylist();
+    }
+  } catch (error) {
+    console.error('加载歌单失败:', error);
+  }
+}
+
+function renderPlaylistList() {
+  const container = document.getElementById('playlistList');
+  const count = document.getElementById('playlistCount');
+  
+  if (!container) return;
+  
+  if (playlistData.length === 0) {
+    container.innerHTML = '<div style="text-align:center; padding:20px 0; color:rgba(255,255,255,0.3); font-size:13px;">暂无歌单，请添加</div>';
+    if (count) count.textContent = '0 个';
+    return;
+  }
+  
+  if (count) count.textContent = playlistData.length + ' 个';
+  
+  let html = '';
+  playlistData.forEach(function(item, index) {
+    const isActive = (item.id === currentPlaylistId);
+    html += '<div style="display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:6px; margin-bottom:4px; background:' + (isActive ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.03)') + '; border:1px solid ' + (isActive ? 'rgba(99,102,241,0.3)' : 'rgba(255,255,255,0.04)') + ';">';
+    html += '<span style="font-size:14px;">' + (isActive ? '▶' : '○') + '</span>';
+    html += '<span style="flex:1; color:' + (isActive ? '#fff' : 'rgba(255,255,255,0.6)') + '; font-size:13px; font-weight:' + (isActive ? '600' : '400') + ';">' + item.name + '</span>';
+    html += '<span style="color:rgba(255,255,255,0.25); font-size:10px;">' + item.id + '</span>';
+    html += '<button onclick="switchPlaylist(\'' + item.id + '\')" style="padding:3px 10px; background:' + (isActive ? 'rgba(16,185,129,0.2)' : 'rgba(99,102,241,0.15)') + '; border:1px solid ' + (isActive ? 'rgba(16,185,129,0.3)' : 'rgba(99,102,241,0.2)') + '; border-radius:4px; color:' + (isActive ? '#10b981' : 'rgba(255,255,255,0.6)') + '; cursor:pointer; font-size:11px;">' + (isActive ? '✓ 播放中' : '播放') + '</button>';
+    html += '<button onclick="deletePlaylist(' + index + ')" style="padding:3px 6px; background:rgba(239,68,68,0.1); border:none; border-radius:4px; color:rgba(239,68,68,0.5); cursor:pointer; font-size:11px;" title="删除">✕</button>';
+    html += '</div>';
+  });
+  
+  container.innerHTML = html;
+}
+
+function updateCurrentPlaylist() {
+  const nameEl = document.getElementById('currentPlaylistName');
+  const idEl = document.getElementById('currentPlaylistId');
+  
+  if (nameEl) {
+    const found = playlistData.find(function(item) { return item.id === currentPlaylistId; });
+    nameEl.textContent = found ? found.name : '默认歌单';
+  }
+  if (idEl) {
+    idEl.textContent = currentPlaylistId;
+  }
+}
+
+async function switchPlaylist(playlistId) {
+  if (!confirm('确定切换到该歌单吗？')) return;
+  
+  try {
+    const response = await fetch('/switch-playlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+      },
+      body: JSON.stringify({ playlistId: playlistId })
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      localStorage.setItem('playlistId', playlistId);
+      currentPlaylistId = playlistId;
+      showNotification('✅ 歌单切换成功！刷新页面...', 'success');
+      setTimeout(function() {
+        closePlaylistModal();
+        location.reload();
+      }, 1000);
+    } else {
+      showNotification('❌ 切换失败: ' + (result.error || '未知错误'), 'error');
+    }
+  } catch (error) {
+    showNotification('❌ 网络错误: ' + error.message, 'error');
+  }
+}
+
+async function addPlaylist() {
+  const nameInput = document.getElementById('playlistNameInput');
+  const idInput = document.getElementById('playlistIdInput');
+  const status = document.getElementById('playlistFormStatus');
+  
+  const name = nameInput ? nameInput.value.trim() : '';
+  const id = idInput ? idInput.value.trim() : '';
+  
+  if (!name) {
+    if (status) {
+      status.style.display = 'block';
+      status.style.color = '#ef4444';
+      status.textContent = '❌ 请输入歌单名称';
+    }
+    return;
+  }
+  
+  if (!id || !/^\d+$/.test(id)) {
+    if (status) {
+      status.style.display = 'block';
+      status.style.color = '#ef4444';
+      status.textContent = '❌ 请输入有效的歌单ID（数字）';
+    }
+    return;
+  }
+  
+  const exists = playlistData.some(function(item) { return item.id === id; });
+  if (exists) {
+    if (status) {
+      status.style.display = 'block';
+      status.style.color = '#f59e0b';
+      status.textContent = '⚠️ 该歌单已存在';
+    }
+    return;
+  }
+  
+  if (status) {
+    status.style.display = 'block';
+    status.style.color = '#f59e0b';
+    status.textContent = '⏳ 添加中...';
+  }
+  
+  try {
+    const response = await fetch('/add-playlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+      },
+      body: JSON.stringify({ name: name, id: id })
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      if (status) {
+        status.style.color = '#10b981';
+        status.textContent = '✅ 添加成功！';
+      }
+      if (nameInput) nameInput.value = '';
+      if (idInput) idInput.value = '';
+      loadPlaylists();
+      setTimeout(function() {
+        if (status) status.style.display = 'none';
+      }, 2000);
+    } else {
+      if (status) {
+        status.style.color = '#ef4444';
+        status.textContent = '❌ 添加失败: ' + (result.error || '未知错误');
+      }
+    }
+  } catch (error) {
+    if (status) {
+      status.style.color = '#ef4444';
+      status.textContent = '❌ 网络错误: ' + error.message;
+    }
+  }
+}
+
+async function deletePlaylist(index) {
+  const item = playlistData[index];
+  if (!item) return;
+  if (!confirm('确定删除歌单 "' + item.name + '" 吗？')) return;
+  
+  try {
+    const response = await fetch('/delete-playlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+      },
+      body: JSON.stringify({ playlistId: item.id })
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      showNotification('✅ 已删除: ' + item.name, 'success');
+      loadPlaylists();
+    } else {
+      showNotification('❌ 删除失败: ' + (result.error || '未知错误'), 'error');
+    }
+  } catch (error) {
+    showNotification('❌ 网络错误: ' + error.message, 'error');
+  }
+}
+
+window.openPlaylistModal = openPlaylistModal;
+window.closePlaylistModal = closePlaylistModal;
+window.switchPlaylist = switchPlaylist;
+window.addPlaylist = addPlaylist;
+window.deletePlaylist = deletePlaylist;
 
 </script>`;
 }
