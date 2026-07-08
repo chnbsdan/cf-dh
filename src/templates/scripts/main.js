@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initDateTime();
   initBackToTop();
   initSidebar();
+  setupTopSearch();  // ← 添加这一行
 });
 
 function setupEventListeners() {
@@ -861,6 +862,78 @@ function uploadRestore() {
 // 暴露全局
 window.downloadBackup = downloadBackup;
 window.uploadRestore = uploadRestore;
+
+// ============ 顶部搜索功能 ============
+function setupTopSearch() {
+  const input = document.getElementById('topSearchInput');
+  const resultsContainer = document.getElementById('topSearchResults');
+  if (!input || !resultsContainer) return;
+  
+  input.addEventListener('input', function() {
+    const keyword = this.value.trim().toLowerCase();
+    
+    if (!keyword) {
+      resultsContainer.style.display = 'none';
+      resultsContainer.innerHTML = '';
+      return;
+    }
+    
+    const results = [];
+    navigationData.categories.forEach(function(category) {
+      if (!category.sites) return;
+      category.sites.forEach(function(site) {
+        const nameMatch = site.name.toLowerCase().includes(keyword);
+        const urlMatch = site.url.toLowerCase().includes(keyword);
+        const hostnameMatch = site.url ? new URL(site.url).hostname.toLowerCase().includes(keyword) : false;
+        if (nameMatch || urlMatch || hostnameMatch) {
+          results.push({ categoryName: category.name, site: site });
+        }
+      });
+    });
+    
+    if (results.length === 0) {
+      resultsContainer.innerHTML = '<div style="padding:12px; color:rgba(255,255,255,0.4); text-align:center; font-size:12px;">没有找到结果</div>';
+      resultsContainer.style.display = 'block';
+      return;
+    }
+    
+    let html = '';
+    results.slice(0, 8).forEach(function(item) {
+      const site = item.site;
+      html += '<a href="' + site.url + '" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:10px; padding:8px 12px; text-decoration:none; color:rgba(255,255,255,0.85); border-bottom:1px solid rgba(255,255,255,0.05); transition:background 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'transparent\'">';
+      html += '<span style="font-size:14px;">';
+      if (site.icon && (site.icon.startsWith('http://') || site.icon.startsWith('https://'))) {
+        html += '<img src="' + site.icon + '" style="width:16px; height:16px; border-radius:4px; object-fit:contain;">';
+      } else {
+        html += '🌐';
+      }
+      html += '</span>';
+      html += '<span style="flex:1; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">' + site.name + '</span>';
+      html += '<span style="font-size:10px; color:rgba(255,255,255,0.3);">' + item.categoryName + '</span>';
+      html += '</a>';
+    });
+    
+    if (results.length > 8) {
+      html += '<div style="padding:8px 12px; color:rgba(255,255,255,0.3); text-align:center; font-size:11px;">还有 ' + (results.length - 8) + ' 个结果</div>';
+    }
+    
+    resultsContainer.innerHTML = html;
+    resultsContainer.style.display = 'block';
+  });
+  
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.datetime-display')) {
+      resultsContainer.style.display = 'none';
+    }
+  });
+  
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      this.blur();
+      resultsContainer.style.display = 'none';
+    }
+  });
+}
 
 </script>`;
 }
