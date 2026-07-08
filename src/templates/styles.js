@@ -1055,17 +1055,7 @@ export function getStyles() {
     left: 100%;
   }
 
-  #right-menu::after {
-    content: "";
-    position: absolute;
-    top: -8px;
-    left: var(--arrow-left, 24px);
-    transform: translateX(-50%);
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid rgba(255, 255, 255, 0.12);
-  }
-
+  
   #right-menu li:not(:last-child) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
