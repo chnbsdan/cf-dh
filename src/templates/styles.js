@@ -1143,5 +1143,152 @@ export function getStyles() {
       display: none;
     }
   }
+  /* ===== 歌单管理 ===== */
+  .playlist-current {
+    background: rgba(99,102,241,0.08);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border-left: 3px solid #6366f1;
+  }
+  .playlist-current-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .playlist-current-label {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+  }
+  .playlist-current-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .playlist-current-id {
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .playlist-header-label {
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+  }
+  .playlist-header-count {
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+  }
+  .playlist-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+  }
+  .playlist-item-active {
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+  }
+  .playlist-item-inactive {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .playlist-item-icon {
+    font-size: 14px;
+  }
+  .playlist-item-name {
+    flex: 1;
+    font-size: 13px;
+  }
+  .playlist-item-name-active {
+    color: #fff;
+    font-weight: 600;
+  }
+  .playlist-item-name-inactive {
+    color: rgba(255,255,255,0.6);
+    font-weight: 400;
+  }
+  .playlist-item-id {
+    color: rgba(255,255,255,0.25);
+    font-size: 10px;
+  }
+  .playlist-btn-play {
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(99,102,241,0.2);
+    cursor: pointer;
+    font-size: 11px;
+  }
+  .playlist-btn-play-active {
+    background: rgba(16,185,129,0.2);
+    border-color: rgba(16,185,129,0.3);
+    color: #10b981;
+  }
+  .playlist-btn-play-inactive {
+    background: rgba(99,102,241,0.15);
+    color: rgba(255,255,255,0.6);
+  }
+  .playlist-btn-delete {
+    padding: 3px 6px;
+    background: rgba(239,68,68,0.1);
+    border: none;
+    border-radius: 4px;
+    color: rgba(239,68,68,0.5);
+    cursor: pointer;
+    font-size: 11px;
+  }
+  .playlist-add {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 12px;
+  }
+  .playlist-add-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .playlist-add-input {
+    flex: 1;
+    min-width: 100px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    color: white;
+    font-size: 13px;
+    outline: none;
+  }
+  .playlist-add-btn {
+    padding: 6px 16px;
+    background: linear-gradient(135deg,#6366f1,#8b5cf6);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .playlist-status {
+    margin-top: 6px;
+    font-size: 12px;
+    text-align: center;
+    display: none;
+  }
+  .playlist-hint {
+    margin-top: 4px;
+    color: rgba(255,255,255,0.2);
+    font-size: 10px;
+  }
+  
 </style>`;
 }
