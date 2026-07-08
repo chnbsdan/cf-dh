@@ -387,7 +387,8 @@ function renderContent() {
         const escapedUrl = site.url.replace(/'/g, "\\\\'");
         const escapedIcon = site.icon.replace(/'/g, "\\\\'");
         
-        html += '<div class="site-card" onclick="openSite(\\'' + escapedUrl + '\\')">';
+        html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;">';
+        html += '<div class="site-card">';
         html += '<div class="site-icon">';
         
         if (site.icon.startsWith('http://') || site.icon.startsWith('https://') || 
@@ -414,7 +415,7 @@ function renderContent() {
           html += '</div>';
         }
         
-        html += '</div>';
+        html += '</div></a>';
       });
     } else {
       html += '<div class="empty-state" style="padding: 2rem; grid-column: 1 / -1;">';
@@ -428,10 +429,6 @@ function renderContent() {
   });
   
   contentEl.innerHTML = html;
-}
-
-function openSite(url) {
-  window.open(url, '_blank');
 }
 
 async function deleteCategory(categoryIndex) {
@@ -759,7 +756,6 @@ window.openAddSiteModal = openAddSiteModal;
 window.closeAddSiteModal = closeAddSiteModal;
 window.openEditSiteModal = openEditSiteModal;
 window.closeEditSiteModal = closeEditSiteModal;
-window.openSite = openSite;
 window.deleteCategory = deleteCategory;
 window.deleteSite = deleteSite;
 window.logout = logout;
