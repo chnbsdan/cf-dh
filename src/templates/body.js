@@ -73,14 +73,6 @@ ${getPlayer()}
   <button class="apply-link-btn" onclick="openApplyLinkModal()" title="申请友链">
     <span class="iconify" data-icon="mdi:link-plus"></span>
   </button>
-  
-  <!-- 歌单切换 -->
-  <div style="position:relative;">
-    <button class="apply-link-btn" onclick="togglePlaylistMenu()" title="切换歌单" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);">
-      <span class="iconify" data-icon="mdi:playlist-music"></span>
-    </button>
-    <div id="playlistMenu" style="display:none;position:absolute;bottom:45px;right:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(10px);border-radius:10px;padding:8px 0;min-width:140px;border:1px solid rgba(255,255,255,0.1);"></div>
-  </div>
 </div>
 
 ${getModals()}
