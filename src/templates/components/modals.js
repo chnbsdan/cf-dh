@@ -12,7 +12,7 @@ export function getModals() {
         <label class="form-label">密码</label>
         <input type="password" class="form-input" id="password" placeholder="请输入管理员密码" required>
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">
+      <button type="submit" class="btn btn-primary full-width-btn">
         <span class="iconify" data-icon="mdi:login"></span> 登录
       </button>
     </form>
@@ -33,9 +33,9 @@ export function getModals() {
       </div>
       <div class="form-group">
         <label class="form-label">主题颜色</label>
-        <input type="color" class="form-input" name="color" value="#6366f1" style="height:50px;">
+        <input type="color" class="form-input" name="color" value="#6366f1">
       </div>
-      <button type="submit" class="btn btn-success" style="width:100%;">
+      <button type="submit" class="btn btn-success full-width-btn">
         <span class="iconify" data-icon="mdi:check"></span> 添加分类
       </button>
     </form>
@@ -65,8 +65,9 @@ export function getModals() {
       <div class="form-group">
         <label class="form-label">图标代码</label>
         <input type="text" class="form-input" name="siteIcon" placeholder="例如: mdi:github" required>
+        <small class="form-hint">支持 Iconify 图标代码或外部图标链接</small>
       </div>
-      <button type="submit" class="btn btn-success" style="width:100%;">
+      <button type="submit" class="btn btn-success full-width-btn">
         <span class="iconify" data-icon="mdi:check"></span> 添加网站
       </button>
     </form>
@@ -99,7 +100,7 @@ export function getModals() {
         <label class="form-label">图标代码</label>
         <input type="text" class="form-input" name="siteIcon" id="editSiteIcon" required>
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">
+      <button type="submit" class="btn btn-primary full-width-btn">
         <span class="iconify" data-icon="mdi:content-save"></span> 保存修改
       </button>
     </form>
@@ -125,6 +126,7 @@ export function getModals() {
       <div class="form-group">
         <label class="form-label">图标代码</label>
         <input type="text" class="form-input" name="siteIcon" placeholder="例如: mdi:github" required>
+        <small class="form-hint">支持 Iconify 图标代码或外部图标链接</small>
       </div>
       <div class="form-group">
         <label class="form-label">网站描述</label>
@@ -134,7 +136,7 @@ export function getModals() {
         <label class="form-label">联系方式</label>
         <input type="text" class="form-input" name="contact" placeholder="邮箱或QQ等（可选）">
       </div>
-      <button type="submit" class="btn btn-success" style="width:100%;">
+      <button type="submit" class="btn btn-success full-width-btn">
         <span class="iconify" data-icon="mdi:send"></span> 提交申请
       </button>
     </form>
@@ -148,20 +150,20 @@ export function getModals() {
       <h3 class="modal-title">待审批友链</h3>
       <button class="close-btn" onclick="closeApproveLinksModal()">&times;</button>
     </div>
-    <div id="pendingLinksList"></div>
+    <div id="pendingLinksList" class="pending-list"></div>
   </div>
 </div>
 
 <!-- 搜索模态框 -->
 <div id="searchModal" class="modal">
-  <div class="modal-content" style="max-width:600px;">
+  <div class="modal-content modal-content-search">
     <div class="modal-header">
       <h3 class="modal-title">快速搜索</h3>
       <button class="close-btn" onclick="closeSearchModal()">&times;</button>
     </div>
     <div>
       <div class="form-group">
-        <input type="text" class="form-input" id="searchInput" placeholder="请输入搜索内容">
+        <input type="text" class="form-input search-input-lg" id="searchInput" placeholder="请输入搜索内容">
       </div>
       <div class="search-engines-grid">
         <button class="search-engine-btn" onclick="performSearch('https://www.baidu.com/s?word=')">
@@ -275,7 +277,7 @@ export function getModals() {
 
 <!-- 歌单管理模态框 -->
 <div id="playlistModal" class="modal">
-  <div class="modal-content" style="max-width:500px;">
+  <div class="modal-content modal-content-playlist">
     <div class="modal-header">
       <h3 class="modal-title">🎵 歌单管理</h3>
       <button class="close-btn" onclick="closePlaylistModal()">&times;</button>
@@ -295,7 +297,7 @@ export function getModals() {
           <span class="playlist-header-count" id="playlistCount">0 个</span>
         </div>
         <div class="playlist-list" id="playlistList">
-          <div style="text-align:center;padding:20px 0;color:rgba(255,255,255,0.3);font-size:13px;">暂无歌单，请添加</div>
+          <div class="playlist-empty">暂无歌单，请添加</div>
         </div>
       </div>
 
