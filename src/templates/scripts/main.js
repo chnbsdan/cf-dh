@@ -853,6 +853,8 @@ function uploadRestore() {
 
 window.downloadBackup = downloadBackup;
 window.uploadRestore = uploadRestore;
+window.switchPlaylist = switchPlaylist;
+window.PLAYLIST_DATA = PLAYLIST_DATA;
 
 </script>`;
 }
