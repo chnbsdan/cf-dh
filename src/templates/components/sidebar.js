@@ -32,20 +32,20 @@ export function getSidebar() {
   <ul class="category-list" id="categoryList"></ul>
   
   <!-- 底部链接 - 使用 Iconify 图标 -->
-  <div style="position:absolute; bottom:5px; left:0; right:0; padding:0 16px; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px;">
-    <a href="https://aoso.hangdn.com" target="_blank" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
-      <span class="iconify" data-icon="mdi:newspaper-variant-outline" style="font-size:18px;"></span>
-      Blog
-    </a>
-    <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
-      <span class="iconify" data-icon="mdi:github" style="font-size:18px;"></span>
-      GitHub
-    </a>
-    <a href="javascript:void(0)" onclick="openSidebarAbout()" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
-      <span class="iconify" data-icon="mdi:information-outline" style="font-size:18px;"></span>
-      About
-    </a>
-  </div>
+  <div style="position:absolute; bottom:10px; left:0; right:0; padding:0 16px; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px; display:flex; flex-direction:column; align-items:center;">
+  <a href="https://aoso.hangdn.com" target="_blank" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s; width:100%; justify-content:center;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
+    <span class="iconify" data-icon="mdi:newspaper-variant-outline" style="font-size:18px;"></span>
+    Blog
+  </a>
+  <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s; width:100%; justify-content:center;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
+    <span class="iconify" data-icon="mdi:github" style="font-size:18px;"></span>
+    GitHub
+  </a>
+  <a href="javascript:void(0)" onclick="openSidebarAbout()" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s; width:100%; justify-content:center;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
+    <span class="iconify" data-icon="mdi:information-outline" style="font-size:18px;"></span>
+    About
+  </a>
+</div>
 </div>
 
 <button class="sidebar-toggle" id="sidebarToggle" title="显示/隐藏分类菜单">
