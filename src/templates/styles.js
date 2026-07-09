@@ -415,7 +415,7 @@ export function getStyles() {
 
    /* 分类容器 - 降低透明度（更不透明） */
   .category {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.2);
