@@ -529,7 +529,7 @@ export function getStyles() {
   /* ===== 网站名称 - 更小 ===== */
   .site-name {
   font-weight: 600;
-  color: #1a1a2e;
+  color: #64748b;
   margin-bottom: 0.2rem;
   font-size: 0.78rem;
   text-shadow: none;
