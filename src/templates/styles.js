@@ -166,24 +166,24 @@ export function getStyles() {
   }
 
   .category-item {
-    padding: 10px 15px;
-    color: #64748b;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-  }
+  padding: 10px 15px;
+  color: #1a1a2e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
 
   .category-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #f97316;
-    border-left-color: var(--primary-color);
-  }
+  background: rgba(255, 255, 255, 0.1);
+  color: #f97316;
+  border-left-color: var(--primary-color);
+}
 
-  .category-item.active {
+.category-item.active {
   background: rgba(255, 255, 255, 0.15);
   color: #1a1a2e;
   border-left-color: var(--primary-color);
