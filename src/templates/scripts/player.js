@@ -23,20 +23,21 @@ let currentLyric = '';
 let lyricsVisible = false;
 let isDragging = false;
 
-// ============ 歌词窗口拖动功能（整个窗口可拖，除了按钮） ============
+// ============ 歌词窗口拖动功能（支持鼠标 + 触摸） ============
 function initDrag() {
   const headerEl = document.getElementById('lyrics-header');
   const contentEl = document.getElementById('lyrics-content');
   let startX, startY, origLeft, origTop;
   
-  // 整个窗口的拖动
   function onDragStart(e) {
-    // 如果点击的是按钮或输入框，不触发拖动
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
     
     isDragging = true;
-    startX = e.clientX;
-    startY = e.clientY;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    startX = clientX;
+    startY = clientY;
     origLeft = parseInt(lyricsWindow.style.left) || 100;
     origTop = parseInt(lyricsWindow.style.top) || 100;
     
@@ -47,15 +48,14 @@ function initDrag() {
     e.preventDefault();
   }
 
-  // 鼠标按下时触发拖动
-  lyricsWindow.addEventListener('mousedown', onDragStart);
-
-  // 鼠标移动时更新位置
-  document.addEventListener('mousemove', function(e) {
+  function onDragMove(e) {
     if (!isDragging) return;
     
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    const dx = clientX - startX;
+    const dy = clientY - startY;
     
     let newLeft = origLeft + dx;
     let newTop = origTop + dy;
@@ -67,10 +67,11 @@ function initDrag() {
     
     lyricsWindow.style.left = newLeft + 'px';
     lyricsWindow.style.top = newTop + 'px';
-  });
+    
+    e.preventDefault();
+  }
 
-  // 鼠标松开时停止拖动
-  document.addEventListener('mouseup', function() {
+  function onDragEnd(e) {
     if (isDragging) {
       isDragging = false;
       lyricsWindow.style.cursor = 'default';
@@ -78,7 +79,17 @@ function initDrag() {
       if (headerEl) headerEl.style.cursor = 'grab';
       if (contentEl) contentEl.style.cursor = 'grab';
     }
-  });
+  }
+
+  // 鼠标事件
+  lyricsWindow.addEventListener('mousedown', onDragStart);
+  document.addEventListener('mousemove', onDragMove);
+  document.addEventListener('mouseup', onDragEnd);
+
+  // 触摸事件（移动端）
+  lyricsWindow.addEventListener('touchstart', onDragStart, { passive: false });
+  document.addEventListener('touchmove', onDragMove, { passive: false });
+  document.addEventListener('touchend', onDragEnd);
 }
 
 // ============ 歌词窗口调整大小（底部粗线） ============
