@@ -1067,16 +1067,16 @@ export function getStyles() {
 
   /* ===== 响应式 ===== */
   @media (max-width:900px) {
-    #music-capsule {
-      left: 18px;
-      bottom: 22px;
-    }
-    #player-wrap {
-      left: 12px;
-      bottom: 84px;
-      width: calc(100% - 24px);
-    }
+  #music-capsule {
+    right: 18px;
+    bottom: 22px;
   }
+  #player-wrap {
+    right: 12px;
+    bottom: 84px;
+    width: calc(100% - 24px);
+  }
+}
 
   /* ===== 移动端卡片适配 ===== */
   @media (max-width: 600px) {
