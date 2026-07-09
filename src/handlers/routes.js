@@ -17,6 +17,8 @@ import {
 } from './links.js';
 import { withAuth } from './auth.js';
 import { handleNotFound } from '../utils/response.js';
+// 在 import 中添加
+import { handleAbout } from './ui.js';
 
 const routes = {
   'GET /': handleHomePage,
@@ -33,6 +35,8 @@ const routes = {
   'GET /pending-links': withAuth(handleGetPendingLinks),
   'POST /approve-link': withAuth(handleApproveLink),
   'POST /reject-link': withAuth(handleRejectLink),
+    // 在 routes 中添加
+  'GET /about': handleAbout,
 };
 
 export function handleRoutes(request) {
