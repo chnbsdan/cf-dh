@@ -528,15 +528,15 @@ export function getStyles() {
 
   /* ===== 网站名称 - 更小 ===== */
   .site-name {
-    font-weight: 600;
-    color: white;
-    margin-bottom: 0.2rem;
-    font-size: 0.78rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 0.2rem;
+  font-size: 0.78rem;
+  text-shadow: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
   /* ===== 网站地址 - 更小 ===== */
   /*
