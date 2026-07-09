@@ -109,7 +109,7 @@ export async function handleAbout(request) {
       box-sizing:border-box;
     }
     .about-card {
-      background:rgba(255,255,255,0.10);
+      background:rgba(255,255,255,0.30);
       backdrop-filter:blur(20px);
       border-radius:20px;
       padding:40px 48px;
