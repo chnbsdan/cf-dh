@@ -52,6 +52,8 @@ function setupEventListeners() {
 
   window.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) {
+      // 如果有 data-keep 属性，不关闭
+      if (e.target.getAttribute('data-keep') === 'true') return;
       e.target.style.display = 'none';
     }
   });
@@ -578,8 +580,18 @@ function closeAboutModal() {
 
 function openSearchModal() {
   const modal = document.getElementById('searchModal');
+  modal.removeAttribute('data-keep');
   modal.style.display = 'flex';
   document.getElementById('searchInput').focus();
+}
+
+function openSearchModalKeep() {
+  const modal = document.getElementById('searchModal');
+  if (!modal) return;
+  modal.setAttribute('data-keep', 'true');
+  modal.style.display = 'flex';
+  const input = document.getElementById('searchInput');
+  if (input) setTimeout(function() { input.focus(); }, 100);
 }
 
 function closeSearchModal() {
@@ -773,6 +785,7 @@ window.rejectLink = rejectLink;
 window.openAboutModal = openAboutModal;
 window.closeAboutModal = closeAboutModal;
 window.openSearchModal = openSearchModal;
+window.openSearchModalKeep = openSearchModalKeep;
 window.closeSearchModal = closeSearchModal;
 window.performSearch = performSearch;
 window.scrollToTop = scrollToTop;
