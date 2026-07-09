@@ -95,32 +95,38 @@ export async function handleAbout(request) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>关于本站</title>
   <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.all.min.js"></script>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       margin:0;
-      background:rgba(0,0,0,0.6);
-      backdrop-filter:blur(8px);
+      background:rgba(0,0,0,0.4);
+      backdrop-filter:blur(12px);
       display:flex;
       align-items:center;
       justify-content:center;
       min-height:100vh;
       font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      padding:20px;
+      padding:30px 20px;
       box-sizing:border-box;
     }
     .about-card {
-      background:rgba(255,255,255,0.50);
-      backdrop-filter:blur(20px);
+      background:rgba(255,255,255,0.10);
+      backdrop-filter:blur(24px);
       border-radius:20px;
       padding:40px 48px;
-      max-width:600px;
+      max-width:680px;
       width:100%;
-      max-height:85vh;
+      max-height:90vh;
       overflow-y:auto;
       border:1px solid rgba(255,255,255,0.12);
       box-shadow:0 20px 60px rgba(0,0,0,0.3);
       position:relative;
-      color:rgba(255,255,255,0.85);
+      color:rgba(255,255,255,0.9);
       line-height:1.8;
       font-size:14px;
     }
@@ -136,14 +142,15 @@ export async function handleAbout(request) {
     }
     .close-btn {
       position:absolute;
-      top:12px;
-      right:16px;
+      top:14px;
+      right:18px;
       background:none;
       border:none;
       color:rgba(255,255,255,0.4);
-      font-size:24px;
+      font-size:26px;
       cursor:pointer;
       transition:color 0.3s;
+      z-index:10;
     }
     .close-btn:hover {
       color:#fff;
@@ -190,12 +197,12 @@ export async function handleAbout(request) {
     }
     .section p, .section li {
       margin:4px 0;
-      color:rgba(255,255,255,0.75);
+      color:rgba(255,255,255,0.8);
     }
     .section ul {
       margin:6px 0 6px 18px;
       padding:0;
-      color:rgba(255,255,255,0.75);
+      color:rgba(255,255,255,0.8);
     }
     .section ul li {
       margin:2px 0;
@@ -214,10 +221,6 @@ export async function handleAbout(request) {
     .tag-green {
       background:rgba(16,185,129,0.15);
       color:#10b981;
-    }
-    .tag-purple {
-      background:rgba(99,102,241,0.15);
-      color:#a5b4fc;
     }
     .tag-orange {
       background:rgba(245,158,11,0.15);
@@ -238,8 +241,57 @@ export async function handleAbout(request) {
       background:rgba(255,255,255,0.12);
       color:#fff;
     }
-    .link-btn i {
-      margin-right:4px;
+    .twikoo-wrap {
+      margin-top:8px;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    .twikoo-wrap .tk-comments {
+      color:rgba(255,255,255,0.85);
+    }
+    .twikoo-wrap .tk-input {
+      background:rgba(255,255,255,0.06) !important;
+      border:1px solid rgba(255,255,255,0.1) !important;
+      color:#fff !important;
+      border-radius:8px !important;
+    }
+    .twikoo-wrap .tk-input:focus {
+      border-color:#10b981 !important;
+      background:rgba(255,255,255,0.1) !important;
+    }
+    .twikoo-wrap .tk-submit {
+      background:#10b981 !important;
+      border:none !important;
+      color:#fff !important;
+      border-radius:6px !important;
+      padding:6px 18px !important;
+    }
+    .twikoo-wrap .tk-submit:hover {
+      background:#059669 !important;
+    }
+    .twikoo-wrap .tk-comment {
+      background:rgba(255,255,255,0.04);
+      border-radius:8px;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .twikoo-wrap .tk-comment .tk-nick {
+      color:#10b981 !important;
+      font-weight:600;
+    }
+    .twikoo-wrap .tk-comment .tk-time {
+      color:rgba(255,255,255,0.3);
+      font-size:12px;
+    }
+    .twikoo-wrap .tk-comment .tk-content {
+      color:rgba(255,255,255,0.8);
+    }
+    .twikoo-wrap .tk-reply {
+      color:rgba(255,255,255,0.3);
+      font-size:12px;
+    }
+    .twikoo-wrap .tk-reply:hover {
+      color:#10b981;
     }
   </style>
 </head>
@@ -258,20 +310,20 @@ export async function handleAbout(request) {
       <p>感谢来访，本站致力于简洁高效的上网导航和搜索入口，安全快捷。</p>
       <p>搜索入口正常网页中看不到，为隐藏设计，需要用鼠标点击本站LOGO图标就会弹出搜索框。</p>
       <p>如果您喜欢我们的网站，请将本站添加到收藏夹（快捷键Ctrl+D），并设为浏览器主页，方便您的下次访问，感谢支持。</p>
-      <p style="margin-top:8px;color:rgba(255,255,255,0.5);font-size:13px;font-style:italic;">希望能成为你的主页的导航站~</p>
+      <p style="margin-top:8px;color:rgba(255,255,255,0.4);font-size:13px;font-style:italic;">希望能成为你的主页的导航站~</p>
     </div>
 
     <div class="section">
       <h4><span class="iconify" data-icon="mdi:shield-check" style="font-size:18px;"></span> 本站承诺</h4>
       <p><span class="highlight">✅ 绝对不会收集用户的隐私信息</span></p>
       <p>区别于部分导航网站，本站链接直接跳转目标，不会对链接处理再后跳转，不会收集用户的隐藏信息，包括但不限于点击记录、访问记录和搜索记录，请放心使用。</p>
-      <p style="margin-top:6px;font-size:13px;color:rgba(255,255,255,0.5);">没有广告和推广，没有SEO更没有浪费时间的二次跳转</p>
+      <p style="margin-top:6px;font-size:13px;color:rgba(255,255,255,0.4);">没有广告和推广，没有SEO更没有浪费时间的二次跳转</p>
     </div>
 
     <div class="section">
       <h4><span class="iconify" data-icon="mdi:link-plus" style="font-size:18px;"></span> 申请收录</h4>
       <p>本站可以直接申请友链，填写表单后提交，管理员后台审核批准后就可以显示在导航上。</p>
-      <p style="font-size:13px;color:rgba(255,255,255,0.5);">收录标准：<span class="tag tag-green">有用</span> <span class="tag tag-orange">有趣</span></p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.4);">收录标准：<span class="tag tag-green">有用</span> <span class="tag tag-orange">有趣</span></p>
       <p style="margin-top:4px;">请点击右下角的 <span class="highlight">申请友链按钮</span> 进行申请。</p>
     </div>
 
@@ -286,7 +338,7 @@ export async function handleAbout(request) {
         <li>收录加急处理</li>
         <li>链接删除</li>
       </ul>
-      <p style="margin-top:6px;font-size:13px;color:rgba(255,255,255,0.5);">意见反馈 &amp; 好站推荐 务必联系我们 👇</p>
+      <p style="margin-top:6px;font-size:13px;color:rgba(255,255,255,0.4);">意见反馈 &amp; 好站推荐 务必联系我们 👇</p>
       <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:8px;">
         <a href="mailto:chnbsdan@gmail.com" class="link-btn"><span class="iconify" data-icon="mdi:email" style="vertical-align:middle;"></span> chnbsdan@gmail.com</a>
         <a href="https://t.me/ben_mesa" target="_blank" class="link-btn"><span class="iconify" data-icon="mdi:telegram" style="vertical-align:middle;"></span> Telegram</a>
@@ -295,23 +347,36 @@ export async function handleAbout(request) {
 
     <div class="section">
       <h4><span class="iconify" data-icon="mdi:heart-outline" style="font-size:18px;"></span> 致谢</h4>
-      <p style="font-size:13px;color:rgba(255,255,255,0.5);">本站个人导航现已开源</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.4);">本站个人导航现已开源</p>
       <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="color:#10b981;text-decoration:none;font-weight:500;">🎉 https://github.com/chnbsdan/cf-dh</a>
     </div>
 
     <div class="section" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
-      <h4><span class="iconify" data-icon="mdi:lightbulb-outline" style="font-size:18px;"></span> 使用贴士</h4>
-      <ul style="font-size:13px;color:rgba(255,255,255,0.6);">
-        <li>热门站点单纯根据点击量排名的，朴实无华且枯燥</li>
-        <li>工具直达是特地收集的在线工具网站，应该会有些用</li>
-        <li>点击导航项图标即可进入详情页（可以查看更详细的介绍，比如地址发布页，附加资源等），点击其他位置则会直接跳转</li>
-      </ul>
+      <h4><span class="iconify" data-icon="mdi:chat-outline" style="font-size:18px;"></span> 留言板</h4>
+      <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:8px;">欢迎留言交流，提出建议或反馈问题。</p>
+      <div id="twikoo" class="twikoo-wrap"></div>
     </div>
 
-    <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;color:rgba(255,255,255,0.2);font-size:11px;">
+    <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;color:rgba(255,255,255,0.15);font-size:11px;">
       Made with ❤️ by Hangdn
     </div>
   </div>
+
+  <script>
+    // 初始化 Twikoo 评论
+    document.addEventListener('DOMContentLoaded', function() {
+      twikoo.init({
+        el: '#twikoo',
+        envId: 'twikoo.hangdn.com',
+        region: 'ap-guangzhou',
+        lang: 'zh-CN',
+        path: window.location.pathname,
+        onCommentLoaded: function() {
+          console.log('Twikoo 评论加载完成');
+        }
+      });
+    });
+  </script>
 </body>
 </html>`;
 
