@@ -204,9 +204,29 @@ export function getModals() {
           <span class="iconify" data-icon="simple-icons:google" style="font-size: 2rem;"></span>
           <span>谷歌</span>
         </button>
+        <button class="search-engine-btn" onclick="performSearch('https://www.youtube.com/results?search_query=')">
+          <span class="iconify" data-icon="simple-icons:youtube" style="font-size: 2rem;"></span>
+          <span>油管</span>
+        </button>
         <button class="search-engine-btn" onclick="performSearch('https://fanyi.baidu.com/#auto/zh/')">
           <span class="iconify" data-icon="mdi:translate" style="font-size: 2rem;"></span>
-          <span>翻译</span>
+          <span>百度翻译</span>
+        </button>
+        <button class="search-engine-btn" onclick="performSearch('https://translate.google.com/?sl=auto&tl=zh-CN&text=')">
+          <span class="iconify" data-icon="simple-icons:googletranslate" style="font-size: 2rem;"></span>
+          <span>谷歌翻译</span>
+        </button>
+        <button class="search-engine-btn" onclick="performSearch('https://www.deepl.com/translator#auto/zh/')">
+          <span class="iconify" data-icon="simple-icons:deepl" style="font-size: 2rem;"></span>
+          <span>DeepL</span>
+        </button>
+        <button class="search-engine-btn" onclick="performSearch('https://www.gushi.cn/search?keyword=')">
+          <span class="iconify" data-icon="mdi:book-open-page-variant" style="font-size: 2rem;"></span>
+          <span>古诗文</span>
+        </button>
+        <button class="search-engine-btn" onclick="performSearch('https://www.wikipedia.org/w/index.php?search=')">
+          <span class="iconify" data-icon="simple-icons:wikipedia" style="font-size: 2rem;"></span>
+          <span>维基百科</span>
         </button>
       </div>
     </div>
