@@ -386,39 +386,40 @@ function renderContent() {
     
     if (category.sites && category.sites.length > 0) {
       category.sites.forEach((site, siteIndex) => {
-        const escapedName = site.name.replace(/'/g, "\\\\'");
-        const escapedUrl = site.url.replace(/'/g, "\\\\'");
-        const escapedIcon = site.icon.replace(/'/g, "\\\\'");
-        
-        html += '<div class="site-card" onclick="openSite(\\'' + escapedUrl + '\\')">';
-        html += '<div class="site-icon">';
-        
-        if (site.icon.startsWith('http://') || site.icon.startsWith('https://') || 
-            site.icon.endsWith('.ico') || site.icon.endsWith('.png') || 
-            site.icon.endsWith('.jpg') || site.icon.endsWith('.svg') ||
-            site.icon.endsWith('.jpeg') || site.icon.endsWith('.gif')) {
-          html += '<img src="' + site.icon + '" alt="' + escapedName + '">';
-        } else {
-          html += '<span class="iconify" data-icon="' + escapedIcon + '"></span>';
-        }
-        
-        html += '</div>';
-        html += '<div class="site-name">' + site.name + '</div>';
-        html += '<div class="site-url">' + new URL(site.url).hostname + '</div>';
-        
-        if (authToken) {
-          html += '<div class="site-actions">';
-          html += '<button class="icon-btn" onclick="event.stopPropagation(); openEditSiteModal(' + categoryIndex + ', ' + siteIndex + ')" title="编辑">';
-          html += '<span class="iconify" data-icon="mdi:pencil"></span>';
-          html += '</button>';
-          html += '<button class="icon-btn" onclick="event.stopPropagation(); deleteSite(' + categoryIndex + ', ' + siteIndex + ')" title="删除">';
-          html += '<span class="iconify" data-icon="mdi:delete"></span>';
-          html += '</button>';
-          html += '</div>';
-        }
-        
-        html += '</div>';
-      });
+  const escapedName = site.name.replace(/'/g, "\\\\'");
+  const escapedUrl = site.url.replace(/'/g, "\\\\'");
+  const escapedIcon = site.icon.replace(/'/g, "\\\\'");
+  
+  html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;">';
+  html += '<div class="site-card">';
+  html += '<div class="site-icon">';
+  
+  if (site.icon.startsWith('http://') || site.icon.startsWith('https://') || 
+      site.icon.endsWith('.ico') || site.icon.endsWith('.png') || 
+      site.icon.endsWith('.jpg') || site.icon.endsWith('.svg') ||
+      site.icon.endsWith('.jpeg') || site.icon.endsWith('.gif')) {
+    html += '<img src="' + site.icon + '" alt="' + escapedName + '">';
+  } else {
+    html += '<span class="iconify" data-icon="' + escapedIcon + '"></span>';
+  }
+  
+  html += '</div>';
+  html += '<div class="site-name">' + site.name + '</div>';
+  html += '<div class="site-url">' + new URL(site.url).hostname + '</div>';
+  
+  if (authToken) {
+    html += '<div class="site-actions">';
+    html += '<button class="icon-btn" onclick="event.stopPropagation(); openEditSiteModal(' + categoryIndex + ', ' + siteIndex + ')" title="编辑">';
+    html += '<span class="iconify" data-icon="mdi:pencil"></span>';
+    html += '</button>';
+    html += '<button class="icon-btn" onclick="event.stopPropagation(); deleteSite(' + categoryIndex + ', ' + siteIndex + ')" title="删除">';
+    html += '<span class="iconify" data-icon="mdi:delete"></span>';
+    html += '</button>';
+    html += '</div>';
+  }
+  
+  html += '</div></a>';
+});
     } else {
       html += '<div class="empty-state" style="padding: 2rem; grid-column: 1 / -1;">';
       html += '<span class="iconify" data-icon="mdi:web"></span>';
