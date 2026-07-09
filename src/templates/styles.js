@@ -1069,11 +1069,11 @@ export function getStyles() {
   @media (max-width:900px) {
   #music-capsule {
     right: 18px;
-    bottom: 22px;
+    bottom: 70px;  /* 改这里，数值越大越高 */
   }
   #player-wrap {
     right: 12px;
-    bottom: 84px;
+    bottom: 66px;  /* 改这里，数值越大越高 */
     width: calc(100% - 24px);
   }
 }
