@@ -52,7 +52,6 @@ function setupEventListeners() {
 
   window.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) {
-      // 如果有 data-keep 属性，不关闭
       if (e.target.getAttribute('data-keep') === 'true') return;
       e.target.style.display = 'none';
     }
@@ -240,6 +239,23 @@ async function handleEditSiteSubmit(e) {
   const siteUrl = document.getElementById('editSiteUrl').value;
   const siteIcon = document.getElementById('editSiteIcon').value;
 
+  if (!siteName || !siteUrl || !siteIcon) {
+    showNotification('所有字段均为必填', 'error');
+    return;
+  }
+
+  try {
+    new URL(siteUrl);
+  } catch {
+    showNotification('无效的URL格式', 'error');
+    return;
+  }
+
+  if (!navigationData.categories[currentCategoryIndex] || !navigationData.categories[currentCategoryIndex].sites[siteIndex]) {
+    showNotification('网站数据不存在', 'error');
+    return;
+  }
+
   const data = {
     categoryIndex: categoryIndex,
     siteIndex: siteIndex,
@@ -386,40 +402,39 @@ function renderContent() {
     
     if (category.sites && category.sites.length > 0) {
       category.sites.forEach((site, siteIndex) => {
-  const escapedName = site.name.replace(/'/g, "\\\\'");
-  const escapedUrl = site.url.replace(/'/g, "\\\\'");
-  const escapedIcon = site.icon.replace(/'/g, "\\\\'");
-  
-  html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;">';
-  html += '<div class="site-card">';
-  html += '<div class="site-icon">';
-  
-  if (site.icon.startsWith('http://') || site.icon.startsWith('https://') || 
-      site.icon.endsWith('.ico') || site.icon.endsWith('.png') || 
-      site.icon.endsWith('.jpg') || site.icon.endsWith('.svg') ||
-      site.icon.endsWith('.jpeg') || site.icon.endsWith('.gif')) {
-    html += '<img src="' + site.icon + '" alt="' + escapedName + '">';
-  } else {
-    html += '<span class="iconify" data-icon="' + escapedIcon + '"></span>';
-  }
-  
-  html += '</div>';
-  html += '<div class="site-name">' + site.name + '</div>';
-  // html += '<div class="site-url">' + new URL(site.url).hostname + '</div>';
-  
-  if (authToken) {
-    html += '<div class="site-actions">';
-    html += '<button class="icon-btn" onclick="event.stopPropagation(); openEditSiteModal(' + categoryIndex + ', ' + siteIndex + ')" title="编辑">';
-    html += '<span class="iconify" data-icon="mdi:pencil"></span>';
-    html += '</button>';
-    html += '<button class="icon-btn" onclick="event.stopPropagation(); deleteSite(' + categoryIndex + ', ' + siteIndex + ')" title="删除">';
-    html += '<span class="iconify" data-icon="mdi:delete"></span>';
-    html += '</button>';
-    html += '</div>';
-  }
-  
-  html += '</div></a>';
-});
+        const escapedName = site.name.replace(/'/g, "\\\\'");
+        const escapedUrl = site.url.replace(/'/g, "\\\\'");
+        const escapedIcon = site.icon.replace(/'/g, "\\\\'");
+        
+        html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;">';
+        html += '<div class="site-card">';
+        html += '<div class="site-icon">';
+        
+        if (site.icon.startsWith('http://') || site.icon.startsWith('https://') || 
+            site.icon.endsWith('.ico') || site.icon.endsWith('.png') || 
+            site.icon.endsWith('.jpg') || site.icon.endsWith('.svg') ||
+            site.icon.endsWith('.jpeg') || site.icon.endsWith('.gif')) {
+          html += '<img src="' + site.icon + '" alt="' + escapedName + '">';
+        } else {
+          html += '<span class="iconify" data-icon="' + escapedIcon + '"></span>';
+        }
+        
+        html += '</div>';
+        html += '<div class="site-name">' + site.name + '</div>';
+        
+        if (authToken) {
+          html += '<div class="site-actions">';
+          html += '<button class="icon-btn" onclick="event.preventDefault(); event.stopPropagation(); openEditSiteModal(' + categoryIndex + ', ' + siteIndex + ')" title="编辑">';
+          html += '<span class="iconify" data-icon="mdi:pencil"></span>';
+          html += '</button>';
+          html += '<button class="icon-btn" onclick="event.preventDefault(); event.stopPropagation(); deleteSite(' + categoryIndex + ', ' + siteIndex + ')" title="删除">';
+          html += '<span class="iconify" data-icon="mdi:delete"></span>';
+          html += '</button>';
+          html += '</div>';
+        }
+        
+        html += '</div></a>';
+      });
     } else {
       html += '<div class="empty-state" style="padding: 2rem; grid-column: 1 / -1;">';
       html += '<span class="iconify" data-icon="mdi:web"></span>';
@@ -432,10 +447,6 @@ function renderContent() {
   });
   
   contentEl.innerHTML = html;
-}
-
-function openSite(url) {
-  window.open(url, '_blank');
 }
 
 async function deleteCategory(categoryIndex) {
@@ -542,7 +553,9 @@ function openEditSiteModal(categoryIndex, siteIndex) {
       const option = document.createElement('option');
       option.value = index;
       option.textContent = category.name;
-      if (index === categoryIndex) option.selected = true;
+      if (index === categoryIndex) {
+        option.selected = true;
+      }
       categorySelect.appendChild(option);
     });
   }
@@ -773,7 +786,6 @@ window.openAddSiteModal = openAddSiteModal;
 window.closeAddSiteModal = closeAddSiteModal;
 window.openEditSiteModal = openEditSiteModal;
 window.closeEditSiteModal = closeEditSiteModal;
-window.openSite = openSite;
 window.deleteCategory = deleteCategory;
 window.deleteSite = deleteSite;
 window.logout = logout;
@@ -899,6 +911,12 @@ function openSidebarAbout() {
   window.addEventListener('message', function(e) {
     if (e.data === 'closeAbout') {
       closeSidebarAbout();
+    }
+    if (e.data === 'openApplyLink') {
+      closeSidebarAbout();
+      setTimeout(function() {
+        openApplyLinkModal();
+      }, 300);
     }
   });
   
