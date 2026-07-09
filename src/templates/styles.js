@@ -413,8 +413,9 @@ export function getStyles() {
     color: white;
   }
 
+   /* 分类容器 - 降低透明度（更不透明） */
   .category {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -486,7 +487,7 @@ export function getStyles() {
 
   /* ===== 网站卡片 - 更紧凑 ===== */
   .site-card {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.3);
