@@ -873,19 +873,25 @@ function uploadRestore() {
 window.downloadBackup = downloadBackup;
 window.uploadRestore = uploadRestore;
 
-// ============ 侧边栏 About 页面 ============
+// ============ 侧边栏 About 页面（现代版） ============
 function openSidebarAbout() {
   const sidebar = document.getElementById('sidebar');
   const mainContainer = document.getElementById('mainContainer');
   if (sidebar) sidebar.classList.remove('active');
   if (mainContainer) mainContainer.classList.remove('sidebar-expanded');
   
+  // 移除已有 overlay，避免重复创建
+  const existingOverlay = document.getElementById('sidebarAboutOverlay');
+  if (existingOverlay) existingOverlay.remove();
+
   const overlay = document.createElement('div');
   overlay.id = 'sidebarAboutOverlay';
   overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;';
-  
+
+  // 使用模板字符串，并引入 Iconify 图标
   overlay.innerHTML = `
-    <div id="sidebarAboutContent" style="background:rgba(255,255,255,0.10);backdrop-filter:blur(20px);border-radius:20px;padding:40px 48px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.12);box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative;">
+    <div style="background:rgba(255,255,255,0.10);backdrop-filter:blur(20px);border-radius:20px;padding:40px 48px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.12);box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative;">
+
       <button onclick="closeSidebarAbout()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:24px;cursor:pointer;transition:color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">&times;</button>
       
       <div style="text-align:center;margin-bottom:24px;">
@@ -904,11 +910,13 @@ function openSidebarAbout() {
       </div>
       
       <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
-        <a href="https://blog.hangdn.com" target="_blank" style="flex:1;padding:8px 0;text-align:center;background:rgba(255,255,255,0.06);border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.7)'">
-          📝 Blog
+        <a href="https://blog.hangdn.com" target="_blank" style="flex:1;padding:8px 0;text-align:center;background:rgba(255,255,255,0.06);border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.7)'">
+          <span class="iconify" data-icon="mdi:newspaper-variant-outline" style="font-size:18px;"></span>
+          Blog
         </a>
-        <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="flex:1;padding:8px 0;text-align:center;background:rgba(255,255,255,0.06);border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.7)'">
-          💻 GitHub
+        <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="flex:1;padding:8px 0;text-align:center;background:rgba(255,255,255,0.06);border-radius:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.7)'">
+          <span class="iconify" data-icon="mdi:github" style="font-size:18px;"></span>
+          GitHub
         </a>
       </div>
       
@@ -917,13 +925,15 @@ function openSidebarAbout() {
       </div>
     </div>
   `;
-  
+
   document.body.appendChild(overlay);
   
+  // 点击外部关闭
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) closeSidebarAbout();
   });
   
+  // ESC 关闭
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeSidebarAbout();
   });
@@ -934,6 +944,7 @@ function closeSidebarAbout() {
   if (overlay) overlay.remove();
 }
 
+// 暴露到全局
 window.openSidebarAbout = openSidebarAbout;
 window.closeSidebarAbout = closeSidebarAbout;
 
