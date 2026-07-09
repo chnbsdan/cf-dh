@@ -405,7 +405,7 @@ function renderContent() {
   
   html += '</div>';
   html += '<div class="site-name">' + site.name + '</div>';
-  html += '<div class="site-url">' + new URL(site.url).hostname + '</div>';
+  // html += '<div class="site-url">' + new URL(site.url).hostname + '</div>';
   
   if (authToken) {
     html += '<div class="site-actions">';
