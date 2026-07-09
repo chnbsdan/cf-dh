@@ -539,15 +539,17 @@ export function getStyles() {
   }
 
   /* ===== 网站地址 - 更小 ===== */
-  .site-url {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.6);
-    word-break: break-all;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  /*
+.site-url {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.6);
+  word-break: break-all;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+*/
 
   .site-actions {
     position: absolute;
