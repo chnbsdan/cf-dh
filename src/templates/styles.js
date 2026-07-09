@@ -167,7 +167,7 @@ export function getStyles() {
 
   .category-item {
     padding: 10px 15px;
-    color: rgba(255, 255, 255, 0.9);
+    color: #64748b;
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
@@ -184,10 +184,11 @@ export function getStyles() {
   }
 
   .category-item.active {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border-left-color: var(--primary-color);
-  }
+  background: rgba(255, 255, 255, 0.15);
+  color: #1a1a2e;
+  border-left-color: var(--primary-color);
+  font-weight: 600;
+}
 
   .category-icon {
     width: 18px;
@@ -198,14 +199,15 @@ export function getStyles() {
   }
 
   .category-count {
-    margin-left: auto;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.75rem;
-    min-width: 20px;
-    text-align: center;
-  }
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  min-width: 20px;
+  text-align: center;
+  color: #1a1a2e;
+}
 
   .container.sidebar-expanded {
     margin-left: 200px;
