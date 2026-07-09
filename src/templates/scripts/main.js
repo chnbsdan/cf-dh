@@ -873,6 +873,106 @@ function uploadRestore() {
 window.downloadBackup = downloadBackup;
 window.uploadRestore = uploadRestore;
 
+// ============ 侧边栏 About 页面 ============
+function openSidebarAbout() {
+  const sidebar = document.getElementById('sidebar');
+  const mainContainer = document.getElementById('mainContainer');
+  if (sidebar) sidebar.classList.remove('active');
+  if (mainContainer) mainContainer.classList.remove('sidebar-expanded');
+  
+  const overlay = document.createElement('div');
+  overlay.id = 'sidebarAboutOverlay';
+  overlay.style.cssText = `
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:9998;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(8px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:fadeIn 0.3s ease;
+  `;
+  
+  overlay.innerHTML = `
+    <div style="
+      background:rgba(255,255,255,0.10);
+      backdrop-filter:blur(20px);
+      border-radius:20px;
+      padding:40px 48px;
+      max-width:520px;
+      width:90%;
+      max-height:80vh;
+      overflow-y:auto;
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:0 20px 60px rgba(0,0,0,0.3);
+      position:relative;
+    ">
+      <button onclick="closeSidebarAbout()" style="
+        position:absolute;
+        top:12px;
+        right:16px;
+        background:none;
+        border:none;
+        color:rgba(255,255,255,0.5);
+        font-size:24px;
+        cursor:pointer;
+        transition:color 0.3s;
+      " onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">&times;</button>
+      
+      <div style="text-align:center; margin-bottom:24px;">
+        <img src="https://cdn.jsdelivr.net/gh/chnbsdan/cloudflare-workers-blog@master/themes/mya/files/hangdn.ico" 
+             style="width:64px; height:64px; border-radius:16px; margin-bottom:12px;">
+        <h2 style="color:#fff; font-size:24px; font-weight:700; margin:0;">Hangdn nav</h2>
+        <p style="color:rgba(255,255,255,0.5); font-size:14px; margin-top:4px;">个人智能导航 · 基于 Cloudflare</p>
+      </div>
+      
+      <div style="color:rgba(255,255,255,0.8); font-size:14px; line-height:1.8;">
+        <p>高效组织你的网络世界，快速访问常用网站。</p>
+        <p style="margin-top:8px;">
+          <span style="color:rgba(255,255,255,0.4);">版本</span> v1.0<br>
+          <span style="color:rgba(255,255,255,0.4);">驱动</span> Cloudflare Workers + KV<br>
+          <span style="color:rgba(255,255,255,0.4);">图标</span> <a href="https://iconify.design" target="_blank" style="color:#10b981;text-decoration:none;">Iconify</a>
+        </p>
+      </div>
+      
+      <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;">
+        <a href="https://blog.hangdn.com" target="_blank" style="flex:1; padding:8px 0; text-align:center; background:rgba(255,255,255,0.06); border-radius:8px; color:rgba(255,255,255,0.7); text-decoration:none; font-size:13px; transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.7)'">
+          📝 Blog
+        </a>
+        <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="flex:1; padding:8px 0; text-align:center; background:rgba(255,255,255,0.06); border-radius:8px; color:rgba(255,255,255,0.7); text-decoration:none; font-size:13px; transition:all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.7)'">
+          💻 GitHub
+        </a>
+      </div>
+      
+      <div style="margin-top:16px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.06); text-align:center; color:rgba(255,255,255,0.25); font-size:12px;">
+        Made with ❤️ by Hangdn
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeSidebarAbout();
+  });
+  
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeSidebarAbout();
+  });
+}
+
+function closeSidebarAbout() {
+  const overlay = document.getElementById('sidebarAboutOverlay');
+  if (overlay) overlay.remove();
+}
+
+window.openSidebarAbout = openSidebarAbout;
+window.closeSidebarAbout = closeSidebarAbout;
+
 // ============ 换背景功能 ============
 function changeBackground() {
   const bgContainer = document.getElementById('bgContainer');
