@@ -31,18 +31,18 @@ export function getSidebar() {
   </div>
   <ul class="category-list" id="categoryList"></ul>
   
-  <!-- 底部链接 -->
+  <!-- 底部链接 - 使用 Iconify 图标 -->
   <div style="position:absolute; bottom:20px; left:0; right:0; padding:0 16px; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px;">
     <a href="https://blog.hangdn.com" target="_blank" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
-      <span class="iconify" data-icon="mdi:notebook" style="font-size:16px;"></span>
+      <span class="iconify" data-icon="mdi:newspaper-variant-outline" style="font-size:18px;"></span>
       Blog
     </a>
     <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
-      <span class="iconify" data-icon="mdi:github" style="font-size:16px;"></span>
+      <span class="iconify" data-icon="mdi:github" style="font-size:18px;"></span>
       GitHub
     </a>
     <a href="javascript:void(0)" onclick="openSidebarAbout()" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:6px 0; transition:color 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
-      <span class="iconify" data-icon="mdi:information-outline" style="font-size:16px;"></span>
+      <span class="iconify" data-icon="mdi:information-outline" style="font-size:18px;"></span>
       About
     </a>
   </div>
