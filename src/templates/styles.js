@@ -134,24 +134,30 @@ export function getStyles() {
     gap: 8px;
   }
 
-  /* ===== 侧边栏滚动条 ===== */
-.sidebar::-webkit-scrollbar {
+ /* ===== 侧边栏滚动条 ===== */
+.sidebar-scroll::-webkit-scrollbar {
   width: 3px;
 }
 
-.sidebar::-webkit-scrollbar-track {
+.sidebar-scroll::-webkit-scrollbar-track {
   background: rgba(255,255,255,0.05);
   border-radius: 2px;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.sidebar-scroll::-webkit-scrollbar-thumb {
   background: rgba(135, 206, 235, 0.6);
   border-radius: 2px;
   transition: background 0.3s;
 }
 
-.sidebar::-webkit-scrollbar-thumb:hover {
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(135, 206, 235, 0.9);
+}
+
+/* 兼容 Firefox */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(135, 206, 235, 0.6) rgba(255,255,255,0.05);
 }
 
   .category-list {
