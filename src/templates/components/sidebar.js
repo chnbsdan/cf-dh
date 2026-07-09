@@ -30,11 +30,11 @@ export function getSidebar() {
   </div>
   
   <!-- 分类列表 - 可滚动区域 -->
-  <div style="flex:1; overflow-y:auto; padding-bottom:10px;">
+  <div class="sidebar-scroll" style="flex:1; overflow-y:auto; padding-bottom:10px;">
     <ul class="category-list" id="categoryList"></ul>
   </div>
   
-  <!-- 底部链接 - 固定在最下方 -->
+  <!-- 底部链接 -->
   <div style="padding:10px 16px 14px 16px; border-top:1px solid rgba(255,255,255,0.06); flex-shrink:0; display:flex; flex-direction:column; align-items:center; background:rgba(255,255,255,0.03);">
     <a href="https://blog.hangdn.com" target="_blank" style="display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; padding:4px 0; transition:color 0.3s; width:100%; justify-content:center;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
       <span class="iconify" data-icon="mdi:newspaper-variant-outline" style="font-size:16px;"></span>
