@@ -232,9 +232,9 @@ async function handleAddSiteSubmit(e) {
 async function handleEditSiteSubmit(e) {
   e.preventDefault();
   
-  const currentCategoryIndex = parseInt(document.getElementById('currentCategoryIndex').value);
+  const oldCategoryIndex = parseInt(document.getElementById('currentCategoryIndex').value);
   const siteIndex = parseInt(document.getElementById('siteIndex').value);
-  const categoryIndex = parseInt(document.getElementById('editCategoryIndex').value);
+  const newCategoryIndex = parseInt(document.getElementById('editCategoryIndex').value);
   const siteName = document.getElementById('editSiteName').value;
   const siteUrl = document.getElementById('editSiteUrl').value;
   const siteIcon = document.getElementById('editSiteIcon').value;
@@ -251,13 +251,13 @@ async function handleEditSiteSubmit(e) {
     return;
   }
 
-  if (!navigationData.categories[currentCategoryIndex] || !navigationData.categories[currentCategoryIndex].sites[siteIndex]) {
+  if (!navigationData.categories[oldCategoryIndex] || !navigationData.categories[oldCategoryIndex].sites[siteIndex]) {
     showNotification('网站数据不存在', 'error');
     return;
   }
 
   const data = {
-    categoryIndex: categoryIndex,
+    categoryIndex: newCategoryIndex,
     siteIndex: siteIndex,
     siteName: siteName,
     siteUrl: siteUrl,
@@ -549,7 +549,7 @@ function openEditSiteModal(categoryIndex, siteIndex) {
   const categorySelect = document.getElementById('editCategoryIndex');
   if (categorySelect) {
     categorySelect.innerHTML = '';
-    navigationData.categories.forEach((category, index) => {
+    navigationData.categories.forEach(function(category, index) {
       const option = document.createElement('option');
       option.value = index;
       option.textContent = category.name;
@@ -892,7 +892,6 @@ function openSidebarAbout() {
   if (sidebar) sidebar.classList.remove('active');
   if (mainContainer) mainContainer.classList.remove('sidebar-expanded');
   
-  // 移除已有 overlay
   const existing = document.getElementById('sidebarAboutOverlay');
   if (existing) existing.remove();
 
@@ -900,14 +899,12 @@ function openSidebarAbout() {
   overlay.id = 'sidebarAboutOverlay';
   overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998;display:flex;align-items:center;justify-content:center;';
   
-  // 用 iframe 加载独立 HTML
   const iframe = document.createElement('iframe');
   iframe.src = '/about';
   iframe.style.cssText = 'width:100%;height:100%;border:none;background:transparent;';
   overlay.appendChild(iframe);
   document.body.appendChild(overlay);
   
-  // 监听 iframe 发来的关闭消息
   window.addEventListener('message', function(e) {
     if (e.data === 'closeAbout') {
       closeSidebarAbout();
@@ -920,7 +917,6 @@ function openSidebarAbout() {
     }
   });
   
-  // ESC 关闭
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeSidebarAbout();
   });
