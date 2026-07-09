@@ -97,284 +97,107 @@ export async function handleAbout(request) {
   <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.all.min.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      margin:0;
-      background:rgba(0,0,0,0.4);
-      backdrop-filter:blur(12px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      padding:30px 20px;
-      box-sizing:border-box;
-    }
-    .about-card {
-      background:rgba(255,255,255,0.10);
-      backdrop-filter:blur(24px);
-      border-radius:20px;
-      padding:40px 48px;
-      max-width:680px;
-      width:100%;
-      max-height:90vh;
-      overflow-y:auto;
-      border:1px solid rgba(255,255,255,0.12);
-      box-shadow:0 20px 60px rgba(0,0,0,0.3);
-      position:relative;
-      color:rgba(255,255,255,0.9);
-      line-height:1.8;
-      font-size:14px;
-    }
-    .about-card::-webkit-scrollbar {
-      width:4px;
-    }
-    .about-card::-webkit-scrollbar-track {
-      background:transparent;
-    }
-    .about-card::-webkit-scrollbar-thumb {
-      background:rgba(255,255,255,0.2);
-      border-radius:2px;
-    }
-    .close-btn {
-      position:absolute;
-      top:14px;
-      right:18px;
-      background:none;
-      border:none;
-      color:rgba(255,255,255,0.4);
-      font-size:26px;
-      cursor:pointer;
-      transition:color 0.3s;
-      z-index:10;
-    }
-    .close-btn:hover {
-      color:#fff;
-    }
-    .about-title {
-      text-align:center;
-      margin-bottom:20px;
-    }
-    .about-title img {
-      width:56px;
-      height:56px;
-      border-radius:14px;
-      margin-bottom:8px;
-    }
-    .about-title h2 {
-      color:#fff;
-      font-size:22px;
-      font-weight:700;
-      margin:0;
-    }
-    .about-title p {
-      color:rgba(255,255,255,0.4);
-      font-size:13px;
-      margin-top:2px;
-    }
-    .section {
-      margin-bottom:16px;
-      padding-bottom:16px;
-      border-bottom:1px solid rgba(255,255,255,0.06);
-    }
-    .section:last-child {
-      border-bottom:none;
-      margin-bottom:0;
-      padding-bottom:0;
-    }
-    .section h4 {
-      color:#10b981;
-      font-size:15px;
-      font-weight:600;
-      margin:0 0 8px 0;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .section p, .section li {
-      margin:4px 0;
-      color:rgba(255,255,255,0.8);
-    }
-    .section ul {
-      margin:6px 0 6px 18px;
-      padding:0;
-      color:rgba(255,255,255,0.8);
-    }
-    .section ul li {
-      margin:2px 0;
-    }
-    .highlight {
-      color:#10b981;
-      font-weight:500;
-    }
-    .tag {
-      display:inline-block;
-      padding:2px 10px;
-      border-radius:12px;
-      font-size:12px;
-      margin:2px 4px 2px 0;
-    }
-    .tag-green {
-      background:rgba(16,185,129,0.15);
-      color:#10b981;
-    }
-    .tag-orange {
-      background:rgba(245,158,11,0.15);
-      color:#fbbf24;
-    }
-    .link-btn {
-      display:inline-block;
-      padding:6px 16px;
-      border-radius:6px;
-      background:rgba(255,255,255,0.06);
-      color:rgba(255,255,255,0.7);
-      text-decoration:none;
-      font-size:13px;
-      transition:all 0.3s;
-      margin-right:6px;
-    }
-    .link-btn:hover {
-      background:rgba(255,255,255,0.12);
-      color:#fff;
-    }
-    .twikoo-wrap {
-      margin-top:8px;
-      border-radius:12px;
-      overflow:hidden;
-    }
-    .twikoo-wrap .tk-comments {
-      color:rgba(255,255,255,0.85);
-    }
-    .twikoo-wrap .tk-input {
-      background:rgba(255,255,255,0.06) !important;
-      border:1px solid rgba(255,255,255,0.1) !important;
-      color:#fff !important;
-      border-radius:8px !important;
-    }
-    .twikoo-wrap .tk-input:focus {
-      border-color:#10b981 !important;
-      background:rgba(255,255,255,0.1) !important;
-    }
-    .twikoo-wrap .tk-submit {
-      background:#10b981 !important;
-      border:none !important;
-      color:#fff !important;
-      border-radius:6px !important;
-      padding:6px 18px !important;
-    }
-    .twikoo-wrap .tk-submit:hover {
-      background:#059669 !important;
-    }
-    .twikoo-wrap .tk-comment {
-      background:rgba(255,255,255,0.04);
-      border-radius:8px;
-      padding:12px 14px;
-      border:1px solid rgba(255,255,255,0.04);
-    }
-    .twikoo-wrap .tk-comment .tk-nick {
-      color:#10b981 !important;
-      font-weight:600;
-    }
-    .twikoo-wrap .tk-comment .tk-time {
-      color:rgba(255,255,255,0.3);
-      font-size:12px;
-    }
-    .twikoo-wrap .tk-comment .tk-content {
-      color:rgba(255,255,255,0.8);
-    }
-    .twikoo-wrap .tk-reply {
-      color:rgba(255,255,255,0.3);
-      font-size:12px;
-    }
-    .twikoo-wrap .tk-reply:hover {
-      color:#10b981;
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
+    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
+    .card::-webkit-scrollbar{width:4px}
+    .card::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
+    .close-btn{position:absolute;top:12px;right:16px;background:none;border:none;color:#94a3b8;font-size:24px;cursor:pointer;transition:color 0.2s}
+    .close-btn:hover{color:#1e293b}
+    .title{text-align:center;margin-bottom:16px}
+    .title img{width:48px;height:48px;border-radius:12px;margin-bottom:6px}
+    .title h2{color:#1e293b;font-size:20px;font-weight:700;margin:0}
+    .title p{color:#94a3b8;font-size:13px;margin-top:2px}
+    .sec{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.06)}
+    .sec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+    .sec h4{color:#6366f1;font-size:14px;font-weight:600;margin:0 0 4px 0;display:flex;align-items:center;gap:6px}
+    .sec p,.sec li{margin:3px 0;color:#475569}
+    .sec ul{margin:4px 0 4px 16px;padding:0;color:#475569}
+    .sec ul li{margin:2px 0}
+    .highlight{color:#10b981;font-weight:500}
+    .tag{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;margin:2px 4px 2px 0}
+    .tag-green{background:rgba(16,185,129,0.12);color:#059669}
+    .tag-orange{background:rgba(245,158,11,0.12);color:#d97706}
+    .link-btn{display:inline-block;padding:6px 16px;border-radius:6px;background:rgba(0,0,0,0.04);color:#475569;text-decoration:none;font-size:13px;transition:all 0.2s;margin-right:4px}
+    .link-btn:hover{background:rgba(0,0,0,0.08);color:#1e293b}
+    .footer-text{text-align:center;color:#cbd5e1;font-size:11px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.06)}
+    .twikoo-wrap{margin-top:8px}
+    .twikoo-wrap .tk-input{background:#f8fafc !important;border:1px solid #e2e8f0 !important;color:#1e293b !important;border-radius:8px !important}
+    .twikoo-wrap .tk-input:focus{border-color:#6366f1 !important;box-shadow:0 0 0 3px rgba(99,102,241,0.1) !important}
+    .twikoo-wrap .tk-submit{background:#6366f1 !important;border:none !important;color:#fff !important;border-radius:6px !important;padding:6px 18px !important}
+    .twikoo-wrap .tk-submit:hover{background:#4f46e5 !important}
+    .twikoo-wrap .tk-comment{background:#f8fafc;border-radius:8px;padding:12px 14px;border:1px solid #e2e8f0;margin-bottom:8px}
+    .twikoo-wrap .tk-comment .tk-nick{color:#6366f1 !important;font-weight:600}
+    .twikoo-wrap .tk-comment .tk-time{color:#94a3b8;font-size:12px}
+    .twikoo-wrap .tk-comment .tk-content{color:#1e293b}
+    .twikoo-wrap .tk-reply{color:#94a3b8;font-size:12px;cursor:pointer}
+    .twikoo-wrap .tk-reply:hover{color:#6366f1}
   </style>
 </head>
 <body>
-  <div class="about-card">
+  <div class="card">
     <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">&times;</button>
-    
-    <div class="about-title">
+
+    <div class="title">
       <img src="https://cdn.jsdelivr.net/gh/chnbsdan/cloudflare-workers-blog@master/themes/mya/files/hangdn.ico" alt="logo">
       <h2>Hangdn nav</h2>
       <p>个人智能导航 · 基于 Cloudflare</p>
     </div>
 
-    <div class="section">
-      <h4><span class="iconify" data-icon="mdi:information-outline" style="font-size:18px;"></span> 关于本站</h4>
+    <div class="sec">
+      <h4><span class="iconify" data-icon="mdi:information-outline" style="font-size:16px;"></span> 关于本站</h4>
       <p>感谢来访，本站致力于简洁高效的上网导航和搜索入口，安全快捷。</p>
-      <p>搜索入口正常网页中看不到，为隐藏设计，需要用鼠标点击本站LOGO图标就会弹出搜索框。</p>
-      <p>如果您喜欢我们的网站，请将本站添加到收藏夹（快捷键Ctrl+D），并设为浏览器主页，方便您的下次访问，感谢支持。</p>
-      <p style="margin-top:8px;color:rgba(255,255,255,0.4);font-size:13px;font-style:italic;">希望能成为你的主页的导航站~</p>
+      <p>搜索入口为隐藏设计，点击本站 LOGO 图标即可弹出搜索框。</p>
+      <p>如果您喜欢，请将本站添加到收藏夹（Ctrl+D），设为浏览器主页。</p>
     </div>
 
-    <div class="section">
-      <h4><span class="iconify" data-icon="mdi:shield-check" style="font-size:18px;"></span> 本站承诺</h4>
-      <p><span class="highlight">✅ 绝对不会收集用户的隐私信息</span></p>
-      <p>区别于部分导航网站，本站链接直接跳转目标，不会对链接处理再后跳转，不会收集用户的隐藏信息，包括但不限于点击记录、访问记录和搜索记录，请放心使用。</p>
-      <p style="margin-top:6px;font-size:13px;color:rgba(255,255,255,0.4);">没有广告和推广，没有SEO更没有浪费时间的二次跳转</p>
+    <div class="sec">
+      <h4><span class="iconify" data-icon="mdi:shield-check" style="font-size:16px;"></span> 本站承诺</h4>
+      <p><span class="highlight">✅ 绝不收集用户隐私信息</span></p>
+      <p>本站链接直接跳转目标，无二次跳转，不收集点击、访问、搜索记录。</p>
+      <p style="color:#94a3b8;font-size:13px;">无广告 · 无推广 · 无 SEO 跟踪</p>
     </div>
 
-    <div class="section">
-      <h4><span class="iconify" data-icon="mdi:link-plus" style="font-size:18px;"></span> 申请收录</h4>
-      <p>本站可以直接申请友链，填写表单后提交，管理员后台审核批准后就可以显示在导航上。</p>
-      <p style="font-size:13px;color:rgba(255,255,255,0.4);">收录标准：<span class="tag tag-green">有用</span> <span class="tag tag-orange">有趣</span></p>
-      <p style="margin-top:4px;">请点击右下角的 <span class="highlight">申请友链按钮</span> 进行申请。</p>
+    <div class="sec">
+      <h4><span class="iconify" data-icon="mdi:link-plus" style="font-size:16px;"></span> 申请收录</h4>
+      <p>本站支持友链申请，审核通过后即可展示在导航上。</p>
+      <p style="font-size:13px;color:#94a3b8;">收录标准：<span class="tag tag-green">有用</span> <span class="tag tag-orange">有趣</span></p>
+      <p style="margin-top:4px;">点击右下角 <span class="highlight">申请友链</span> 按钮即可提交。</p>
     </div>
 
-    <div class="section">
-      <h4><span class="iconify" data-icon="mdi:email-outline" style="font-size:18px;"></span> 联系我们</h4>
-      <p>若您在使用本站时遇到了包括但不限于以下问题：</p>
+    <div class="sec">
+      <h4><span class="iconify" data-icon="mdi:email-outline" style="font-size:16px;"></span> 联系我们</h4>
+      <p>遇到以下问题可联系我们：</p>
       <ul>
-        <li>图标缺失</li>
-        <li>目标网站无法打开</li>
-        <li>描述错误</li>
-        <li>网站违规</li>
-        <li>收录加急处理</li>
-        <li>链接删除</li>
+        <li>图标缺失 · 链接失效</li>
+        <li>网站违规 · 内容错误</li>
+        <li>收录加急 · 链接删除</li>
       </ul>
-      <p style="margin-top:6px;font-size:13px;color:rgba(255,255,255,0.4);">意见反馈 &amp; 好站推荐 务必联系我们 👇</p>
-      <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:8px;">
-        <a href="mailto:chnbsdan@gmail.com" class="link-btn"><span class="iconify" data-icon="mdi:email" style="vertical-align:middle;"></span> chnbsdan@gmail.com</a>
-        <a href="https://t.me/ben_mesa" target="_blank" class="link-btn"><span class="iconify" data-icon="mdi:telegram" style="vertical-align:middle;"></span> Telegram</a>
+      <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;">
+        <a href="mailto:chnbsdan@gmail.com" class="link-btn">📧 chnbsdan@gmail.com</a>
+        <a href="https://t.me/ben_mesa" target="_blank" class="link-btn">💬 Telegram</a>
       </div>
     </div>
 
-    <div class="section">
-      <h4><span class="iconify" data-icon="mdi:heart-outline" style="font-size:18px;"></span> 致谢</h4>
-      <p style="font-size:13px;color:rgba(255,255,255,0.4);">本站个人导航现已开源</p>
-      <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="color:#10b981;text-decoration:none;font-weight:500;">🎉 https://github.com/chnbsdan/cf-dh</a>
-    </div>
-
-    <div class="section" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
-      <h4><span class="iconify" data-icon="mdi:chat-outline" style="font-size:18px;"></span> 留言板</h4>
-      <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:8px;">欢迎留言交流，提出建议或反馈问题。</p>
+    <div class="sec" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+      <h4><span class="iconify" data-icon="mdi:chat-outline" style="font-size:16px;"></span> 留言板</h4>
+      <p style="font-size:13px;color:#94a3b8;margin-bottom:6px;">欢迎留言交流，提出建议或反馈问题。</p>
       <div id="twikoo" class="twikoo-wrap"></div>
     </div>
 
-    <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;color:rgba(255,255,255,0.15);font-size:11px;">
-      Made with ❤️ by Hangdn
-    </div>
+    <div class="footer-text">Made with ❤️ by Hangdn</div>
   </div>
 
   <script>
-    // 初始化 Twikoo 评论
     document.addEventListener('DOMContentLoaded', function() {
-      twikoo.init({
-        el: '#twikoo',
-        envId: 'https://twikoo.hangdn.net',
-        region: 'ap-guangzhou',
-        lang: 'zh-CN',
-        path: window.location.pathname,
-        onCommentLoaded: function() {
-          console.log('Twikoo 评论加载完成');
-        }
-      });
+      if (typeof twikoo !== 'undefined') {
+        twikoo.init({
+          el: '#twikoo',
+          envId: 'https://twikoo.hangdn.net/',
+          lang: 'zh-CN',
+          path: window.location.pathname,
+        });
+      }
     });
   </script>
 </body>
