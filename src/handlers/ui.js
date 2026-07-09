@@ -289,14 +289,14 @@ export async function handleAbout(request) {
       <p style="margin-top:6px;font-size:13px;color:rgba(255,255,255,0.5);">意见反馈 &amp; 好站推荐 务必联系我们 👇</p>
       <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:8px;">
         <a href="mailto:chnbsdan@gmail.com" class="link-btn"><span class="iconify" data-icon="mdi:email" style="vertical-align:middle;"></span> chnbsdan@gmail.com</a>
-        <a href="https://t.me/your_telegram" target="_blank" class="link-btn"><span class="iconify" data-icon="mdi:telegram" style="vertical-align:middle;"></span> Telegram</a>
+        <a href="https://t.me/ben_mesa" target="_blank" class="link-btn"><span class="iconify" data-icon="mdi:telegram" style="vertical-align:middle;"></span> Telegram</a>
       </div>
     </div>
 
     <div class="section">
       <h4><span class="iconify" data-icon="mdi:heart-outline" style="font-size:18px;"></span> 致谢</h4>
-      <p style="font-size:13px;color:rgba(255,255,255,0.5);">本站主题现已开源</p>
-      <a href="https://github.com/fordes123/ITEM" target="_blank" style="color:#10b981;text-decoration:none;font-weight:500;">🎉 https://github.com/fordes123/ITEM</a>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);">本站个人导航现已开源</p>
+      <a href="https://github.com/chnbsdan/cf-dh" target="_blank" style="color:#10b981;text-decoration:none;font-weight:500;">🎉 https://github.com/chnbsdan/cf-dh</a>
     </div>
 
     <div class="section" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
