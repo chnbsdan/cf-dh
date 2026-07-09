@@ -77,7 +77,7 @@ export function getStyles() {
   top: 0;
   height: 100vh;
   width: 200px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.35); /* 从 0.15 改成 0.35，更不透明 */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
@@ -133,6 +133,26 @@ export function getStyles() {
     align-items: center;
     gap: 8px;
   }
+
+  /* ===== 侧边栏滚动条 ===== */
+.sidebar::-webkit-scrollbar {
+  width: 3px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(135, 206, 235, 0.6);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(135, 206, 235, 0.9);
+}
 
   .category-list {
     list-style: none;
