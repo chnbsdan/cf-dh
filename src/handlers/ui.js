@@ -367,7 +367,7 @@ export async function handleAbout(request) {
     document.addEventListener('DOMContentLoaded', function() {
       twikoo.init({
         el: '#twikoo',
-        envId: 'twikoo.hangdn.com',
+        envId: 'https://twikoo.hangdn.net',
         region: 'ap-guangzhou',
         lang: 'zh-CN',
         path: window.location.pathname,
