@@ -99,24 +99,9 @@ export async function handleAbout(request) {
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
-    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px 20px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
+    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px 20px;max-width:720px;width:100%;max-height:90vh;overflow-y:hidden;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
     
-    /* 滚动条 - 透明超细，几乎看不见 */
- /*.card::-webkit-scrollbar{width:1px}*/
- /*.card::-webkit-scrollbar-track{background:transparent}*/
- /*.card::-webkit-scrollbar-thumb{background:rgba(16,185,129,0.15);border-radius:1px}*/
- /*.card::-webkit-scrollbar-thumb:hover{background:rgba(16,185,129,0.3)}*/
- /*.card::-webkit-scrollbar-button{display:none}*/
- /*.card::-webkit-scrollbar-corner{background:transparent}*/
-
- /* 滚动条 - 完全隐藏 */
-.card::-webkit-scrollbar{display:none}
-.card{scrollbar-width:none}
-    
-    /* Firefox 滚动条 - 底部不显示 */
-    .card{scrollbar-width:thin;scrollbar-color:#10b981 transparent}
-    
-    /* 关闭按钮 - 固定在屏幕右上角，不随滚动条移动 */
+    /* 关闭按钮 - 固定在屏幕右上角 */
     .close-btn{position:fixed;top:20px;right:20px;z-index:999;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
     .close-btn:hover{background:#fff;color:#1e293b;transform:scale(1.08);box-shadow:0 4px 12px rgba(0,0,0,0.12)}
     
@@ -156,7 +141,6 @@ export async function handleAbout(request) {
   </style>
 </head>
 <body>
-  <!-- 关闭按钮固定在屏幕右上角 -->
   <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">✕</button>
 
   <div class="card">
