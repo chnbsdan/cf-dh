@@ -99,15 +99,13 @@ export async function handleAbout(request) {
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
-    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
+    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
     .card::-webkit-scrollbar{width:4px}
     .card::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
     .close-btn{position:absolute;top:12px;right:16px;background:none;border:none;color:#94a3b8;font-size:24px;cursor:pointer;transition:color 0.2s}
     .close-btn:hover{color:#1e293b}
     .title{text-align:center;margin-bottom:16px}
-    .title img{width:48px;height:48px;border-radius:12px;margin-bottom:6px}
-    .title h2{color:#1e293b;font-size:20px;font-weight:700;margin:0}
-    .title p{color:#94a3b8;font-size:13px;margin-top:2px}
+    .title p{color:#94a3b8;font-size:13px;margin-top:4px}
     .sec{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.06)}
     .sec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
     .sec h4{color:#6366f1;font-size:14px;font-weight:600;margin:0 0 4px 0;display:flex;align-items:center;gap:6px}
@@ -139,8 +137,10 @@ export async function handleAbout(request) {
     <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">&times;</button>
 
     <div class="title">
-      <img src="https://cdn.jsdelivr.net/gh/chnbsdan/cloudflare-workers-blog@master/themes/mya/files/hangdn.ico" alt="logo">
-      <h2>Hangdn nav</h2>
+      <div style="display:flex; align-items:center; justify-content:center; gap:12px;">
+        <img src="https://cdn.jsdelivr.net/gh/chnbsdan/cloudflare-workers-blog@master/themes/mya/files/hangdn.ico" alt="logo" style="width:44px; height:44px; border-radius:12px;">
+        <h2 style="color:#1e293b; font-size:22px; font-weight:700; margin:0;">Hangdn nav</h2>
+      </div>
       <p>个人智能导航 · 基于 Cloudflare</p>
     </div>
 
@@ -193,7 +193,7 @@ export async function handleAbout(request) {
       if (typeof twikoo !== 'undefined') {
         twikoo.init({
           el: '#twikoo',
-          envId: 'https://twikoo.hangdn.net/',
+          envId: 'https://twikoo.hangdn.com/',
           lang: 'zh-CN',
           path: window.location.pathname,
         });
