@@ -101,11 +101,11 @@ export async function handleAbout(request) {
     body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
     .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px 20px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
     
-    /* 滚动条 - 超细超短，像细线一样 */
-.card::-webkit-scrollbar{width:2px}
+    /* 滚动条 - 透明超细，几乎看不见 */
+.card::-webkit-scrollbar{width:1px}
 .card::-webkit-scrollbar-track{background:transparent}
-.card::-webkit-scrollbar-thumb{background:#10b981;border-radius:2px;height:12px;min-height:12px;max-height:4px}
-.card::-webkit-scrollbar-thumb:hover{background:#059669}
+.card::-webkit-scrollbar-thumb{background:rgba(16,185,129,0.15);border-radius:1px}
+.card::-webkit-scrollbar-thumb:hover{background:rgba(16,185,129,0.3)}
 .card::-webkit-scrollbar-button{display:none}
 .card::-webkit-scrollbar-corner{background:transparent}
     
