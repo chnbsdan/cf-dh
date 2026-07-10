@@ -99,12 +99,13 @@ export async function handleAbout(request) {
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
-    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px;max-width:920px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
+    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
     .card::-webkit-scrollbar{width:4px}
     .card::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
-    .close-btn{position:absolute;top:12px;right:16px;background:none;border:none;color:#94a3b8;font-size:24px;cursor:pointer;transition:color 0.2s}
-    .close-btn:hover{color:#1e293b}
-    .title{text-align:center;margin-bottom:16px}
+    /* 关闭按钮固定在右上角，不随滚动条移动 */
+    .close-btn{position:sticky;float:right;top:0;z-index:10;background:rgba(255,255,255,0.8);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.06);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:18px;cursor:pointer;transition:all 0.2s;margin-top:-8px;margin-right:-12px}
+    .close-btn:hover{background:#f1f5f9;color:#1e293b;transform:scale(1.05)}
+    .title{text-align:center;margin-bottom:16px;clear:both}
     .title p{color:#94a3b8;font-size:13px;margin-top:4px}
     .sec{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.06)}
     .sec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
@@ -118,7 +119,15 @@ export async function handleAbout(request) {
     .tag-orange{background:rgba(245,158,11,0.12);color:#d97706}
     .link-btn{display:inline-block;padding:6px 16px;border-radius:6px;background:rgba(0,0,0,0.04);color:#475569;text-decoration:none;font-size:13px;transition:all 0.2s;margin-right:4px}
     .link-btn:hover{background:rgba(0,0,0,0.08);color:#1e293b}
-    .footer-text{text-align:center;color:#cbd5e1;font-size:11px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.06)}
+    /* 底部脚标 - 和首页一致 */
+    .footer{text-align:center;padding-top:12px;margin-top:12px;border-top:1px solid rgba(0,0,0,0.06)}
+    .footer p{color:#94a3b8;font-size:12px;margin:0;line-height:1.6}
+    .footer .footer-link{color:#94a3b8;cursor:pointer;transition:color 0.2s}
+    .footer .footer-link:hover{color:#1e293b}
+    .footer .powered{color:#94a3b8;font-size:11px;margin-top:2px}
+    .footer .powered a{color:#94a3b8;text-decoration:none;transition:color 0.2s}
+    .footer .powered a:hover{color:#1e293b}
+    .footer .powered .cf{color:#f48120;font-weight:600}
     .twikoo-wrap{margin-top:8px}
     .twikoo-wrap .tk-input{background:#f8fafc !important;border:1px solid #e2e8f0 !important;color:#1e293b !important;border-radius:8px !important}
     .twikoo-wrap .tk-input:focus{border-color:#6366f1 !important;box-shadow:0 0 0 3px rgba(99,102,241,0.1) !important}
@@ -134,7 +143,8 @@ export async function handleAbout(request) {
 </head>
 <body>
   <div class="card">
-    <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">&times;</button>
+    <!-- 关闭按钮固定在右上角 -->
+    <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">✕</button>
 
     <div class="title">
       <div style="display:flex; align-items:center; justify-content:center; gap:12px;">
@@ -185,7 +195,16 @@ export async function handleAbout(request) {
       <div id="twikoo" class="twikoo-wrap"></div>
     </div>
 
-    <div class="footer-text">Made with ❤️ by Hangdn</div>
+    <!-- 底部脚标 - 和首页一致 -->
+    <div class="footer">
+      <p>
+        Copyright ©2024-2025 <span class="footer-link">Hangdn nav</span>. All Rights Reserved.
+      </p>
+      <p class="powered">
+        Powered by <span class="cf">Cloudflare</span> · 
+        <a href="https://github.com/chnbsdan/cf-dh" target="_blank">GitHub</a>
+      </p>
+    </div>
   </div>
 
   <script>
@@ -193,7 +212,7 @@ export async function handleAbout(request) {
       if (typeof twikoo !== 'undefined') {
         twikoo.init({
           el: '#twikoo',
-          envId: 'https://twikoo.hangdn.com/',
+          envId: 'https://twikoo.hangdn.net/',
           lang: 'zh-CN',
           path: window.location.pathname,
         });
