@@ -330,8 +330,7 @@ A: 检查 API 接口是否可访问，F12 控制台查看报错信息。
 | 2 | 管理员密码(备用) | `src/handlers/auth.js` | `const ADMIN_PASSWORD = globalThis.ADMIN_PASSWORD \|\| 'bsdan'` | 环境变量未设置时使用 |
 | 3 | 浏览器标题 | `src/templates/head.js` | `<title>Hangdn个人智能导航</title>` | 标签页标题 |
 | 4 | Logo图标 | `src/templates/components/header.js` | `<img src="https://cdn.jsdelivr.net/gh/chnbsdan/.../hangdn.ico">` | 左上角图标 |
-| 5 | 默认背景图 | `src/templates/body.js`，src/templates/styles.js | `<img src="https://webp.hangdn.com/fg/fg1.jpg" class="background-slide active" alt="默认背景">` ，body {
-  background-image: url('https://webp.hangdn.com/fg/fg1.jpg');| 首次加载显示 |
+| 5 | 默认背景图 | `src/templates/body.js`，src/templates/styles.js | `<img src="https://webp.hangdn.com/fg/fg1.jpg" class="background-slide active" alt="默认背景">`，body {background-image: url('https://webp.hangdn.com/fg/fg1.jpg');| 首次显示|
 | 6 | 换背景API | `src/templates/scripts/main.js` | `const url = 'https://pico.1356666.xyz/api/tg?t=' + Date.now();` | 随机图片接口 |
 | 7 | 背景轮播间隔 | `src/templates/scripts/background.js` | `setInterval(..., 10000)` | 10秒切换(已删除) |
 | 8 | 歌单ID | `src/templates/scripts/player.js` | `const PLAYLIST_ID = '14148542684'` | 网易云歌单 |
