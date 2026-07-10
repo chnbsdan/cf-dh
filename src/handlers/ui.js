@@ -222,7 +222,7 @@ export async function handleAbout(request) {
       if (typeof twikoo !== 'undefined') {
         twikoo.init({
           el: '#twikoo',
-        envId: 'https://twikoo.hangdn.com/',
+        envId: 'https://twikoo.hangdn.net/',
         lang: 'zh-CN',
         path: window.location.pathname,
         placeholder: '分享你的想法…\n欢迎留言交流 💬\n望本导航给你带来愉快的心情',
