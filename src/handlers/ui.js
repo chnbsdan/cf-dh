@@ -100,14 +100,21 @@ export async function handleAbout(request) {
     *{margin:0;padding:0;box-sizing:border-box}
     body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
     .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px 20px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
-    /* 滚动条 - 缩短，不超出圆角 */
+    
+    /* 滚动条 - 只显示1-2cm高，底部不显示轨道 */
     .card::-webkit-scrollbar{width:4px}
-    .card::-webkit-scrollbar-track{background:rgba(0,0,0,0.04);border-radius:4px;margin:50px 0 20px 0}
-    .card::-webkit-scrollbar-thumb{background:#10b981;border-radius:4px}
+    .card::-webkit-scrollbar-track{background:transparent;border-radius:4px}
+    .card::-webkit-scrollbar-thumb{background:#10b981;border-radius:4px;height:20px;min-height:20px}
     .card::-webkit-scrollbar-thumb:hover{background:#059669}
-    /* 关闭按钮 - 放在右上角边缘重叠位置 */
-    .close-btn{position:absolute;top:-8px;right:-8px;z-index:10;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+    .card::-webkit-scrollbar-button{display:none}
+    
+    /* Firefox 滚动条 - 底部不显示 */
+    .card{scrollbar-width:thin;scrollbar-color:#10b981 transparent}
+    
+    /* 关闭按钮 - 固定在屏幕右上角，不随滚动条移动 */
+    .close-btn{position:fixed;top:20px;right:20px;z-index:999;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
     .close-btn:hover{background:#fff;color:#1e293b;transform:scale(1.08);box-shadow:0 4px 12px rgba(0,0,0,0.12)}
+    
     .title{text-align:center;margin-bottom:16px}
     .title p{color:#94a3b8;font-size:13px;margin-top:4px}
     .sec{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.06)}
@@ -144,10 +151,10 @@ export async function handleAbout(request) {
   </style>
 </head>
 <body>
-  <div class="card">
-    <!-- 关闭按钮 - 右上角边缘重叠 -->
-    <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">✕</button>
+  <!-- 关闭按钮固定在屏幕右上角 -->
+  <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">✕</button>
 
+  <div class="card">
     <div class="title">
       <div style="display:flex; align-items:center; justify-content:center; gap:12px;">
         <img src="https://cdn.jsdelivr.net/gh/chnbsdan/cloudflare-workers-blog@master/themes/mya/files/hangdn.ico" alt="logo" style="width:44px; height:44px; border-radius:12px;">
