@@ -414,7 +414,7 @@ function renderContent() {
             site.icon.endsWith('.ico') || site.icon.endsWith('.png') || 
             site.icon.endsWith('.jpg') || site.icon.endsWith('.svg') ||
             site.icon.endsWith('.jpeg') || site.icon.endsWith('.gif')) {
-          html += '<img src="' + site.icon + '" alt="' + escapedName + '" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">';
+          html += '<img src="' + site.icon + '" alt="' + escapedName + '" referrerpolicy="no-referrer" onerror="this.remove()">';
         } else {
           html += '<span class="iconify" data-icon="' + escapedIcon + '"></span>';
         }
