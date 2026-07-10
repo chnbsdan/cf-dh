@@ -165,67 +165,83 @@ export function getModals() {
 </div>
 
 <!-- 搜索模态框 -->
-<div id="searchModal" class="modal">
-  <div class="modal-content" style="max-width: 600px;">
+<div id="searchModal" class="modal" data-keep="true">
+  <div class="modal-content" style="max-width: 700px;">
     <div class="modal-header">
-      <h3 class="modal-title">快速搜索</h3>
+      <h3 class="modal-title">搜索</h3>
       <button class="close-btn" onclick="closeSearchModal()">&times;</button>
     </div>
-    <div style="padding: 1rem 0;">
-      <div class="form-group">
-        <input type="text" class="form-input" id="searchInput" placeholder="请输入搜索内容" style="font-size: 1.1rem; padding: 1rem;">
+    <div style="padding: 0.5rem 0;">
+
+      <!-- 站内搜索 -->
+      <div style="margin-bottom:12px;">
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:4px;">
+          <span style="color:rgba(255,255,255,0.3); font-size:12px;">站内搜索</span>
+          <span style="color:rgba(255,255,255,0.12); font-size:10px;">共 <span id="totalSitesCount">0</span> 个站点</span>
+        </div>
+        <input type="text" class="form-input" id="searchInput" placeholder="输入关键词搜索网站..." style="font-size: 1rem; padding: 0.8rem 1rem;">
+        <div id="searchResults" style="max-height: 300px; overflow-y: auto; margin-top: 6px; display: none;"></div>
+        <div id="searchHint" style="color: rgba(255,255,255,0.2); text-align: center; padding: 0.5rem 0; font-size: 0.8rem; display: block;">输入关键词搜索站内网站</div>
+      </div>
+
+      <!-- 分隔线 -->
+      <div style="border-top:1px solid rgba(255,255,255,0.06); margin:8px 0 12px 0;"></div>
+
+      <!-- 站外搜索 -->
+      <div style="margin-bottom:4px;">
+        <span style="color:rgba(255,255,255,0.3); font-size:12px;">站外搜索</span>
       </div>
       <div class="search-engines-grid">
         <button class="search-engine-btn" onclick="performSearch('https://www.baidu.com/s?word=')">
-          <span class="iconify" data-icon="simple-icons:baidu" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>百度</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://www.sogou.com/web?query=')">
-          <span class="iconify" data-icon="simple-icons:sogou" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>搜狗</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://cn.bing.com/search?q=')">
-          <span class="iconify" data-icon="simple-icons:microsoftbing" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>必应</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://www.zhihu.com/search?q=')">
-          <span class="iconify" data-icon="simple-icons:zhihu" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>知乎</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://search.bilibili.com/all?keyword=')">
-          <span class="iconify" data-icon="simple-icons:bilibili" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>哔哩哔哩</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://s.weibo.com/weibo/')">
-          <span class="iconify" data-icon="simple-icons:sinaweibo" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>微博</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://www.google.com/search?q=')">
-          <span class="iconify" data-icon="simple-icons:google" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>谷歌</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://www.youtube.com/results?search_query=')">
-          <span class="iconify" data-icon="simple-icons:youtube" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>油管</span>
         </button>
-        <button class="search-engine-btn" onclick="performSearch('https://fanyi.baidu.com/#auto/zh/')">
-          <span class="iconify" data-icon="mdi:translate" style="font-size: 2rem;"></span>
+        <button class="search-engine-btn" onclick="performSearch('https://fanyi.baidu.com/')">
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>百度翻译</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://translate.google.com/?sl=auto&tl=zh-CN&text=')">
-          <span class="iconify" data-icon="simple-icons:googletranslate" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>谷歌翻译</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://www.deepl.com/translator#auto/zh/')">
-          <span class="iconify" data-icon="simple-icons:deepl" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>DeepL</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://www.gushi.cn/search?keyword=')">
-          <span class="iconify" data-icon="mdi:book-open-page-variant" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>古诗文</span>
         </button>
         <button class="search-engine-btn" onclick="performSearch('https://www.wikipedia.org/w/index.php?search=')">
-          <span class="iconify" data-icon="simple-icons:wikipedia" style="font-size: 2rem;"></span>
+          <i class="fas fa-search" style="font-size:1.2rem;"></i>
           <span>维基百科</span>
         </button>
       </div>
