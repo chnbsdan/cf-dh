@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initBackToTop();
   initSidebar();
   restoreBackground();
+  setupSidebarSearch();  // ← 添加这一行
 });
 
 function setupEventListeners() {
@@ -971,6 +972,57 @@ function restoreBackground() {
 window.changeBackground = changeBackground;
 window.restoreBackground = restoreBackground;
 
+// ============ 侧边栏站内搜索 ============
+function setupSidebarSearch() {
+  var input = document.getElementById('sidebarSearchInput');
+  var results = document.getElementById('sidebarSearchResults');
+  if (!input || !results) return;
+  
+  input.addEventListener('input', function() {
+    var keyword = this.value.trim().toLowerCase();
+    
+    if (!keyword) {
+      results.style.display = 'none';
+      results.innerHTML = '';
+      return;
+    }
+    
+    var matches = [];
+    navigationData.categories.forEach(function(category) {
+      if (!category.sites) return;
+      category.sites.forEach(function(site) {
+        if (site.name.toLowerCase().includes(keyword) || 
+            site.url.toLowerCase().includes(keyword)) {
+          matches.push({ categoryName: category.name, site: site });
+        }
+      });
+    });
+    
+    if (matches.length === 0) {
+      results.innerHTML = '<div style="padding:8px 12px;color:rgba(255,255,255,0.3);font-size:12px;">没有找到结果</div>';
+      results.style.display = 'block';
+      return;
+    }
+    
+    var html = '';
+    matches.slice(0, 10).forEach(function(item) {
+      html += '<a href="' + item.site.url + '" target="_blank" style="display:flex;align-items:center;gap:8px;padding:6px 10px;text-decoration:none;color:rgba(255,255,255,0.8);font-size:12px;border-bottom:1px solid rgba(255,255,255,0.04);" onmouseover="this.style.background=\'rgba(255,255,255,0.06)\'" onmouseout="this.style.background=\'transparent\'">';
+      html += '<span style="font-size:14px;">🌐</span>';
+      html += '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + item.site.name + '</span>';
+      html += '<span style="font-size:9px;color:rgba(255,255,255,0.2);">' + item.categoryName + '</span>';
+      html += '</a>';
+    });
+    
+    results.innerHTML = html;
+    results.style.display = 'block';
+  });
+  
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.sidebar-header')) {
+      results.style.display = 'none';
+    }
+  });
+}
 
 </script>`;
 }
