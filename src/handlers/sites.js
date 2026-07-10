@@ -2,14 +2,12 @@
 import { getNavigationData, setNavigationData } from '../services/kv.js';
 import { jsonResponse } from '../utils/response.js';
 
-// 确保使用 export 关键字导出函数
 export async function handleAddSite(request) {
   try {
     const requestBody = await request.json();
     const navigationData = await getNavigationData();
     const { categoryIndex, siteName, siteUrl, siteIcon } = requestBody;
     
-    // ... (保持原有逻辑不变)
     if (!siteName || !siteUrl || !siteIcon) {
       return jsonResponse({ error: 'Missing required fields' }, 400);
     }
@@ -48,7 +46,6 @@ export async function handleDeleteSite(request) {
   }
 }
 
-// 确保 handleEditSite 被正确导出
 export async function handleEditSite(request) {
   try {
     const requestBody = await request.json();
@@ -65,44 +62,60 @@ export async function handleEditSite(request) {
       return jsonResponse({ error: 'Invalid URL format' }, 400);
     }
     
-    // 检查原分类和网站是否存在
-    // 注意：这里 categoryIndex 是前端传递的新分类索引
-    // 我们需要先验证网站是否存在。由于网站索引 siteIndex 是唯一的，我们可以在所有分类中查找。
-    let siteFound = false;
-    for (const category of navigationData.categories) {
-      if (category.sites && category.sites[siteIndex]) {
-        siteFound = true;
-        break;
+    // 查找网站当前在哪个分类
+    let oldCategoryIndex = -1;
+    let oldSiteIndex = -1;
+    let siteData = null;
+    
+    for (let i = 0; i < navigationData.categories.length; i++) {
+      const sites = navigationData.categories[i].sites;
+      for (let j = 0; j < sites.length; j++) {
+        if (j === siteIndex && sites[j]) {
+          // 通过 URL 和名称双重验证
+          if (sites[j].url === siteUrl || sites[j].name === siteName) {
+            oldCategoryIndex = i;
+            oldSiteIndex = j;
+            siteData = sites[j];
+            break;
+          }
+        }
+      }
+      if (siteData) break;
+    }
+    
+    // 如果没找到，用原分类索引找
+    if (!siteData) {
+      if (navigationData.categories[categoryIndex] && 
+          navigationData.categories[categoryIndex].sites[siteIndex]) {
+        siteData = navigationData.categories[categoryIndex].sites[siteIndex];
+        oldCategoryIndex = categoryIndex;
+        oldSiteIndex = siteIndex;
+      } else {
+        return jsonResponse({ error: 'Site not found' }, 404);
       }
     }
     
-    if (!siteFound) {
-      return jsonResponse({ error: 'Site not found' }, 404);
-    }
+    // 更新网站数据
+    siteData.name = siteName;
+    siteData.url = siteUrl;
+    siteData.icon = siteIcon;
     
-    // 从所有分类中移除该网站
-    let siteToMove = null;
-    for (const category of navigationData.categories) {
-      if (category.sites && category.sites[siteIndex]) {
-        siteToMove = category.sites.splice(siteIndex, 1)[0];
-        break;
+    // 如果分类没变，直接更新
+    if (oldCategoryIndex === categoryIndex) {
+      navigationData.categories[categoryIndex].sites[oldSiteIndex] = siteData;
+    } else {
+      // 从旧分类删除
+      if (oldCategoryIndex >= 0 && oldCategoryIndex < navigationData.categories.length) {
+        navigationData.categories[oldCategoryIndex].sites.splice(oldSiteIndex, 1);
+      }
+      
+      // 添加到新分类
+      if (categoryIndex >= 0 && categoryIndex < navigationData.categories.length) {
+        navigationData.categories[categoryIndex].sites.push(siteData);
+      } else {
+        return jsonResponse({ error: 'Target category not found' }, 404);
       }
     }
-    
-    if (!siteToMove) {
-      return jsonResponse({ error: 'Site not found' }, 404);
-    }
-    
-    // 更新网站信息
-    siteToMove.name = siteName;
-    siteToMove.url = siteUrl;
-    siteToMove.icon = siteIcon;
-    
-    // 添加到新分类
-    if (!navigationData.categories[categoryIndex]) {
-      return jsonResponse({ error: 'Target category not found' }, 404);
-    }
-    navigationData.categories[categoryIndex].sites.push(siteToMove);
     
     await setNavigationData(navigationData);
     
