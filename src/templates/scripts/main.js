@@ -971,5 +971,104 @@ function restoreBackground() {
 window.changeBackground = changeBackground;
 window.restoreBackground = restoreBackground;
 
+// ============ 站内搜索 ============
+function performInternalSearch() {
+  var input = document.getElementById('searchInput');
+  var keyword = input.value.trim().toLowerCase();
+  var resultsContainer = document.getElementById('searchResults');
+  var hint = document.getElementById('searchHint');
+  
+  if (!keyword) {
+    if (resultsContainer) resultsContainer.style.display = 'none';
+    if (hint) hint.style.display = 'block';
+    return;
+  }
+  
+  var results = [];
+  navigationData.categories.forEach(function(category) {
+    if (!category.sites || category.sites.length === 0) return;
+    category.sites.forEach(function(site) {
+      var nameMatch = site.name.toLowerCase().includes(keyword);
+      var urlMatch = site.url.toLowerCase().includes(keyword);
+      var hostnameMatch = site.url ? new URL(site.url).hostname.toLowerCase().includes(keyword) : false;
+      if (nameMatch || urlMatch || hostnameMatch) {
+        results.push({
+          categoryName: category.name,
+          site: site
+        });
+      }
+    });
+  });
+  
+  if (results.length === 0) {
+    if (resultsContainer) {
+      resultsContainer.style.display = 'block';
+      if (hint) hint.style.display = 'none';
+      resultsContainer.innerHTML = '<div style="text-align:center;padding:2rem 0;color:rgba(255,255,255,0.3);font-size:0.9rem;">没有找到与 "<strong style="color:#f97316;">' + keyword + '</strong>" 相关的结果</div>';
+    }
+    return;
+  }
+  
+  if (resultsContainer) {
+    resultsContainer.style.display = 'block';
+    if (hint) hint.style.display = 'none';
+    
+    var html = '<div style="margin-bottom:0.5rem;color:rgba(255,255,255,0.3);font-size:0.75rem;">找到 ' + results.length + ' 个结果</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:0.5rem;">';
+    
+    results.forEach(function(item) {
+      var site = item.site;
+      var escapedName = site.name.replace(/'/g, "\\'");
+      var escapedUrl = site.url.replace(/'/g, "\\'");
+      
+      html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:block;">';
+      html += '<div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:0.5rem 0.3rem;text-align:center;transition:all 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.16)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.08)\'">';
+      
+      html += '<div style="width:32px;height:32px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center;">';
+      if (site.icon && (site.icon.startsWith('http://') || site.icon.startsWith('https://'))) {
+        html += '<img src="' + site.icon + '" style="width:24px;height:24px;object-fit:contain;border-radius:4px;" referrerpolicy="no-referrer" onerror="this.remove()">';
+      } else {
+        html += '<span style="font-size:1.2rem;">🌐</span>';
+      }
+      html += '</div>';
+      
+      html += '<div style="font-size:0.75rem;color:rgba(255,255,255,0.7);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + site.name + '</div>';
+      html += '<div style="font-size:0.55rem;color:rgba(255,255,255,0.2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + new URL(site.url).hostname + '</div>';
+      html += '<div style="font-size:0.55rem;color:rgba(16,185,129,0.35);margin-top:2px;">' + item.categoryName + '</div>';
+      html += '</div></a>';
+    });
+    
+    html += '</div>';
+    resultsContainer.innerHTML = html;
+  }
+}
+
+function setupSearchListener() {
+  var input = document.getElementById('searchInput');
+  if (input) {
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        performInternalSearch();
+      }
+    });
+    input.addEventListener('input', function() {
+      var resultsContainer = document.getElementById('searchResults');
+      var hint = document.getElementById('searchHint');
+      if (this.value.trim()) {
+        performInternalSearch();
+      } else {
+        if (resultsContainer) resultsContainer.style.display = 'none';
+        if (hint) hint.style.display = 'block';
+      }
+    });
+  }
+}
+
+// 在 DOMContentLoaded 中调用
+document.addEventListener('DOMContentLoaded', function() {
+  setupSearchListener();
+});
+
 </script>`;
 }
