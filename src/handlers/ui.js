@@ -100,24 +100,26 @@ export async function handleAbout(request) {
     *{margin:0;padding:0;box-sizing:border-box}
     body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
     
-    /* 卡片 - 可滚动但隐藏滚动条 */
-    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px 20px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
+    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:24px 32px 20px 32px;max-width:720px;width:100%;max-height:90vh;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px;display:flex;flex-direction:column}
     
-    /* 隐藏滚动条 - Chrome/Safari/Edge */
-    .card::-webkit-scrollbar{width:0px;background:transparent;display:none}
-    .card::-webkit-scrollbar-track{display:none}
-    .card::-webkit-scrollbar-thumb{display:none}
-    .card::-webkit-scrollbar-button{display:none}
+    /* 标题固定在顶部 */
+    .title{text-align:center;margin-bottom:16px;flex-shrink:0}
+    .title p{color:#94a3b8;font-size:13px;margin-top:4px}
     
-    /* 隐藏滚动条 - Firefox */
-    .card{scrollbar-width:none;-ms-overflow-style:none}
+    /* 滚动内容区域 */
+    .scroll-area{flex:1;overflow-y:auto;padding-right:4px}
     
-    /* 关闭按钮 - 固定在屏幕右上角 */
+    /* 滚动条 - 很淡的透明 */
+    .scroll-area::-webkit-scrollbar{width:4px}
+    .scroll-area::-webkit-scrollbar-track{background:transparent}
+    .scroll-area::-webkit-scrollbar-thumb{background:rgba(16,185,129,0.2);border-radius:4px}
+    .scroll-area::-webkit-scrollbar-thumb:hover{background:rgba(16,185,129,0.35)}
+    .scroll-area{scrollbar-width:thin;scrollbar-color:rgba(16,185,129,0.2) transparent}
+    
+    /* 关闭按钮固定在屏幕右上角 */
     .close-btn{position:fixed;top:20px;right:20px;z-index:999;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
     .close-btn:hover{background:#fff;color:#1e293b;transform:scale(1.08);box-shadow:0 4px 12px rgba(0,0,0,0.12)}
     
-    .title{text-align:center;margin-bottom:16px}
-    .title p{color:#94a3b8;font-size:13px;margin-top:4px}
     .sec{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.06)}
     .sec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
     .sec h4{color:#6366f1;font-size:14px;font-weight:600;margin:0 0 4px 0;display:flex;align-items:center;gap:6px}
@@ -130,6 +132,7 @@ export async function handleAbout(request) {
     .tag-orange{background:rgba(245,158,11,0.12);color:#d97706}
     .link-btn{display:inline-block;padding:6px 16px;border-radius:6px;background:rgba(0,0,0,0.04);color:#475569;text-decoration:none;font-size:13px;transition:all 0.2s;margin-right:4px}
     .link-btn:hover{background:rgba(0,0,0,0.08);color:#1e293b}
+    
     .footer{text-align:center;padding-top:12px;margin-top:12px;border-top:1px solid rgba(0,0,0,0.06)}
     .footer p{color:#94a3b8;font-size:12px;margin:0;line-height:1.6}
     .footer .footer-link{color:#94a3b8;cursor:pointer;transition:color 0.2s;text-decoration:none}
@@ -138,6 +141,7 @@ export async function handleAbout(request) {
     .footer .powered a{color:#94a3b8;text-decoration:none;transition:color 0.2s}
     .footer .powered a:hover{color:#1e293b}
     .footer .powered .cf{color:#f48120;font-weight:600}
+    
     .twikoo-wrap{margin-top:8px}
     .twikoo-wrap .tk-input{background:#f8fafc !important;border:1px solid #e2e8f0 !important;color:#1e293b !important;border-radius:8px !important}
     .twikoo-wrap .tk-input:focus{border-color:#6366f1 !important;box-shadow:0 0 0 3px rgba(99,102,241,0.1) !important}
@@ -155,6 +159,7 @@ export async function handleAbout(request) {
   <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">✕</button>
 
   <div class="card">
+    <!-- 标题固定在顶部 -->
     <div class="title">
       <div style="display:flex; align-items:center; justify-content:center; gap:12px;">
         <img src="https://cdn.jsdelivr.net/gh/chnbsdan/cloudflare-workers-blog@master/themes/mya/files/hangdn.ico" alt="logo" style="width:44px; height:44px; border-radius:12px;">
@@ -165,71 +170,74 @@ export async function handleAbout(request) {
       <p>个人智能导航 · 基于 Cloudflare</p>
     </div>
 
-    <div class="sec">
-      <h4><span class="iconify" data-icon="mdi:information-outline" style="font-size:16px;"></span> 关于本站</h4>
-      <p>感谢来访，本站致力于简洁高效的上网导航和搜索入口，安全快捷。</p>
-      <p>搜索入口为隐藏设计，点击本站 LOGO 图标即可弹出搜索框。</p>
-      <p>如果您喜欢，请将本站添加到收藏夹（Ctrl+D），设为浏览器主页。</p>
-    </div>
-
-    <div class="sec">
-      <h4><span class="iconify" data-icon="mdi:shield-check" style="font-size:16px;"></span> 本站承诺</h4>
-      <p><span class="highlight">✅ 绝不收集用户隐私信息</span></p>
-      <p>本站链接直接跳转目标，无二次跳转，不收集点击、访问、搜索记录。</p>
-      <p style="color:#94a3b8;font-size:13px;">无广告 · 无推广 · 无 SEO 跟踪</p>
-    </div>
-
-    <div class="sec">
-      <h4><span class="iconify" data-icon="mdi:link-plus" style="font-size:16px;"></span> 申请收录</h4>
-      <p>本站支持友链申请，审核通过后即可展示在导航上。</p>
-      <p style="font-size:13px;color:#94a3b8;">收录标准：<span class="tag tag-green">有用</span> <span class="tag tag-orange">有趣</span></p>
-      <p style="margin-top:4px;">点击右下角 <span class="highlight">申请友链</span> 按钮即可提交。</p>
-    </div>
-
-    <div class="sec">
-      <h4><span class="iconify" data-icon="mdi:email-outline" style="font-size:16px;"></span> 联系我们</h4>
-      <p>遇到以下问题可联系我们：</p>
-      <ul>
-        <li>图标缺失 · 链接失效</li>
-        <li>网站违规 · 内容错误</li>
-        <li>收录加急 · 链接删除</li>
-      </ul>
-      <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;">
-        <a href="mailto:chnbsdan@gmail.com" class="link-btn">📧 chnbsdan@gmail.com</a>
-        <a href="https://t.me/ben_mesa" target="_blank" class="link-btn">💬 Telegram</a>
+    <!-- 滚动内容区域 -->
+    <div class="scroll-area">
+      <div class="sec">
+        <h4><span class="iconify" data-icon="mdi:information-outline" style="font-size:16px;"></span> 关于本站</h4>
+        <p>感谢来访，本站致力于简洁高效的上网导航和搜索入口，安全快捷。</p>
+        <p>搜索入口为隐藏设计，点击本站 LOGO 图标即可弹出搜索框。</p>
+        <p>如果您喜欢，请将本站添加到收藏夹（Ctrl+D），设为浏览器主页。</p>
       </div>
-    </div>
 
-    <div class="sec" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
-      <h4><span class="iconify" data-icon="mdi:chat-outline" style="font-size:16px;"></span> 留言板</h4>
-      <p style="font-size:13px;color:#94a3b8;margin-bottom:6px;">欢迎留言交流，提出建议或反馈问题。</p>
-      <div id="twikoo" class="twikoo-wrap"></div>
-    </div>
+      <div class="sec">
+        <h4><span class="iconify" data-icon="mdi:shield-check" style="font-size:16px;"></span> 本站承诺</h4>
+        <p><span class="highlight">✅ 绝不收集用户隐私信息</span></p>
+        <p>本站链接直接跳转目标，无二次跳转，不收集点击、访问、搜索记录。</p>
+        <p style="color:#94a3b8;font-size:13px;">无广告 · 无推广 · 无 SEO 跟踪</p>
+      </div>
 
-    <div class="footer">
-      <p>
-        Copyright ©2024-2025 <a href="https://aoso.hangdn.com" target="_blank" class="footer-link" style="color:#94a3b8;text-decoration:none;" onmouseover="this.style.color='#1e293b'" onmouseout="this.style.color='#94a3b8'">Hangdn nav</a>. All Rights Reserved.
-      </p>
-      <p class="powered">
-        Powered by <span class="cf">Cloudflare</span> · 
-        <a href="https://github.com/chnbsdan/cf-dh" target="_blank">GitHub</a>
-      </p>
+      <div class="sec">
+        <h4><span class="iconify" data-icon="mdi:link-plus" style="font-size:16px;"></span> 申请收录</h4>
+        <p>本站支持友链申请，审核通过后即可展示在导航上。</p>
+        <p style="font-size:13px;color:#94a3b8;">收录标准：<span class="tag tag-green">有用</span> <span class="tag tag-orange">有趣</span></p>
+        <p style="margin-top:4px;">点击右下角 <span class="highlight">申请友链</span> 按钮即可提交。</p>
+      </div>
+
+      <div class="sec">
+        <h4><span class="iconify" data-icon="mdi:email-outline" style="font-size:16px;"></span> 联系我们</h4>
+        <p>遇到以下问题可联系我们：</p>
+        <ul>
+          <li>图标缺失 · 链接失效</li>
+          <li>网站违规 · 内容错误</li>
+          <li>收录加急 · 链接删除</li>
+        </ul>
+        <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;">
+          <a href="mailto:chnbsdan@gmail.com" class="link-btn">📧 chnbsdan@gmail.com</a>
+          <a href="https://t.me/ben_mesa" target="_blank" class="link-btn">💬 Telegram</a>
+        </div>
+      </div>
+
+      <div class="sec" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+        <h4><span class="iconify" data-icon="mdi:chat-outline" style="font-size:16px;"></span> 留言板</h4>
+        <p style="font-size:13px;color:#94a3b8;margin-bottom:6px;">欢迎留言交流，提出建议或反馈问题。</p>
+        <div id="twikoo" class="twikoo-wrap"></div>
+      </div>
+
+      <div class="footer">
+        <p>
+          Copyright ©2024-2025 <a href="https://aoso.hangdn.com" target="_blank" class="footer-link" style="color:#94a3b8;text-decoration:none;" onmouseover="this.style.color='#1e293b'" onmouseout="this.style.color='#94a3b8'">Hangdn nav</a>. All Rights Reserved.
+        </p>
+        <p class="powered">
+          Powered by <span class="cf">Cloudflare</span> · 
+          <a href="https://github.com/chnbsdan/cf-dh" target="_blank">GitHub</a>
+        </p>
+      </div>
     </div>
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof twikoo !== 'undefined') {
-      twikoo.init({
-        el: '#twikoo',
-        envId: 'https://twikoo.hangdn.com/',
-        lang: 'zh-CN',
-        path: window.location.pathname,
-        placeholder: '来了就留下你的想法或建议吧...'
-      });
-    }
-  });
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof twikoo !== 'undefined') {
+        twikoo.init({
+          el: '#twikoo',
+          envId: 'https://twikoo.hangdn.com/',
+          lang: 'zh-CN',
+          path: window.location.pathname,
+          placeholder: '来了你就留下你的想法或建议吧...'
+        });
+      }
+    });
+  </script>
 </body>
 </html>`;
 
