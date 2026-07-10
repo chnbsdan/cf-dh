@@ -29,7 +29,7 @@ export function getStyles() {
     line-height: 1.6;
     transition: all 0.3s ease;
     min-height: 100vh;
-    background-image: url('https://webp.hangdn.com/fg/fg1.jpg');
+    background-image: url('https://pico.1356666.xyz/api/wallpaper?folder=sh');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
