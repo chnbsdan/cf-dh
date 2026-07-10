@@ -99,13 +99,16 @@ export async function handleAbout(request) {
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{margin:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px}
-    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
+    .card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-radius:20px;padding:32px 40px 20px;max-width:900px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;color:#1e293b;line-height:1.8;font-size:14px}
+    /* 滚动条 - 缩短，不超出圆角 */
     .card::-webkit-scrollbar{width:4px}
-    .card::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
-    /* 关闭按钮固定在右上角，不随滚动条移动 */
-    .close-btn{position:sticky;float:right;top:0;z-index:10;background:rgba(255,255,255,0.8);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.06);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:18px;cursor:pointer;transition:all 0.2s;margin-top:-8px;margin-right:-12px}
-    .close-btn:hover{background:#f1f5f9;color:#1e293b;transform:scale(1.05)}
-    .title{text-align:center;margin-bottom:16px;clear:both}
+    .card::-webkit-scrollbar-track{background:rgba(0,0,0,0.04);border-radius:4px;margin:50px 0 20px 0}
+    .card::-webkit-scrollbar-thumb{background:#10b981;border-radius:4px}
+    .card::-webkit-scrollbar-thumb:hover{background:#059669}
+    /* 关闭按钮 - 放在右上角边缘重叠位置 */
+    .close-btn{position:absolute;top:-8px;right:-8px;z-index:10;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+    .close-btn:hover{background:#fff;color:#1e293b;transform:scale(1.08);box-shadow:0 4px 12px rgba(0,0,0,0.12)}
+    .title{text-align:center;margin-bottom:16px}
     .title p{color:#94a3b8;font-size:13px;margin-top:4px}
     .sec{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.06)}
     .sec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
@@ -119,10 +122,9 @@ export async function handleAbout(request) {
     .tag-orange{background:rgba(245,158,11,0.12);color:#d97706}
     .link-btn{display:inline-block;padding:6px 16px;border-radius:6px;background:rgba(0,0,0,0.04);color:#475569;text-decoration:none;font-size:13px;transition:all 0.2s;margin-right:4px}
     .link-btn:hover{background:rgba(0,0,0,0.08);color:#1e293b}
-    /* 底部脚标 - 和首页一致 */
     .footer{text-align:center;padding-top:12px;margin-top:12px;border-top:1px solid rgba(0,0,0,0.06)}
     .footer p{color:#94a3b8;font-size:12px;margin:0;line-height:1.6}
-    .footer .footer-link{color:#94a3b8;cursor:pointer;transition:color 0.2s}
+    .footer .footer-link{color:#94a3b8;cursor:pointer;transition:color 0.2s;text-decoration:none}
     .footer .footer-link:hover{color:#1e293b}
     .footer .powered{color:#94a3b8;font-size:11px;margin-top:2px}
     .footer .powered a{color:#94a3b8;text-decoration:none;transition:color 0.2s}
@@ -143,13 +145,15 @@ export async function handleAbout(request) {
 </head>
 <body>
   <div class="card">
-    <!-- 关闭按钮固定在右上角 -->
+    <!-- 关闭按钮 - 右上角边缘重叠 -->
     <button class="close-btn" onclick="window.parent.postMessage('closeAbout','*')">✕</button>
 
     <div class="title">
       <div style="display:flex; align-items:center; justify-content:center; gap:12px;">
         <img src="https://cdn.jsdelivr.net/gh/chnbsdan/cloudflare-workers-blog@master/themes/mya/files/hangdn.ico" alt="logo" style="width:44px; height:44px; border-radius:12px;">
-        <h2 style="color:#1e293b; font-size:22px; font-weight:700; margin:0;">Hangdn nav</h2>
+        <h2 style="color:#1e293b; font-size:22px; font-weight:700; margin:0;">
+          <a href="https://aoso.hangdn.com" target="_blank" style="color:#1e293b; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='#1e293b'">Hangdn nav</a>
+        </h2>
       </div>
       <p>个人智能导航 · 基于 Cloudflare</p>
     </div>
@@ -195,10 +199,9 @@ export async function handleAbout(request) {
       <div id="twikoo" class="twikoo-wrap"></div>
     </div>
 
-    <!-- 底部脚标 - 和首页一致 -->
     <div class="footer">
       <p>
-        Copyright ©2024-2025 <span class="footer-link">Hangdn nav</span>. All Rights Reserved.
+        Copyright ©2024-2025 <a href="https://aoso.hangdn.com" target="_blank" class="footer-link" style="color:#94a3b8;text-decoration:none;" onmouseover="this.style.color='#1e293b'" onmouseout="this.style.color='#94a3b8'">Hangdn nav</a>. All Rights Reserved.
       </p>
       <p class="powered">
         Powered by <span class="cf">Cloudflare</span> · 
