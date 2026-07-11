@@ -12,7 +12,7 @@ export function getBody() {
 
 ${getSidebar()}
 
-<div class="datetime-display">
+<div class="datetime-display" style="position:fixed; top:72px; right:20px; z-index:101;">
   <div id="currentDate" class="date-text"></div>
   <div id="currentTime" class="time-text"></div>
   <button onclick="changeBackground()" style="position:absolute; bottom:10px; right:10px; width:26px; height:26px; border:1px solid rgba(255,255,255,0.25); border-radius:50%; background:rgba(255,255,255,0.1); backdrop-filter:blur(8px); color:#fff; cursor:pointer; transition:all 0.3s; display:flex; align-items:center; justify-content:center; padding:0;" onmouseover="this.style.background='rgba(255,255,255,0.25)';this.style.transform='scale(1.1)'" onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.transform='scale(1)'" title="换背景">
