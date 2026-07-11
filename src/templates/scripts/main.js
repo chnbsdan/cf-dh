@@ -82,6 +82,34 @@ function renderSidebarCategories() {
     return;
   }
 
+  // 添加"全部"选项
+  const allLi = document.createElement('li');
+  allLi.className = 'category-item';
+  if (currentCategoryIndex === -1) {
+    allLi.classList.add('active');
+  }
+  var totalSites = 0;
+  navigationData.categories.forEach(function(cat) {
+    if (cat.sites) totalSites += cat.sites.length;
+  });
+  allLi.innerHTML = \`
+    <div class="category-icon">
+      <span class="iconify" data-icon="mdi:apps"></span>
+    </div>
+    <span class="category-name">全部</span>
+    <span class="category-count">\${totalSites}</span>
+  \`;
+  allLi.addEventListener('click', function() {
+    document.querySelectorAll('.category-item').forEach(function(item) {
+      item.classList.remove('active');
+    });
+    this.classList.add('active');
+    currentCategoryIndex = -1;
+    renderContent(-1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  categoryList.appendChild(allLi);
+
   navigationData.categories.forEach((category, index) => {
     const li = document.createElement('li');
     li.className = 'category-item';
@@ -97,12 +125,23 @@ function renderSidebarCategories() {
       <span class="category-count">\${category.sites ? category.sites.length : 0}</span>
     \`;
     
-    li.addEventListener('click', () => {
-      document.querySelectorAll('.category-item').forEach(item => {
+    li.addEventListener('click', function() {
+      document.querySelectorAll('.category-item').forEach(function(item) {
         item.classList.remove('active');
       });
-      li.classList.add('active');
-      scrollToCategory(index);
+      this.classList.add('active');
+      currentCategoryIndex = index;
+      renderContent(index);
+      // 滚动到该分类，居中显示
+      setTimeout(function() {
+        var el = document.getElementById('category-' + index);
+        if (el) {
+          var rect = el.getBoundingClientRect();
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          var targetY = rect.top + scrollTop - window.innerHeight / 2 + rect.height / 2;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+      }, 150);
     });
     
     categoryList.appendChild(li);
@@ -361,7 +400,7 @@ async function loadNavigationData() {
   }
 }
 
-function renderContent() {
+function renderContent(filterCategoryIndex) {
   const contentEl = document.getElementById('content');
   if (!contentEl) return;
   
@@ -376,10 +415,18 @@ function renderContent() {
     return;
   }
 
+  var categoriesToRender = [];
+  if (filterCategoryIndex !== undefined && filterCategoryIndex >= 0 && filterCategoryIndex < navigationData.categories.length) {
+    categoriesToRender = [navigationData.categories[filterCategoryIndex]];
+  } else {
+    categoriesToRender = navigationData.categories;
+  }
+
   let html = '';
   
-  navigationData.categories.forEach((category, categoryIndex) => {
-    html += '<div class="category">';
+  categoriesToRender.forEach(function(category) {
+    var categoryIndex = navigationData.categories.indexOf(category);
+    html += '<div class="category" id="category-' + categoryIndex + '">';
     html += '<div class="category-header">';
     html += '<h2 class="category-title">';
     html += '<span class="iconify" data-icon="mdi:folder"></span>';
@@ -401,10 +448,10 @@ function renderContent() {
     html += '<div class="sites-grid">';
     
     if (category.sites && category.sites.length > 0) {
-      category.sites.forEach((site, siteIndex) => {
-        const escapedName = site.name.replace(/'/g, "\\\\'");
-        const escapedUrl = site.url.replace(/'/g, "\\\\'");
-        const escapedIcon = site.icon.replace(/'/g, "\\\\'");
+      category.sites.forEach(function(site, siteIndex) {
+        var escapedName = site.name.replace(/'/g, "\\\\'");
+        var escapedUrl = site.url.replace(/'/g, "\\\\'");
+        var escapedIcon = site.icon.replace(/'/g, "\\\\'");
         
         html += '<a href="' + escapedUrl + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;">';
         html += '<div class="site-card">';
@@ -513,12 +560,12 @@ function closeAddCategoryModal() {
   document.getElementById('addCategoryModal').style.display = 'none';
 }
 
-function openAddSiteModal(categoryIndex = null) {
-  const select = document.querySelector('#addSiteForm select[name="categoryIndex"]');
+function openAddSiteModal(categoryIndex) {
+  var select = document.querySelector('#addSiteForm select[name="categoryIndex"]');
   if (select) {
     select.innerHTML = '';
-    navigationData.categories.forEach((category, index) => {
-      const option = document.createElement('option');
+    navigationData.categories.forEach(function(category, index) {
+      var option = document.createElement('option');
       option.value = index;
       option.textContent = category.name;
       if (index === categoryIndex) option.selected = true;
@@ -538,7 +585,7 @@ function openEditSiteModal(categoryIndex, siteIndex) {
     return;
   }
   
-  const site = navigationData.categories[categoryIndex].sites[siteIndex];
+  var site = navigationData.categories[categoryIndex].sites[siteIndex];
   
   document.getElementById('currentCategoryIndex').value = categoryIndex;
   document.getElementById('siteIndex').value = siteIndex;
@@ -546,11 +593,11 @@ function openEditSiteModal(categoryIndex, siteIndex) {
   document.getElementById('editSiteUrl').value = site.url;
   document.getElementById('editSiteIcon').value = site.icon;
   
-  const categorySelect = document.getElementById('editCategoryIndex');
+  var categorySelect = document.getElementById('editCategoryIndex');
   if (categorySelect) {
     categorySelect.innerHTML = '';
     navigationData.categories.forEach(function(category, index) {
-      const option = document.createElement('option');
+      var option = document.createElement('option');
       option.value = index;
       option.textContent = category.name;
       if (index === categoryIndex) {
@@ -593,18 +640,18 @@ function closeAboutModal() {
 }
 
 function openSearchModal() {
-  const modal = document.getElementById('searchModal');
+  var modal = document.getElementById('searchModal');
   modal.removeAttribute('data-keep');
   modal.style.display = 'flex';
   document.getElementById('searchInput').focus();
 }
 
 function openSearchModalKeep() {
-  const modal = document.getElementById('searchModal');
+  var modal = document.getElementById('searchModal');
   if (!modal) return;
   modal.setAttribute('data-keep', 'true');
   modal.style.display = 'flex';
-  const input = document.getElementById('searchInput');
+  var input = document.getElementById('searchInput');
   if (input) setTimeout(function() { input.focus(); }, 100);
 }
 
@@ -613,7 +660,7 @@ function closeSearchModal() {
 }
 
 function performSearch(searchUrl) {
-  const searchText = document.getElementById('searchInput').value.trim();
+  var searchText = document.getElementById('searchInput').value.trim();
   if (searchText) {
     window.open(searchUrl + encodeURIComponent(searchText), '_blank');
     closeSearchModal();
@@ -625,11 +672,11 @@ function performSearch(searchUrl) {
 
 async function loadPendingLinks() {
   try {
-    const response = await fetch('/pending-links', {
+    var response = await fetch('/pending-links', {
       headers: { 'Authorization': 'Bearer ' + authToken }
     });
     
-    const data = await response.json();
+    var data = await response.json();
     
     if (response.ok) {
       renderPendingLinks(data.pendingLinks);
@@ -642,15 +689,15 @@ async function loadPendingLinks() {
 }
 
 function renderPendingLinks(links) {
-  const container = document.getElementById('pendingLinksList');
+  var container = document.getElementById('pendingLinksList');
   
   if (!links || links.length === 0) {
     container.innerHTML = '<div class="empty-state" style="padding: 2rem;"><p style="color: #059669;">暂无待审批的友链申请</p></div>';
     return;
   }
   
-  let html = '';
-  links.forEach((apply) => {
+  var html = '';
+  links.forEach(function(apply) {
     html += \`
       <div class="pending-link-item">
         <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
@@ -670,9 +717,9 @@ function renderPendingLinks(links) {
         </p>
         <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
           <select class="form-input" style="flex: 1;" id="categorySelect_\${apply.id}">
-            \${navigationData.categories.map((cat, idx) => 
-              \`<option value="\${idx}">\${cat.name}</option>\`
-            ).join('')}
+            \${navigationData.categories.map(function(cat, idx) { 
+              return \`<option value="\${idx}">\${cat.name}</option>\`;
+            }).join('')}
           </select>
           <button class="btn btn-success" onclick="approveLink('\${apply.id}')" style="padding: 0.5rem 1rem;">
             <span class="iconify" data-icon="mdi:check"></span> 批准
@@ -689,16 +736,16 @@ function renderPendingLinks(links) {
 }
 
 async function approveLink(applyId) {
-  const categoryIndex = parseInt(document.getElementById(\`categorySelect_\${applyId}\`).value);
+  var categoryIndex = parseInt(document.getElementById(\`categorySelect_\${applyId}\`).value);
   
   try {
-    const response = await fetch('/approve-link', {
+    var response = await fetch('/approve-link', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + authToken
       },
-      body: JSON.stringify({ applyId, categoryIndex })
+      body: JSON.stringify({ applyId: applyId, categoryIndex: categoryIndex })
     });
     
     if (response.ok) {
@@ -717,13 +764,13 @@ async function rejectLink(applyId) {
   if (!confirm('确定要拒绝这个友链申请吗？')) return;
   
   try {
-    const response = await fetch('/reject-link', {
+    var response = await fetch('/reject-link', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + authToken
       },
-      body: JSON.stringify({ applyId })
+      body: JSON.stringify({ applyId: applyId })
     });
     
     if (response.ok) {
@@ -738,21 +785,21 @@ async function rejectLink(applyId) {
 }
 
 function updateDateTime() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = (now.getMonth() + 1).toString().padStart(2, '0');
-  const date = now.getDate().toString().padStart(2, '0');
-  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-  const weekday = weekdays[now.getDay()];
-  const dateString = \`\${year}年\${month}月\${date}日 \${weekday}\`;
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = (now.getMonth() + 1).toString().padStart(2, '0');
+  var date = now.getDate().toString().padStart(2, '0');
+  var weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  var weekday = weekdays[now.getDay()];
+  var dateString = year + '年' + month + '月' + date + '日 ' + weekday;
   
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-  const timeString = \`\${hours}:\${minutes}:\${seconds}\`;
+  var hours = now.getHours().toString().padStart(2, '0');
+  var minutes = now.getMinutes().toString().padStart(2, '0');
+  var seconds = now.getSeconds().toString().padStart(2, '0');
+  var timeString = hours + ':' + minutes + ':' + seconds;
   
-  const dateElement = document.getElementById('currentDate');
-  const timeElement = document.getElementById('currentTime');
+  var dateElement = document.getElementById('currentDate');
+  var timeElement = document.getElementById('currentTime');
   
   if (dateElement) dateElement.textContent = dateString;
   if (timeElement) timeElement.textContent = timeString;
@@ -764,7 +811,7 @@ function initDateTime() {
 }
 
 function initBackToTop() {
-  const backToTopBtn = document.querySelector('.back-to-top');
+  var backToTopBtn = document.querySelector('.back-to-top');
   window.addEventListener('scroll', function() {
     backToTopBtn.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
   });
@@ -809,18 +856,18 @@ async function downloadBackup() {
   try {
     showNotification('⏳ 正在备份...', 'info');
     
-    const response = await fetch('/backup', {
+    var response = await fetch('/backup', {
       headers: { 'Authorization': 'Bearer ' + authToken }
     });
     
     if (!response.ok) {
-      const error = await response.json();
+      var error = await response.json();
       throw new Error(error.error || '备份失败');
     }
     
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    var blob = await response.blob();
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
     a.href = url;
     a.download = 'kv_backup_' + new Date().toISOString().slice(0,10) + '.json';
     document.body.appendChild(a);
@@ -836,17 +883,17 @@ async function downloadBackup() {
 
 // ============ 恢复功能 ============
 function uploadRestore() {
-  const input = document.createElement('input');
+  var input = document.createElement('input');
   input.type = 'file';
   input.accept = '.json';
   
   input.onchange = async function(e) {
-    const file = e.target.files[0];
+    var file = e.target.files[0];
     if (!file) return;
     
     try {
-      const text = await file.text();
-      const data = JSON.parse(text);
+      var text = await file.text();
+      var data = JSON.parse(text);
       
       if (!data.data || !data.data.categories) {
         showNotification('❌ 无效的备份文件格式', 'error');
@@ -857,7 +904,7 @@ function uploadRestore() {
       
       showNotification('⏳ 正在恢复...', 'info');
       
-      const response = await fetch('/restore', {
+      var response = await fetch('/restore', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -866,7 +913,7 @@ function uploadRestore() {
         body: JSON.stringify(data)
       });
       
-      const result = await response.json();
+      var result = await response.json();
       
       if (response.ok) {
         showNotification('✅ 恢复成功！共恢复 ' + result.restored.categories + ' 个分类，' + result.restored.linkApplies + ' 个友链', 'success');
@@ -887,19 +934,19 @@ window.uploadRestore = uploadRestore;
 
 // ============ 侧边栏 About 页面（现代版） ============
 function openSidebarAbout() {
-  const sidebar = document.getElementById('sidebar');
-  const mainContainer = document.getElementById('mainContainer');
+  var sidebar = document.getElementById('sidebar');
+  var mainContainer = document.getElementById('mainContainer');
   if (sidebar) sidebar.classList.remove('active');
   if (mainContainer) mainContainer.classList.remove('sidebar-expanded');
   
-  const existing = document.getElementById('sidebarAboutOverlay');
+  var existing = document.getElementById('sidebarAboutOverlay');
   if (existing) existing.remove();
 
-  const overlay = document.createElement('div');
+  var overlay = document.createElement('div');
   overlay.id = 'sidebarAboutOverlay';
   overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998;display:flex;align-items:center;justify-content:center;';
   
-  const iframe = document.createElement('iframe');
+  var iframe = document.createElement('iframe');
   iframe.src = '/about';
   iframe.style.cssText = 'width:100%;height:100%;border:none;background:transparent;';
   overlay.appendChild(iframe);
@@ -923,7 +970,7 @@ function openSidebarAbout() {
 }
 
 function closeSidebarAbout() {
-  const overlay = document.getElementById('sidebarAboutOverlay');
+  var overlay = document.getElementById('sidebarAboutOverlay');
   if (overlay) overlay.remove();
 }
 
@@ -932,12 +979,12 @@ window.closeSidebarAbout = closeSidebarAbout;
 
 // ============ 换背景功能 ============
 function changeBackground() {
-  const bgContainer = document.getElementById('bgContainer');
+  var bgContainer = document.getElementById('bgContainer');
   if (!bgContainer) return;
   
-  const url = 'https://pico.1356666.xyz/api/wallpaper?folder=sh?t=' + Date.now();
+  var url = 'https://pico.1356666.xyz/api/wallpaper?folder=sh?t=' + Date.now();
   
-  const img = document.createElement('img');
+  var img = document.createElement('img');
   img.src = url;
   img.className = 'background-slide active';
   img.alt = 'bg-' + Date.now();
@@ -953,12 +1000,12 @@ function changeBackground() {
 }
 
 function restoreBackground() {
-  const savedBg = localStorage.getItem('customBg');
+  var savedBg = localStorage.getItem('customBg');
   if (savedBg) {
-    const bgContainer = document.getElementById('bgContainer');
+    var bgContainer = document.getElementById('bgContainer');
     if (bgContainer) {
       bgContainer.innerHTML = '';
-      const img = document.createElement('img');
+      var img = document.createElement('img');
       img.src = savedBg;
       img.className = 'background-slide active';
       img.alt = 'bg-custom';
@@ -970,7 +1017,6 @@ function restoreBackground() {
 
 window.changeBackground = changeBackground;
 window.restoreBackground = restoreBackground;
-
 
 </script>`;
 }
