@@ -230,14 +230,14 @@ export function getStyles() {
     }
   }
 
-  .header {
-    color: white;
-    padding: 1rem 0;
-    margin-bottom: 1rem;
-    text-align: center;
-    position: relative;
-    width: 100%;
-  }
+  /* .header {
+  color: white;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  text-align: center;
+  position: relative;
+  width: 100%;
+} */
 
   .header-content {
     position: relative;
