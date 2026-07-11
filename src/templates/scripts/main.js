@@ -132,17 +132,25 @@ function renderSidebarCategories() {
       this.classList.add('active');
       currentCategoryIndex = index;
       renderContent(index);
-      // 滚动到该分类，居中显示
-      setTimeout(function() {
-        var el = document.getElementById('category-' + index);
-        if (el) {
-          var rect = el.getBoundingClientRect();
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          var targetY = rect.top + scrollTop - window.innerHeight / 2 + rect.height / 2;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
-        }
-      }, 150);
-    });
+      li.addEventListener('click', function() {
+  document.querySelectorAll('.category-item').forEach(function(item) {
+    item.classList.remove('active');
+  });
+  this.classList.add('active');
+  currentCategoryIndex = index;
+  renderContent(index);
+  // 滚动到该分类，定位在导航栏下方
+  setTimeout(function() {
+    var el = document.getElementById('category-' + index);
+    if (el) {
+      var rect = el.getBoundingClientRect();
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var headerHeight = 80;
+      var targetY = rect.top + scrollTop - headerHeight - 10;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  }, 150);
+});
     
     categoryList.appendChild(li);
   });
