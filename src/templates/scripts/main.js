@@ -125,14 +125,7 @@ function renderSidebarCategories() {
       <span class="category-count">\${category.sites ? category.sites.length : 0}</span>
     \`;
     
-    li.addEventListener('click', function() {
-      document.querySelectorAll('.category-item').forEach(function(item) {
-        item.classList.remove('active');
-      });
-      this.classList.add('active');
-      currentCategoryIndex = index;
-      renderContent(index);
-      li.addEventListener('click', function() {
+   li.addEventListener('click', function() {
   document.querySelectorAll('.category-item').forEach(function(item) {
     item.classList.remove('active');
   });
