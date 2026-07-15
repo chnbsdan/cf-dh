@@ -8,6 +8,7 @@ import { getPlayerScript } from './scripts/player.js';
 export async function renderNavigationPage() {
   const navigationData = await getNavigationData();
   
+  // 返回压缩后的 HTML（去掉所有多余空白，变成一行）
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 ${getHead()}
@@ -17,5 +18,5 @@ ${getBody()}
 ${getMainScript()}
 ${getPlayerScript()}
 </body>
-</html>`;
+</html>`.replace(/\s+/g, ' ');
 }
